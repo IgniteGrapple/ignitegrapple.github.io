@@ -14,15 +14,13 @@
   <style>
     :root {
       --bg: #020617;
-      --bg-alt: #020617;
       --card: #020617;
       --border-subtle: #1e293b;
-      --border-strong: #22d3ee;
       --text-main: #f9fafb;
       --text-soft: #9ca3af;
-      --accent-1: #38bdf8;
-      --accent-2: #a855f7;
-      --accent-3: #22c55e;
+      --accent-1: #b2ff3b;
+      --accent-2: #22c55e;
+      --accent-3: #4ade80;
       --danger: #f97373;
       --radius-lg: 18px;
       --radius-xl: 26px;
@@ -38,21 +36,21 @@
 
     body {
       background:
-        radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 55%),
-        radial-gradient(circle at 80% 10%, rgba(168, 85, 247, 0.2), transparent 55%),
+        radial-gradient(circle at top left, rgba(178, 255, 59, 0.18), transparent 55%),
+        radial-gradient(circle at 80% 10%, rgba(34, 197, 94, 0.18), transparent 55%),
         var(--bg);
       color: var(--text-main);
       line-height: 1.6;
     }
 
-    /* Layout */
+    /* HEADER & NAV */
     header {
       position: sticky;
       top: 0;
       z-index: 50;
       backdrop-filter: blur(14px);
-      background: linear-gradient(to bottom, rgba(2, 6, 23, 0.96), rgba(2, 6, 23, 0.90));
-      border-bottom: 1px solid rgba(30, 64, 175, 0.4);
+      background: linear-gradient(to bottom, rgba(2, 6, 23, 0.96), rgba(2, 6, 23, 0.9));
+      border-bottom: 1px solid rgba(34, 197, 94, 0.4);
     }
 
     .nav {
@@ -71,27 +69,24 @@
       gap: 10px;
     }
 
-    .logo-icon {
-      width: 26px;
-      height: 26px;
-      border-radius: 9px;
-      background:
-        conic-gradient(from 210deg, #38bdf8, #a855f7, #22c55e, #38bdf8);
-      padding: 2px;
-    }
-
-    .logo-icon-inner {
-      width: 100%;
-      height: 100%;
-      border-radius: 7px;
-      background: radial-gradient(circle at 35% 0%, rgba(15, 23, 42, 0.2), transparent 55%), #020617;
+    .logo-img-wrap {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
-      font-weight: 900;
-      letter-spacing: 0.07em;
-      color: #e5e7eb;
+      border: 1px solid rgba(178, 255, 59, 0.8);
+      box-shadow: 0 0 18px rgba(178, 255, 59, 0.4);
+    }
+
+    .logo-img-wrap img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
     }
 
     .logo-text {
@@ -103,12 +98,11 @@
       font-size: 13px;
       font-weight: 800;
       letter-spacing: 0.16em;
+      color: #f9fafb;
     }
 
     .logo-title span {
-      background: linear-gradient(135deg, #38bdf8, #a855f7);
-      -webkit-background-clip: text;
-      color: transparent;
+      color: var(--accent-1);
     }
 
     .logo-sub {
@@ -153,18 +147,25 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
     }
 
     .btn {
       background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
       color: #020617;
-      box-shadow: 0 10px 25px rgba(56, 189, 248, 0.4);
+      box-shadow: 0 10px 25px rgba(34, 197, 94, 0.4);
     }
 
     .btn-outline {
       border-color: rgba(148, 163, 184, 0.7);
       color: #e5e7eb;
       background: rgba(15, 23, 42, 0.8);
+    }
+
+    .btn:hover,
+    .btn-outline:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.7);
     }
 
     .btn-outline:hover {
@@ -185,7 +186,33 @@
       padding: 26px 18px 60px;
     }
 
-    /* Hero */
+    /* ANIMATIONS */
+    .animate-fade-up {
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeUp 0.7s ease-out forwards;
+    }
+    .animate-fade-up.delay-1 { animation-delay: 0.1s; }
+    .animate-fade-up.delay-2 { animation-delay: 0.2s; }
+    .animate-fade-up.delay-3 { animation-delay: 0.3s; }
+
+    .animate-float {
+      animation: floatSoft 3.5s ease-in-out infinite;
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes floatSoft {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    /* HERO */
     .hero {
       display: grid;
       grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
@@ -213,7 +240,7 @@
       height: 7px;
       border-radius: 999px;
       background: var(--accent-3);
-      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
+      box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.25);
     }
 
     h1 {
@@ -223,9 +250,7 @@
     }
 
     h1 span {
-      background: linear-gradient(135deg, #38bdf8, #a855f7);
-      -webkit-background-clip: text;
-      color: transparent;
+      color: var(--accent-1);
     }
 
     .hero-sub {
@@ -260,9 +285,9 @@
       border-radius: var(--radius-xl);
       border: 1px solid rgba(148, 163, 184, 0.4);
       background:
-        radial-gradient(circle at top, rgba(30, 64, 175, 0.65), transparent 55%),
-        radial-gradient(circle at bottom, rgba(15, 23, 42, 0.75), transparent 60%),
-        rgba(15, 23, 42, 0.92);
+        radial-gradient(circle at top, rgba(34, 197, 94, 0.28), transparent 55%),
+        radial-gradient(circle at bottom, rgba(15, 23, 42, 0.8), transparent 60%),
+        rgba(15, 23, 42, 0.96);
       padding: 18px 18px 16px;
       box-shadow: var(--shadow-soft);
     }
@@ -310,17 +335,9 @@
       border-radius: 999px;
     }
 
-    .metric-dot.good {
-      background: var(--accent-3);
-    }
-
-    .metric-dot.warn {
-      background: #facc15;
-    }
-
-    .metric-dot.bad {
-      background: var(--danger);
-    }
+    .metric-dot.good { background: var(--accent-3); }
+    .metric-dot.warn { background: #facc15; }
+    .metric-dot.bad  { background: var(--danger); }
 
     .metric-value {
       font-weight: 600;
@@ -354,7 +371,6 @@
       letter-spacing: 0.10em;
     }
 
-    /* Sections */
     section {
       margin-top: 44px;
     }
@@ -392,7 +408,7 @@
     .feature-card {
       border-radius: var(--radius-lg);
       border: 1px solid rgba(148, 163, 184, 0.4);
-      background: rgba(15, 23, 42, 0.85);
+      background: rgba(15, 23, 42, 0.9);
       padding: 16px 14px 14px;
     }
 
@@ -431,7 +447,6 @@
       color: #e5e7eb;
     }
 
-    /* How it works */
     .step-list {
       margin-top: 14px;
       list-style: none;
@@ -467,7 +482,6 @@
       color: #e5e7eb;
     }
 
-    /* Pricing */
     .pricing-layout {
       margin-top: 20px;
       display: grid;
@@ -479,7 +493,7 @@
       border-radius: var(--radius-xl);
       border: 1px solid rgba(148, 163, 184, 0.5);
       background:
-        radial-gradient(circle at top, rgba(56, 189, 248, 0.24), transparent 58%),
+        radial-gradient(circle at top, rgba(34, 197, 94, 0.24), transparent 58%),
         rgba(15, 23, 42, 0.96);
       padding: 18px 16px 16px;
       box-shadow: var(--shadow-soft);
@@ -492,9 +506,10 @@
       font-size: 11px;
       padding: 4px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(56, 189, 248, 0.8);
+      border: 1px solid rgba(178, 255, 59, 0.9);
       background: rgba(15, 23, 42, 0.9);
       margin-bottom: 8px;
+      color: #e5e7eb;
     }
 
     .pricing-main {
@@ -542,7 +557,154 @@
       color: #e5e7eb;
     }
 
-    /* FAQ + contact */
+    .dashboard-layout {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.9fr);
+      gap: 18px;
+    }
+
+    .dashboard-card {
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background:
+        radial-gradient(circle at top, rgba(34, 197, 94, 0.25), transparent 58%),
+        rgba(15, 23, 42, 0.98);
+      padding: 16px 14px 14px;
+      box-shadow: var(--shadow-soft);
+      font-size: 12px;
+    }
+
+    .dash-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .dash-title {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .dash-pill {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--text-soft);
+    }
+
+    .dash-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 10px;
+      font-size: 11px;
+    }
+
+    .dash-tab {
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-soft);
+    }
+
+    .dash-tab.active {
+      border-color: rgba(178, 255, 59, 0.9);
+      color: #e5e7eb;
+    }
+
+    .dash-body {
+      border-radius: 14px;
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      background: rgba(15, 23, 42, 0.98);
+      padding: 10px 10px 8px;
+    }
+
+    .dash-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      padding: 4px 0;
+      border-bottom: 1px dashed rgba(31, 41, 55, 0.8);
+    }
+
+    .dash-row:last-child {
+      border-bottom: none;
+    }
+
+    .dash-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .dash-name {
+      font-weight: 600;
+    }
+
+    .dash-sub {
+      color: var(--text-soft);
+      font-size: 10px;
+    }
+
+    .dash-tag {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(34, 197, 94, 0.8);
+      background: rgba(22, 163, 74, 0.18);
+      color: #bbf7d0;
+    }
+
+    .dash-tag.warn {
+      border-color: #facc15;
+      background: rgba(250, 204, 21, 0.12);
+      color: #fef9c3;
+    }
+
+    .partner-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.9);
+      padding: 14px 12px;
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+
+    .partner-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: rgba(148, 163, 184, 0.96);
+      margin-bottom: 3px;
+    }
+
+    .partner-name {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .partner-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(178, 255, 59, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #e5e7eb;
+    }
+
     .faq-grid {
       margin-top: 18px;
       display: grid;
@@ -553,7 +715,7 @@
     .faq-item {
       border-radius: var(--radius-lg);
       border: 1px solid rgba(148, 163, 184, 0.4);
-      background: rgba(15, 23, 42, 0.85);
+      background: rgba(15, 23, 42, 0.9);
       padding: 14px 12px;
       font-size: 13px;
       color: var(--text-soft);
@@ -565,11 +727,19 @@
       color: #e5e7eb;
     }
 
+    /* Founder / Team */
+    .founder-grid {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 18px;
+    }
+
     .contact-box {
       border-radius: var(--radius-xl);
-      border: 1px solid rgba(56, 189, 248, 0.9);
+      border: 1px solid rgba(178, 255, 59, 0.9);
       background:
-        radial-gradient(circle at top, rgba(56, 189, 248, 0.3), transparent 55%),
+        radial-gradient(circle at top, rgba(178, 255, 59, 0.3), transparent 55%),
         rgba(15, 23, 42, 0.96);
       padding: 16px 14px 16px;
       margin-top: 24px;
@@ -590,6 +760,47 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
+    }
+
+    .waitlist-form {
+      margin-top: 8px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .waitlist-form label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      color: rgba(226, 232, 240, 0.9);
+    }
+
+    .waitlist-form input,
+    .waitlist-form textarea {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      padding: 7px 9px;
+      font-size: 13px;
+      resize: vertical;
+      min-height: 34px;
+    }
+
+    .waitlist-form input::placeholder,
+    .waitlist-form textarea::placeholder {
+      color: rgba(148, 163, 184, 0.7);
+    }
+
+    .waitlist-form button {
+      justify-content: center;
+      width: fit-content;
+    }
+
+    .waitlist-hint {
+      font-size: 11px;
+      color: rgba(226, 232, 240, 0.83);
     }
 
     footer {
@@ -621,7 +832,9 @@
         margin-top: 22px;
       }
 
-      .pricing-layout {
+      .pricing-layout,
+      .dashboard-layout,
+      .founder-grid {
         grid-template-columns: minmax(0, 1fr);
       }
 
@@ -648,8 +861,8 @@
 <header>
   <div class="nav">
     <div class="logo-mark">
-      <div class="logo-icon">
-        <div class="logo-icon-inner">IG</div>
+      <div class="logo-img-wrap">
+        <img src="ignitegrapple-logo.png" alt="IgniteGrapple logo">
       </div>
       <div class="logo-text">
         <div class="logo-title">IGNITE<span>GRAPPLE</span></div>
@@ -661,6 +874,8 @@
       <a href="#features">Features</a>
       <a href="#how">How it works</a>
       <a href="#pricing">For clubs</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#founder">Founder</a>
       <a href="#beta">Join beta</a>
     </div>
 
@@ -669,7 +884,7 @@
         Join beta
       </a>
       <a href="#contact" class="btn-outline">
-        <small>Need a call?</small>
+        <small>Contact</small>
       </a>
     </div>
   </div>
@@ -678,7 +893,7 @@
 <main>
   <!-- HERO -->
   <section class="hero" id="top">
-    <div>
+    <div class="animate-fade-up">
       <div class="tagline">
         <span class="tag-dot"></span>
         Built for real wrestling rooms
@@ -709,7 +924,7 @@
       </p>
     </div>
 
-    <aside class="hero-card" aria-label="Sample AI breakdown">
+    <aside class="hero-card animate-float animate-fade-up delay-1" aria-label="Sample AI breakdown">
       <div class="card-label">Live example · Practice breakdown</div>
       <div class="card-title">
         HS 152 lbs · Single-leg series <span>film review</span>
@@ -741,7 +956,7 @@
 
       <p class="metric-note">
         Recommendation: When opponent sprawls heavy, keep your head tight to the ribs,
-        switch to dump finish, and circle away from their whizzer hand.
+        switch to a dump finish, and circle away from their whizzer hand.
       </p>
 
       <div class="badge-strip">
@@ -752,7 +967,7 @@
   </section>
 
   <!-- FEATURES -->
-  <section id="features">
+  <section id="features" class="animate-fade-up delay-1">
     <div class="section-label">Why IgniteGrapple</div>
     <h2 class="section-heading">
       What IgniteGrapple <span>helps you do</span>
@@ -819,7 +1034,7 @@
   </section>
 
   <!-- HOW IT WORKS -->
-  <section id="how">
+  <section id="how" class="animate-fade-up delay-2">
     <div class="section-label">Workflow</div>
     <h2 class="section-heading">
       How IgniteGrapple <span>fits into your week</span>
@@ -878,7 +1093,7 @@
   </section>
 
   <!-- PRICING / VALUE -->
-  <section id="pricing">
+  <section id="pricing" class="animate-fade-up delay-2">
     <div class="section-label">For clubs & private rooms</div>
     <h2 class="section-heading">
       Built for serious programs – <span>priced like a tool, not a headache.</span>
@@ -918,8 +1133,132 @@
     </div>
   </section>
 
+  <!-- COACH DASHBOARD MOCKUP + FUTURE CHAMPS -->
+  <section id="dashboard" class="animate-fade-up delay-2">
+    <div class="section-label">Coach dashboard</div>
+    <h2 class="section-heading">
+      What the <span>coach view</span> looks like
+    </h2>
+    <p class="section-sub">
+      A clean dashboard that keeps your room’s film, athletes, and focus areas in one place – no more scattered notes apps.
+    </p>
+
+    <div class="dashboard-layout">
+      <div class="dashboard-card animate-float">
+        <div class="dash-header">
+          <div class="dash-title">IgniteGrapple · Coach dashboard</div>
+          <div class="dash-pill">BETA VIEW</div>
+        </div>
+
+        <div class="dash-tabs">
+          <div class="dash-tab active">Athletes</div>
+          <div class="dash-tab">Film</div>
+          <div class="dash-tab">Plans</div>
+          <div class="dash-tab">Reports</div>
+        </div>
+
+        <div class="dash-body">
+          <div class="dash-row">
+            <div class="dash-left">
+              <span class="dash-name">152 – J. Rivera</span>
+              <span class="dash-sub">Aggressive neutral · needs cleaner finishes</span>
+            </div>
+            <span class="dash-tag">FOCUS: FINISHES</span>
+          </div>
+
+          <div class="dash-row">
+            <div class="dash-left">
+              <span class="dash-name">126 – T. Harris</span>
+              <span class="dash-sub">Great motion · struggles getting out from bottom</span>
+            </div>
+            <span class="dash-tag warn">ESCAPES</span>
+          </div>
+
+          <div class="dash-row">
+            <div class="dash-left">
+              <span class="dash-name">138 – K. Lee</span>
+              <span class="dash-sub">Strong top rider · needs more leg attacks</span>
+            </div>
+            <span class="dash-tag">ATTACK RATE</span>
+          </div>
+
+          <div class="dash-row">
+            <div class="dash-left">
+              <span class="dash-name">Team view</span>
+              <span class="dash-sub">This week: mat returns, leg attacks, bottom urgency</span>
+            </div>
+            <span class="dash-tag">ROOM FOCUS</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="partner-card">
+        <div class="partner-label">Featured beta partner</div>
+        <div class="partner-name">Future Champs of Dallas</div>
+        <p>
+          Future Champs of Dallas represents the kind of room IgniteGrapple is built for –
+          hungry athletes, committed coaches, and a program that wants every edge it can get.
+        </p>
+        <p style="margin-top: 6px;">
+          As a featured beta partner, Future Champs helps shape how the dashboard tracks
+          real practice intensity, match performance, and long-term development over the season.
+        </p>
+        <div class="partner-pill">
+          Future Champs of Dallas · Beta partner
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- FOUNDER & VISION / TEAM -->
+  <section id="founder" class="animate-fade-up delay-3">
+    <div class="section-label">Founder & vision</div>
+    <h2 class="section-heading">
+      Who’s building <span>IgniteGrapple?</span>
+    </h2>
+    <p class="section-sub">
+      IgniteGrapple is built by a coach-first founder who understands both athlete development and the business side of wrestling.
+    </p>
+
+    <div class="founder-grid">
+      <article class="feature-card">
+        <div class="feature-tag">Founder</div>
+        <h3 class="feature-title">Kevin Almond, MBA – Founder & Builder of IgniteGrapple</h3>
+        <p class="feature-body">
+          Kevin Almond is the founder of IgniteGrapple and the mind behind the AI-powered wrestling coach concept.
+          With a background in business (MBA in Human Resource Management) and hands-on experience working in
+          competitive sports and athlete development environments, Kevin built IgniteGrapple to solve a real problem:
+          coaches doing 10 jobs at once with no extra pay or time.
+        </p>
+        <div class="feature-chip-row">
+          <span class="chip">Founder – IgniteGrapple</span>
+          <span class="chip">MBA · Strategy & Systems</span>
+          <span class="chip">Coach-focused product vision</span>
+        </div>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-tag">Vision</div>
+        <h3 class="feature-title">Why IgniteGrapple exists</h3>
+        <p class="feature-body">
+          Wrestling coaches are some of the smartest minds in sports, but most of their knowledge stays locked in the room.
+          IgniteGrapple is built to:
+        </p>
+        <ul class="pricing-ul" style="margin-top: 6px;">
+          <li>Turn film and practice time into data the coach can actually use.</li>
+          <li>Help athletes see clear progress instead of vague “work harder” feedback.</li>
+          <li>Give coaches new ways to monetize their systems and knowledge online.</li>
+        </ul>
+        <p class="feature-body" style="margin-top: 6px;">
+          The long-term vision: a full ecosystem where wrestling rooms, clubs, and private coaches can plug into
+          AI tools that respect the sport, respect the grind, and amplify what good coaches already do.
+        </p>
+      </article>
+    </div>
+  </section>
+
   <!-- FAQ -->
-  <section>
+  <section class="animate-fade-up delay-3">
     <div class="section-label">Questions</div>
     <h2 class="section-heading">
       What coaches usually ask first
@@ -963,8 +1302,8 @@
     </div>
   </section>
 
-  <!-- BETA / CONTACT -->
-  <section id="beta">
+  <!-- BETA / CONTACT / WAITLIST -->
+  <section id="beta" class="animate-fade-up delay-3">
     <div class="section-label">Join the beta</div>
     <h2 class="section-heading">
       Want IgniteGrapple in your room first?
@@ -977,8 +1316,8 @@
 
     <div class="contact-box" id="contact">
       <p>
-        <strong>Step 1 – Send a quick intro email.</strong><br />
-        Email <strong>your-email@example.com</strong> with:
+        <strong>Option 1 – Send a quick intro email.</strong><br />
+        Email <strong>1ignitegrapple@gmail.com</strong> with:
       </p>
       <ul class="pricing-ul" style="margin-top: 4px;">
         <li>Your name and coaching role.</li>
@@ -987,32 +1326,64 @@
         <li>One challenge you want help solving with film or training plans.</li>
       </ul>
 
-      <p style="margin-top: 6px;">
-        <strong>Step 2 – Short call (optional).</strong><br />
-        We’ll walk through your current setup and see if the beta is a fit for your room.
+      <p style="margin-top: 10px;">
+        <strong>Option 2 – Drop your info in the waitlist form.</strong><br />
+        This sends straight to the IgniteGrapple inbox so we can reach out with next steps.
+      </p>
+
+      <form class="waitlist-form"
+            action="mailto:1ignitegrapple@gmail.com"
+            method="POST"
+            enctype="text/plain">
+        <div>
+          <label for="name">Name</label>
+          <input id="name" name="Name" type="text" placeholder="Your name" required>
+        </div>
+        <div>
+          <label for="role">Role / Program</label>
+          <input id="role" name="Role / Program" type="text" placeholder="Head coach, assistant, private coach, etc." required>
+        </div>
+        <div>
+          <label for="email">Best contact email</label>
+          <input id="email" name="Contact email" type="email" placeholder="you@example.com" required>
+        </div>
+        <div>
+          <label for="challenge">Biggest challenge</label>
+          <textarea id="challenge" name="Biggest challenge"
+                    rows="3"
+                    placeholder="Example: I don’t have time to break down film for every athlete each week."></textarea>
+        </div>
+        <button type="submit" class="btn">
+          Join the waitlist
+        </button>
+        <p class="waitlist-hint">
+          Submitting opens your email app to send this info directly to IgniteGrapple (no spam, no lists sold).
+        </p>
+      </form>
+
+      <p style="margin-top: 10px;">
+        <strong>Option 3 – Quick call.</strong><br />
+        You can also pick a time that works for you using Google Calendar.
       </p>
 
       <div class="contact-actions">
-        <a href="mailto:your-email@example.com?subject=IgniteGrapple%20Beta%20Inquiry"
+        <a href="mailto:1ignitegrapple@gmail.com?subject=IgniteGrapple%20Beta%20Inquiry"
            class="btn">
           Email to join beta
         </a>
-        <a href="https://calendly.com/your-link/ignitegrapple-demo"
-           class="btn-outline">
-          Or request a 15-min call
+        <!-- Swap this link later with your Appointment Schedule URL if you create one -->
+        <a href="https://calendar.google.com/"
+           class="btn-outline"
+           target="_blank" rel="noopener">
+          Open Google Calendar to book
         </a>
       </div>
-
-      <p style="font-size: 11px; margin-top: 6px; color: var(--text-soft);">
-        No spam. No pressure. Just a real conversation about how AI can support the work
-        you’re already doing in the room.
-      </p>
     </div>
   </section>
 
   <footer>
     <span>© <span id="year"></span> IgniteGrapple. Built for wrestlers who want more than “just drill harder.”</span>
-    <span>Questions? <a href="mailto:your-email@example.com">Reach out anytime.</a></span>
+    <span>Founder: Kevin Almond, MBA · Questions? <a href="mailto:1ignitegrapple@gmail.com">Email 1ignitegrapple@gmail.com</a></span>
   </footer>
 </main>
 
