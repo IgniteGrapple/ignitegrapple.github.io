@@ -69,19 +69,25 @@
       gap: 12px;
     }
 
-    .logo-img {
-      width: 42px;
-      height: 42px;
-      border-radius: 10px;
-      overflow: hidden;
-    }
+  .logo-img {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  overflow: hidden;
+}
 
-    .logo-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
+.logo-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
 
+@media (max-width: 600px) {
+  .logo-img {
+    width: 30px;
+    height: 30px;
+  }
+}
     .logo-text {
       display: flex;
       flex-direction: column;
@@ -800,7 +806,8 @@
   <div class="nav">
     <div class="logo-mark">
       <div class="logo-img-wrap">
-        <img src="C34AC1C6-9F2E-47D6-9F12-BE7553FC1B8B.png" alt="IgniteGrapple logo">
+    <img src="logo-small.png" alt="">
+</div>
       </div>
       <div class="logo-text">
         <div class="logo-title">IGNITE<span>GRAPPLE</span></div>
