@@ -1,50 +1,46 @@
-// IgniteGrapple – offline page service worker
+// IgniteGrapple basic offline service worker
 
-importScripts("https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js");
+const CACHE_NAME = "ignitegrapple-offline-v2";
+const OFFLINE_URL = "/offline.html";
 
-const CACHE = "ignitegrapple-offline-v1";
-
-// This is the page that shows when the user is offline
-const offlineFallbackPage = "/offline.html";
-
-self.addEventListener("message", (event) => {
-  if (event.data && event.data.type === "SKIP_WAITING") {
-    self.skipWaiting();
-  }
-});
-
+// Install: cache the offline page
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE).then((cache) => {
-      return cache.add(offlineFallbackPage);
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.add(OFFLINE_URL);
     })
   );
+  self.skipWaiting();
 });
 
-// Enable navigation preload if the browser supports it
-if (workbox.navigationPreload && workbox.navigationPreload.isSupported()) {
-  workbox.navigationPreload.enable();
-}
+// Activate: clean up old caches (if any)
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) =>
+      Promise.all(
+        keys.map((key) => {
+          if (key !== CACHE_NAME) {
+            return caches.delete(key);
+          }
+        })
+      )
+    )
+  );
+  self.clients.claim();
+});
 
+// Fetch: for navigations, try network first, fall back to offline page
 self.addEventListener("fetch", (event) => {
   if (event.request.mode === "navigate") {
     event.respondWith(
       (async () => {
         try {
-          // If the browser preloaded the page, use that
-          const preloadResp = await event.preloadResponse;
-          if (preloadResp) {
-            return preloadResp;
-          }
-
-          // Try normal network request
-          const networkResp = await fetch(event.request);
-          return networkResp;
+          const networkResponse = await fetch(event.request);
+          return networkResponse;
         } catch (error) {
-          // If network fails, show offline fallback
-          const cache = await caches.open(CACHE);
-          const cachedResp = await cache.match(offlineFallbackPage);
-          return cachedResp;
+          const cache = await caches.open(CACHE_NAME);
+          const cachedResponse = await cache.match(OFFLINE_URL);
+          return cachedResponse;
         }
       })()
     );
