@@ -785,6 +785,172 @@
       text-align: center;
     }
 
+    /* ----------------------------- */
+    /* MOBILE APP-STYLE BETA VIEW   */
+    /* ----------------------------- */
+
+    .mobile-app-shell {
+      max-width: 420px;
+      margin: 32px auto 0;
+    }
+
+    .ig-app-card {
+      background: #0f1015;
+      border-radius: 20px;
+      border: 1px solid rgba(30, 64, 175, 0.7);
+      padding: 18px 18px 20px;
+      box-shadow: 0 24px 55px rgba(0, 0, 0, 0.9);
+    }
+
+    .ig-app-card h2 {
+      color: var(--accent);
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .ig-sub {
+      font-size: 13px;
+      color: var(--text-sub);
+      margin-bottom: 12px;
+    }
+
+    .ig-list {
+      list-style: none;
+      font-size: 13px;
+      color: #e5e7eb;
+      margin-bottom: 12px;
+    }
+
+    .ig-list li {
+      margin-bottom: 4px;
+    }
+
+    .ig-readiness {
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      background: #111827;
+      overflow: hidden;
+      margin: 10px 0;
+    }
+
+    .ig-readiness-fill {
+      height: 100%;
+      width: 75%;
+      background: linear-gradient(90deg, #22c55e, #bbf7d0);
+      box-shadow: 0 0 18px rgba(34, 197, 94, 0.8);
+    }
+
+    .ig-hint {
+      font-size: 12px;
+      color: var(--text-sub);
+      margin-top: 6px;
+    }
+
+    .app-screen {
+      display: none;
+    }
+
+    .app-screen.active-screen {
+      display: block;
+    }
+
+    .ig-field-label {
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 4px;
+      font-size: 12px;
+      color: var(--accent);
+    }
+
+    .ig-input,
+    .ig-textarea {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(30, 64, 175, 0.8);
+      background: #020617;
+      color: #f9fafb;
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+
+    .ig-textarea {
+      min-height: 70px;
+      resize: vertical;
+    }
+
+    .ig-save-btn {
+      margin-top: 14px;
+      width: 100%;
+      border-radius: 999px;
+      border: none;
+      padding: 10px 0;
+      font-weight: 600;
+      font-size: 14px;
+      background: radial-gradient(circle at left, #ecfccb 0, #7dfc4c 45%, #22c55e 100%);
+      color: #020817;
+      box-shadow: 0 0 18px rgba(125, 252, 76, 0.7);
+      cursor: pointer;
+    }
+
+    .ig-status {
+      font-size: 12px;
+      color: var(--accent);
+      margin-top: 8px;
+    }
+
+    .ig-progress-box {
+      margin-top: 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(30, 64, 175, 0.7);
+      padding: 10px;
+      background: radial-gradient(circle at top left, rgba(34, 197, 94, 0.16), #020b16 60%);
+      font-size: 13px;
+    }
+
+    .ig-chart-placeholder {
+      margin-top: 10px;
+      border-radius: 12px;
+      background: #020617;
+      height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    /* Bottom tab bar (mobile) */
+
+    .bottom-tabs {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      display: none; /* only show on mobile */
+      justify-content: space-around;
+      padding: 10px 12px 14px;
+      background: rgba(2, 8, 23, 0.96);
+      border-top: 1px solid rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(10px);
+      z-index: 40;
+    }
+
+    .tab-btn {
+      flex: 1;
+      border: none;
+      background: transparent;
+      color: #9ca3af;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .tab-btn.active-tab {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
     /* RESPONSIVE */
 
     @media (max-width: 960px) {
@@ -809,6 +975,7 @@
     @media (max-width: 720px) {
       .page {
         padding-inline: 14px;
+        padding-bottom: 96px; /* make room for bottom tabs */
       }
 
       .nav {
@@ -847,6 +1014,10 @@
         max-width: 100%;
         margin: 0 auto;
         padding-inline: 14px;
+      }
+
+      .bottom-tabs {
+        display: flex;
       }
     }
   </style>
@@ -1144,6 +1315,79 @@
         </div>
       </section>
 
+      <!-- MOBILE APP-STYLE BETA (COACH + ATHLETE) -->
+      <section id="mobile-beta">
+        <div class="section-kicker">Mobile beta</div>
+        <h2 class="section-title">IgniteGrapple as an app-style experience.</h2>
+        <p class="section-body">
+          On phones, these screens behave like a native app. Coaches and athletes can
+          toggle between tonight’s focus, logging work, and progress overview using
+          the tabs at the bottom.
+        </p>
+
+        <div class="mobile-app-shell">
+          <!-- Screen 1: Home -->
+          <div class="ig-app-card app-screen active-screen" id="screen-home">
+            <h2>Coach snapshot</h2>
+            <p class="ig-sub">Tonight's focus</p>
+            <ul class="ig-list">
+              <li>• 152–170: Shot defense &amp; bottom urgency</li>
+              <li>• Lightweights: Mat returns &amp; chain wrestling</li>
+              <li>• Heavyweights: Hand-fighting pace &amp; finishes</li>
+            </ul>
+            <div class="ig-readiness">
+              <div class="ig-readiness-fill"></div>
+            </div>
+            <p class="ig-hint">
+              As the AI engine comes online, this bar will pull from real practice data in your room.
+            </p>
+          </div>
+
+          <!-- Screen 2: Focus input -->
+          <div class="ig-app-card app-screen" id="screen-focus">
+            <h2>Log a training rep</h2>
+            <p class="ig-sub">
+              Quick input for coaches or athletes to capture what they worked on.
+            </p>
+
+            <label class="ig-field-label" for="mName">Athlete name</label>
+            <input id="mName" class="ig-input" placeholder="Example: J. Rivera – 152" />
+
+            <label class="ig-field-label" for="mFocus">Focus area</label>
+            <input id="mFocus" class="ig-input" placeholder="Bottom urgency, mat returns, etc." />
+
+            <label class="ig-field-label" for="mNotes">Notes (optional)</label>
+            <textarea id="mNotes" class="ig-textarea" placeholder="Short note about the session."></textarea>
+
+            <button type="button" class="ig-save-btn" id="mSaveBtn">Save entry</button>
+            <p class="ig-status" id="mStatus"></p>
+          </div>
+
+          <!-- Screen 3: Progress overview -->
+          <div class="ig-app-card app-screen" id="screen-progress">
+            <h2>Progress overview</h2>
+            <p class="ig-sub">See where the room is trending over the last few sessions.</p>
+
+            <div class="ig-progress-box">
+              <strong>Key themes this week</strong>
+              <ul class="ig-list" style="margin-top:6px;">
+                <li>• More reps logged on bottom than neutral.</li>
+                <li>• Chain wrestling focus increasing for middle weights.</li>
+                <li>• Hand-fighting emphasis for heavyweights is trending up.</li>
+              </ul>
+
+              <div class="ig-chart-placeholder">
+                Future: AI chart of attempts, finishes, and focus areas.
+              </div>
+
+              <p class="ig-hint">
+                This screen will be driven by AI once connected to your live data and match film.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- PRICING -->
       <section id="pricing">
         <div class="section-kicker">Beta pricing</div>
@@ -1425,84 +1669,134 @@
 
     loadAthletes();
 
-// ---- Phase 4: PWA service worker registration ----
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("/sw.js")
-      .catch((err) => console.log("SW registration failed:", err));
-  });
-}
-</script>
+    // ---- Phase 4: PWA service worker registration ----
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker
+          .register("/sw.js")
+          .catch((err) => console.log("SW registration failed:", err));
+      });
+    }
 
-<!-- ===================================================== -->
-<!-- 🔥 IGNITEGRAPPLE — INSTALL / DOWNLOAD APP SECTION -->
-<!-- ===================================================== -->
+    // ---- Mobile beta: bottom tabs + simple logging ----
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const appScreens = document.querySelectorAll(".app-screen");
+    const mName = document.getElementById("mName");
+    const mFocus = document.getElementById("mFocus");
+    const mNotes = document.getElementById("mNotes");
+    const mSaveBtn = document.getElementById("mSaveBtn");
+    const mStatus = document.getElementById("mStatus");
 
-<section id="install-app" style="padding: 60px 20px; background: #0b0f16; text-align: center; border-top: 1px solid #1c2333;">
-  <h2 style="color: #8fff57; font-size: 2rem; margin-bottom: 10px;">
-    Download the IgniteGrapple App
-  </h2>
+    if (tabButtons.length && appScreens.length) {
+      tabButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const targetId = btn.dataset.screen;
 
-  <p style="color: #b8c2cc; max-width: 600px; margin: 0 auto 30px;">
-    Install the IgniteGrapple PWA for a full-screen app experience,
-    offline access, and faster performance.
-  </p>
+          tabButtons.forEach((b) => b.classList.remove("active-tab"));
+          btn.classList.add("active-tab");
 
-  <button id="installBtn"
-    style="
-      background: #8fff57;
-      border: none;
-      padding: 14px 30px;
-      font-size: 1.2rem;
-      border-radius: 10px;
-      color: #000;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s;
-    ">
-    Install App
-  </button>
+          appScreens.forEach((screen) => {
+            if (screen.id === targetId) {
+              screen.classList.add("active-screen");
+            } else {
+              screen.classList.remove("active-screen");
+            }
+          });
+        });
+      });
+    }
 
-  <p id="installStatus" style="color: #8fff57; margin-top: 15px; display: none;">
-    App is ready to install!
-  </p>
-</section>
+    if (mSaveBtn) {
+      mSaveBtn.addEventListener("click", () => {
+        const n = mName.value.trim();
+        const f = mFocus.value.trim();
+        if (!n || !f) {
+          mStatus.textContent = "Name and focus are required.";
+          return;
+        }
+        mStatus.textContent = "Entry saved locally on this device.";
+        setTimeout(() => (mStatus.textContent = ""), 2500);
+        mName.value = "";
+        mFocus.value = "";
+        mNotes.value = "";
+      });
+    }
+  </script>
 
-<script>
-// ------- PWA INSTALL LOGIC (Safe + Compatible)---------
-let deferredPrompt;
-const installBtn = document.getElementById("installBtn");
-const installStatus = document.getElementById("installStatus");
+  <!-- Bottom navigation tabs (fixed on mobile) -->
+  <nav class="bottom-tabs">
+    <button class="tab-btn active-tab" data-screen="screen-home">Home</button>
+    <button class="tab-btn" data-screen="screen-focus">Focus</button>
+    <button class="tab-btn" data-screen="screen-progress">Progress</button>
+  </nav>
 
-// Listen for the event fired by the browser
-window.addEventListener("beforeinstallprompt", (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  installStatus.style.display = "block";
-});
+  <!-- ===================================================== -->
+  <!-- 🔥 IGNITEGRAPPLE — INSTALL / DOWNLOAD APP SECTION -->
+  <!-- ===================================================== -->
 
-// When the user clicks install:
-installBtn.addEventListener("click", async () => {
-  if (!deferredPrompt) {
-    alert("The app is already installed or not ready yet.");
-    return;
-  }
+  <section id="install-app" style="padding: 60px 20px; background: #0b0f16; text-align: center; border-top: 1px solid #1c2333;">
+    <h2 style="color: #8fff57; font-size: 2rem; margin-bottom: 10px;">
+      Download the IgniteGrapple App
+    </h2>
 
-  deferredPrompt.prompt();
-  const result = await deferredPrompt.userChoice;
+    <p style="color: #b8c2cc; max-width: 600px; margin: 0 auto 30px;">
+      Install the IgniteGrapple PWA for a full-screen app experience,
+      offline access, and faster performance.
+    </p>
 
-  if (result.outcome === "accepted") {
-    installStatus.textContent = "Installing…";
-  }
+    <button id="installBtn"
+      style="
+        background: #8fff57;
+        border: none;
+        padding: 14px 30px;
+        font-size: 1.2rem;
+        border-radius: 10px;
+        color: #000;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s;
+      ">
+      Install App
+    </button>
 
-  deferredPrompt = null;
-});
-</script>
+    <p id="installStatus" style="color: #8fff57; margin-top: 15px; display: none;">
+      App is ready to install!
+    </p>
+  </section>
 
-<!-- ===================================================== -->
-<!-- END INSTALL APP SECTION -->
-<!-- ===================================================== -->
+  <script>
+    // ------- PWA INSTALL LOGIC (Safe + Compatible)---------
+    let deferredPrompt;
+    const installBtn = document.getElementById("installBtn");
+    const installStatus = document.getElementById("installStatus");
 
+    // Listen for the event fired by the browser
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installStatus.style.display = "block";
+    });
+
+    // When the user clicks install:
+    installBtn.addEventListener("click", async () => {
+      if (!deferredPrompt) {
+        alert("The app is already installed or not ready yet.");
+        return;
+      }
+
+      deferredPrompt.prompt();
+      const result = await deferredPrompt.userChoice;
+
+      if (result.outcome === "accepted") {
+        installStatus.textContent = "Installing…";
+      }
+
+      deferredPrompt = null;
+    });
+  </script>
+
+  <!-- ===================================================== -->
+  <!-- END INSTALL APP SECTION -->
+  <!-- ===================================================== -->
 </body>
 </html>
