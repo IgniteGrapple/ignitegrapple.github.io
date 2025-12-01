@@ -1,0 +1,16 @@
+{
+  "name": "IgniteGrapple",
+  "short_name": "IgniteGrapple",
+  "description": "AI-powered assistant coach for wrestling rooms.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#020817",
+  "theme_color": "#020817",
+  "icons": [
+    {
+      "src": "C34AC1C6-9F2E-47D6-9F12-BE7553FC1B8B.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
