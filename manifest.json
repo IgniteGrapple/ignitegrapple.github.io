@@ -1,26 +1,27 @@
 {
-  "name": "IgniteGrapple",
+  "name": "IgniteGrapple – AI-Powered Wrestling Coach",
   "short_name": "IgniteGrapple",
-  "description": "AI-Powered Wrestling Coach for real wrestling rooms.",
   "id": "/",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "display_override": ["standalone", "fullscreen"],
-  "background_color": "#000000",
-  "theme_color": "#0aff4f",
+  "background_color": "#020615",
+  "theme_color": "#020615",
+  "description": "AI-powered wrestling training and coaching tools that help clubs, athletes, and coaches train smarter.",
   "lang": "en",
   "dir": "ltr",
+  "orientation": "portrait-primary",
 
   "icons": [
     {
-      "src": "Icon-192.png",
+      "src": "icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "Icon-512.png",
+      "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
@@ -34,27 +35,42 @@
 
   "screenshots": [
     {
-      "src": "Icon-512.png",
+      "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "label": "IgniteGrapple App Preview"
+      "form_factor": "wide",
+      "label": "IgniteGrapple Preview"
     }
   ],
 
-  "categories": ["sports", "coaching", "training", "education"],
-
   "shortcuts": [
     {
-      "name": "Open Dashboard",
+      "name": "Dashboard",
       "short_name": "Dashboard",
+      "description": "Open the coach dashboard demo",
       "url": "/#dashboard",
-      "icons": [{ "src": "Icon-192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     },
     {
       "name": "Join Beta",
       "short_name": "Beta",
+      "description": "Join the IgniteGrapple beta program",
       "url": "/#beta",
-      "icons": [{ "src": "Icon-192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     }
-  ]
+  ],
+
+  "categories": ["sports", "education", "training"]
 }
