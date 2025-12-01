@@ -1,16 +1,32 @@
 {
+  "id": "/ignitegrapple",
   "name": "IgniteGrapple",
   "short_name": "IgniteGrapple",
   "description": "AI-powered assistant coach for wrestling rooms.",
+  "lang": "en",
+  "dir": "ltr",
   "start_url": "/index.html",
+  "scope": "/",
   "display": "standalone",
+  "display_override": ["standalone"],
+  "orientation": "portrait",
   "background_color": "#020817",
   "theme_color": "#020817",
+  "categories": ["sports", "education", "productivity"],
   "icons": [
     {
       "src": "C34AC1C6-9F2E-47D6-9F12-BE7553FC1B8B.png",
-      "sizes": "512x512",
-      "type": "image/png"
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Open Coach Dashboard",
+      "short_name": "Dashboard",
+      "url": "/index.html#app",
+      "description": "Jump straight into the IgniteGrapple coach demo."
     }
   ]
 }
