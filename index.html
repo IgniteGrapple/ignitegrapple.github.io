@@ -391,6 +391,111 @@
     .step-content strong {
       color: #e5e7eb;
     }
+        /* APP DEMO SECTION */
+    .app-layout {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr);
+      gap: 18px;
+    }
+
+    .app-card {
+      background: rgba(15, 23, 42, 0.96);
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 16px;
+      box-shadow: var(--shadow-soft);
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .app-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+
+    .app-pill {
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--accent-1);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .app-upload {
+      border-radius: 12px;
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      padding: 12px;
+      margin-bottom: 10px;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .app-field-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(148, 163, 184, 0.9);
+      margin-bottom: 4px;
+    }
+
+    .app-input-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .app-input-fake {
+      flex: 1;
+      min-width: 120px;
+      padding: 6px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      font-size: 12px;
+      color: rgba(148, 163, 184, 0.9);
+    }
+
+    .app-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .app-side {
+      font-size: 13px;
+      color: var(--text-soft);
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 14px;
+    }
+
+    .app-side ul {
+      margin-top: 6px;
+      padding-left: 16px;
+    }
+
+    .app-side li {
+      margin-bottom: 4px;
+    }
+
+    @media (max-width: 860px) {
+      .app-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
         /* PRICING SECTION */
     .pricing-layout {
       margin-top: 22px;
@@ -919,6 +1024,80 @@
 
     </ol>
 
+  </section>
+    <!-- APP DEMO / BETA EXPERIENCE -->
+  <section id="app-demo" class="animate-fade-up delay-2">
+    <div class="section-label">Beta app experience</div>
+
+    <h2 class="section-heading">
+      What coaches will <span>actually use</span> inside IgniteGrapple
+    </h2>
+
+    <p class="section-sub">
+      This is a preview of how the early beta version of the app will feel:
+      upload film, select athletes, and let AI build breakdowns and training focuses.
+      (The live product will sit behind a secure coach login.)
+    </p>
+
+    <div class="app-layout">
+
+      <!-- Left: App-style card -->
+      <div class="app-card">
+        <div class="app-header">
+          <div class="app-title">IgniteGrapple · Beta Coach App</div>
+          <div class="app-pill">DEMO VIEW</div>
+        </div>
+
+        <div class="app-upload">
+          <div class="app-field-label">Upload practice / match film</div>
+          <div class="app-input-row">
+            <div class="app-input-fake">Choose file… (video.mp4)</div>
+            <button type="button" class="btn" style="font-size:11px;padding:6px 10px;">
+              Upload
+            </button>
+          </div>
+          <div class="app-chip-row">
+            <span class="chip">Practice – Live goes</span>
+            <span class="chip">Varsity room</span>
+            <span class="chip">Neutral focus</span>
+          </div>
+        </div>
+
+        <div style="margin-top:10px;">
+          <div class="app-field-label">Tag athletes</div>
+          <div class="app-input-row">
+            <div class="app-input-fake">Example: 152 – Rivera · 126 – Harris · 138 – Lee</div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;">
+          <div class="app-field-label">AI suggestions (preview)</div>
+          <ul style="margin-top:6px;padding-left:16px;font-size:12px;">
+            <li>Rivera: Improve finish choices off single legs under heavy sprawl.</li>
+            <li>Harris: Increase bottom urgency first 10 seconds.</li>
+            <li>Lee: Add leg attacks from motion instead of waiting on ties.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Right: How beta will work -->
+      <aside class="app-side">
+        <strong>How beta coaches will use the app:</strong>
+        <ul>
+          <li><strong>1.</strong> Film practices or matches on your phone.</li>
+          <li><strong>2.</strong> Upload clips to the IgniteGrapple coach app.</li>
+          <li><strong>3.</strong> Tag athletes, weight classes, or groups.</li>
+          <li><strong>4.</strong> Review AI breakdowns and edit where needed.</li>
+          <li><strong>5.</strong> One tap → build practice plans and progress reports.</li>
+        </ul>
+
+        <p style="margin-top:8px;">
+          As a beta partner, you’ll help decide what shows up here first —
+          more film tools, more athlete tracking, or more plan templates.
+        </p>
+      </aside>
+
+    </div>
   </section>
     <!-- PRICING / VALUE SECTION -->
   <section id="pricing" class="animate-fade-up delay-2">
