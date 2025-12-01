@@ -1425,83 +1425,84 @@
 
     loadAthletes();
 
-    // ---- Phase 4: PWA service worker registration ----
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker
-          .register("/sw.js")
-          .catch((err) => console.log("SW registration failed", err));
-      });
-    }
-  </script>
-  <!-- ================== DOWNLOAD APP SECTION ================== -->
-<section id="download-app" class="install-section shell">
-  <div class="install-header">
-    <h2 class="install-title">Download IgniteGrapple App</h2>
-    <p class="install-sub">
-      Install IgniteGrapple as a real app on your phone or computer in 10 seconds.
-      No App Store required.
-  <div class="install-grid">
-    <!-- iOS card -->
-    <article class="install-card">
-      <div class="install-card-glow"></div>
-      <div class="install-card-inner">
-        <div class="install-tag">📱 iPhone (iOS)</div>
-      
-        <h3>Install on iPhone</h3>
-        <ol class="install-steps">
-          <li>Open <strong>Safari</strong> and go to <strong>ignitesportstech.co</strong>.</li>
-          <li>Tap the <strong>Share</strong> icon (square with arrow up).</li>
-          <li>Scroll down and tap <strong>Add to Home Screen</strong>.</li>
-          <li>Tap <strong>Add</strong>.</li>
-        </ol>
-        <p class="install-note">
-          IgniteGrapple now lives on your home screen as a full-screen app.
-        </p>
-      </div>
-    </article>
+// ---- Phase 4: PWA service worker registration ----
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/sw.js")
+      .catch((err) => console.log("SW registration failed:", err));
+  });
+}
+</script>
 
-    <!-- Android card -->
-    <article class="install-card">
-      <div class="install-card-glow"></div>
-      <div class="install-card-inner">
-        <div class="install-tag">🤖 Android</div>
-        <div class="install-img-wrap">
-          <img src="install-android-3d.png" alt="IgniteGrapple Android install tutorial" />
-        </div>
-        <h3>Install on Android</h3>
-        <ol class="install-steps">
-          <li>Open <strong>Chrome</strong> and go to <strong>ignitesportstech.co</strong>.</li>
-          <li>Tap the popup that says <strong>“Install app”</strong> (if it appears).</li>
-          <li>If not, tap the <strong>⋮ menu</strong> in Chrome.</li>
-          <li>Select <strong>Add to Home screen</strong> → <strong>Install</strong>.</li>
-        </ol>
-        <p class="install-note">
-          IgniteGrapple installs like a Google Play app with its own icon.
-        </p>
-      </div>
-    </article>
+<!-- ===================================================== -->
+<!-- 🔥 IGNITEGRAPPLE — INSTALL / DOWNLOAD APP SECTION -->
+<!-- ===================================================== -->
 
-    <!-- Desktop card -->
-    <article class="install-card">
-      <div class="install-card-glow"></div>
-      <div class="install-card-inner">
-        <div class="install-tag">🖥️ Desktop</div>
-        <div class="install-img-wrap">
-          <img src="install-desktop-3d.png" alt="IgniteGrapple desktop install tutorial" />
-        </div>
-        <h3>Install on Desktop</h3>
-        <ol class="install-steps">
-          <li>On your computer, open <strong>Chrome</strong> and go to <strong>ignitesportstech.co</strong>.</li>
-          <li>Click the <strong>Install app</strong> icon in the address bar</li>
-          <li>Click <strong>Install</strong>.</li>
-        </ol>
-        <p class="install-note">
-          IgniteGrapple opens as a dedicated desktop app—no browser tabs.
-        </p>
-      </div>
-    </article>
-  </div>
+<section id="install-app" style="padding: 60px 20px; background: #0b0f16; text-align: center; border-top: 1px solid #1c2333;">
+  <h2 style="color: #8fff57; font-size: 2rem; margin-bottom: 10px;">
+    Download the IgniteGrapple App
+  </h2>
+
+  <p style="color: #b8c2cc; max-width: 600px; margin: 0 auto 30px;">
+    Install the IgniteGrapple PWA for a full-screen app experience,
+    offline access, and faster performance.
+  </p>
+
+  <button id="installBtn"
+    style="
+      background: #8fff57;
+      border: none;
+      padding: 14px 30px;
+      font-size: 1.2rem;
+      border-radius: 10px;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    ">
+    Install App
+  </button>
+
+  <p id="installStatus" style="color: #8fff57; margin-top: 15px; display: none;">
+    App is ready to install!
+  </p>
 </section>
+
+<script>
+// ------- PWA INSTALL LOGIC (Safe + Compatible)---------
+let deferredPrompt;
+const installBtn = document.getElementById("installBtn");
+const installStatus = document.getElementById("installStatus");
+
+// Listen for the event fired by the browser
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installStatus.style.display = "block";
+});
+
+// When the user clicks install:
+installBtn.addEventListener("click", async () => {
+  if (!deferredPrompt) {
+    alert("The app is already installed or not ready yet.");
+    return;
+  }
+
+  deferredPrompt.prompt();
+  const result = await deferredPrompt.userChoice;
+
+  if (result.outcome === "accepted") {
+    installStatus.textContent = "Installing…";
+  }
+
+  deferredPrompt = null;
+});
+</script>
+
+<!-- ===================================================== -->
+<!-- END INSTALL APP SECTION -->
+<!-- ===================================================== -->
+
 </body>
 </html>
