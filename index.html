@@ -4,1610 +4,1349 @@
   <meta charset="UTF-8" />
   <title>IgniteGrapple – AI-Powered Wrestling Coach</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="IgniteGrapple is an AI-powered wrestling coach that breaks down practice film, tracks athlete progress, builds custom training plans, and helps clubs & coaches scale their coaching impact." />
-
-  <!-- SOCIAL SHARE META -->
-  <meta property="og:title" content="IgniteGrapple – AI Wrestling Coach" />
-  <meta property="og:description" content="Break down practice film, track athlete progress, and generate smarter training plans. Built for real wrestling rooms." />
-  <meta property="og:type" content="website" />
+  <meta name="description" content="IgniteGrapple is an AI-powered wrestling assistant coach that breaks down film, builds smarter training plans, and helps clubs turn every practice into a championship-level session." />
 
   <style>
     :root {
-      --bg: #020617;
-      --card: #020617;
-      --border-subtle: #1e293b;
-      --text-main: #f9fafb;
-      --text-soft: #9ca3af;
+      --bg-main: #020617;
+      --bg-elevated: #02081b;
+      --bg-card: #020617;
       --accent-1: #b2ff3b;
       --accent-2: #22c55e;
-      --accent-3: #4ade80;
-      --danger: #f97373;
-      --radius-lg: 18px;
-      --radius-xl: 26px;
-      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.85);
+      --accent-soft: rgba(178, 255, 59, 0.16);
+      --text-primary: #f9fafb;
+      --text-soft: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.45);
+      --danger: #fb7185;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-pill: 999px;
     }
 
     * {
+      box-sizing: border-box;
+    }
+
+    html, body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      scroll-behavior: smooth;
     }
 
     body {
-      background: radial-gradient(circle at top left, rgba(178, 255, 59, 0.18), transparent 55%),
-                  radial-gradient(circle at 80% 10%, rgba(34, 197, 94, 0.18), transparent 55%),
-                  var(--bg);
-      color: var(--text-main);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      color: var(--text-primary);
+      background:
+        radial-gradient(circle at top left, #052e16 0, transparent 55%),
+        radial-gradient(circle at 80% -10%, #22c55e33 0, transparent 55%),
+        radial-gradient(circle at bottom, #1e293b 0, #020617 55%);
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .shell {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    section {
+      padding: 72px 0;
+    }
+
+    h1, h2, h3, h4 {
+      margin: 0 0 0.5em;
+      letter-spacing: -0.03em;
+    }
+
+    p {
+      margin: 0 0 0.75em;
+      color: var(--text-soft);
       line-height: 1.6;
     }
 
-    /* HEADER */
-    header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  backdrop-filter: blur(14px);
-  background: linear-gradient(to right, #020617, #020617 55%, #020617);
-  border-bottom: 1px solid rgba(34, 197, 94, 0.4);
+    /* Simple “card rise” animation on hover */
+    .card {
+      border-radius: var(--radius-lg);
+      background: linear-gradient(145deg, #020617, #020b24);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      padding: 20px 20px 18px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.85);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
     }
 
- .nav {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 14px 18px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-}
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      border: 1px solid rgba(178, 255, 59, 0.06);
+      pointer-events: none;
+    }
 
-.logo-mark {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 26px 60px rgba(15, 23, 42, 1);
+      border-color: rgba(148, 163, 184, 0.7);
+    }
 
-/* Logo box with glow */
-.logo-img-wrap {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  overflow: hidden;
-  background: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(178, 255, 59, 0.9);
-  box-shadow: 0 0 18px rgba(178, 255, 59, 0.55);
-}
+    /* Soft glow animation for logo + main CTA */
+    @keyframes softGlow {
+      0%   { box-shadow: 0 0 0 rgba(178, 255, 59, 0.0); }
+      50%  { box-shadow: 0 0 22px rgba(178, 255, 59, 0.6); }
+      100% { box-shadow: 0 0 0 rgba(178, 255, 59, 0.0); }
+    }
 
-/* Control the actual logo image */
-.logo-img-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
+    @keyframes float {
+      0%   { transform: translateY(0);   }
+      50%  { transform: translateY(-6px);}
+      100% { transform: translateY(0);   }
+    }
 
-/* Smaller logo on phones */
-@media (max-width: 600px) {
-  .logo-img-wrap {
-    width: 32px;
-    height: 32px;
-  }
-  .logo-img-wrap img {
-    width: 32px;
-    height: 32px;
-  }
-}
+    /* HEADER + NAV  --------------------------------------------------- */
 
-.logo-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.2;
-}
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(to bottom, rgba(2, 6, 23, 0.94), rgba(2, 6, 23, 0.92));
+      border-bottom: 1px solid rgba(15, 23, 42, 1);
+    }
 
-.logo-title {
-  text-transform: uppercase;
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.16em;
-  color: #f9fafb;
-}
+    .nav {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 12px 1.5rem 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
 
-.logo-title span {
-  color: var(--accent-1);  /* bright green for GRAPPLE */
-}
-
-.logo-sub {
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-/* Nav links */
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  font-size: 13px;
-}
-
-/* Make header links NOT purple / underlined */
-header a {
-  color: #e5e7eb;
-  text-decoration: none;
-  opacity: 0.9;
-}
-
-header a:visited {
-  color: #e5e7eb;
-}
-
-header a:hover {
-  opacity: 1;
-}
-
-/* CTA buttons on the right */
-
-.nav-cta {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: nowrap;
-}
-
-.btn,
-.btn-outline {
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 600;
-  padding: 8px 16px;
-  border: 1px solid transparent;
-  text-decoration: none;
-  cursor: pointer;
-  white-space: nowrap;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-}
-
-/* Glowing green beta button */
-.btn {
-  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-  color: #020617;
-  box-shadow: 0 10px 25px rgba(34, 197, 94, 0.4);
-}
-
-.btn-outline {
-  border-color: rgba(148, 163, 184, 0.7);
-  color: #e5e7eb;
-  background: rgba(15, 23, 42, 0.8);
-}
-
-.btn:hover,
-.btn-outline:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.7);
-}
-
-.btn-outline:hover {
-  border-color: rgba(148, 163, 184, 1);
-}
-
-    /* LOGO */
-    .logo-group {
+    .brand {
       display: flex;
       align-items: center;
       gap: 12px;
     }
 
-  .logo-img {
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  overflow: hidden;
-}
-.logo-img-wrap img {
-  width: 42px;
-  height: 42px;
-  object-fit: contain;
-}
-    .logo-img-wrap {
-  width: 42px;
-  height: 42px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.logo-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-@media (max-width: 600px) {
-  .logo-img-wrap {
-    width: 32px;
-    height: 32px;
-  }
-  .logo-img-wrap img {
-    width: 32px;
-    height: 32px;
-  }
-    .logo-text {
+    .logo-block {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-square {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      background: #000;
+      border: 1px solid rgba(178, 255, 59, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: softGlow 4.6s ease-out infinite;
+    }
+
+    .logo-square img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+    }
+
+    .brand-text {
       display: flex;
       flex-direction: column;
-      line-height: 1.2;
+      line-height: 1.1;
     }
 
-    .logo-title {
-      font-size: 14px;
+    .brand-title {
+      font-size: 13px;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.15em;
+      color: var(--text-primary);
     }
 
-    .logo-title span {
+    .brand-title span {
       color: var(--accent-1);
     }
 
-    .logo-sub {
+    .brand-sub {
       font-size: 11px;
+      text-transform: none;
+      letter-spacing: 0.08em;
       color: var(--text-soft);
     }
 
-    /* NAV BUTTONS */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 14px;
+    }
+
+    .nav-links a {
+      color: #e5e7eb;
+      text-decoration: none;
+      opacity: 0.9;
+      position: relative;
+      padding-bottom: 2px;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+      transition: width 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      opacity: 1;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: nowrap;
+    }
+
     .btn,
     .btn-outline {
-      padding: 8px 16px;
-      border-radius: 999px;
-      border: 1px solid transparent;
+      border-radius: var(--radius-pill);
       font-size: 13px;
       font-weight: 600;
-      text-decoration: none;
-      transition: 0.2s;
+      padding: 8px 16px;
+      border: 1px solid transparent;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
+      gap: 6px;
       cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+      white-space: nowrap;
     }
 
     .btn {
       background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
       color: #020617;
+      box-shadow: 0 10px 26px rgba(34, 197, 94, 0.5);
+      animation: softGlow 4.6s ease-out infinite;
     }
 
     .btn-outline {
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.8);
+      background: rgba(15, 23, 42, 0.9);
       color: #e5e7eb;
+      border-color: rgba(148, 163, 184, 0.7);
     }
 
-    main {
-      max-width: 1120px;
-      margin: auto;
-      padding: 20px 18px 60px;
+    .btn:hover,
+    .btn-outline:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
     }
 
-    /* HERO */
-    .hero {
+    .btn-outline:hover {
+      border-color: rgba(148, 163, 184, 1);
+    }
+        /* HERO ------------------------------------------------------------ */
+
+    #hero {
+      padding: 80px 0 72px;
+    }
+
+    .hero-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 32px;
       align-items: center;
-      margin-top: 24px;
     }
 
-    .tagline {
-      display: flex;
-      gap: 8px;
+    .pill {
+      display: inline-flex;
       align-items: center;
+      gap: 8px;
       padding: 4px 12px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
       border-radius: 999px;
-      background: rgba(15, 23, 42, 0.6);
+      background: radial-gradient(circle at 0 0, rgba(34, 197, 94, 0.35), rgba(15, 23, 42, 0.95));
+      border: 1px solid rgba(148, 163, 184, 0.45);
       font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--text-soft);
+      letter-spacing: 0.13em;
+      color: #e5e7eb;
+      margin-bottom: 14px;
     }
 
-    .tag-dot {
-      width: 7px;
-      height: 7px;
-      background: var(--accent-3);
-      border-radius: 50%;
-      box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.25);
+    .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent-1);
+      box-shadow: 0 0 10px rgba(178, 255, 59, 0.7);
     }
 
-    h1 {
-      font-size: clamp(2.2rem, 4vw + 1rem, 3.3rem);
-      font-weight: 900;
-      line-height: 1.08;
-      margin-top: 16px;
-      margin-bottom: 10px;
+    .hero-title {
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      font-weight: 800;
+      margin-bottom: 0.4em;
     }
 
-    h1 span {
+    .hero-title span {
       color: var(--accent-1);
     }
-        .hero-sub {
-      font-size: 15px;
-      color: var(--text-soft);
-      max-width: 520px;
-    }
 
-    .hero-actions {
-      margin-top: 18px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+    .hero-lead {
+      max-width: 32rem;
+      font-size: 15px;
     }
 
     .hero-meta {
-      margin-top: 12px;
-      font-size: 12px;
-      color: var(--text-soft);
-    }
-
-    .hero-meta span {
-      color: var(--accent-3);
-      font-weight: 600;
-    }
-
-    /* HERO AI CARD */
-    .hero-card {
-      border-radius: var(--radius-xl);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      background: rgba(15, 23, 42, 0.96);
-      padding: 18px;
-      box-shadow: var(--shadow-soft);
-    }
-
-    .card-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: rgba(148, 163, 184, 0.9);
-      margin-bottom: 6px;
-    }
-
-    .card-title {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-
-    .card-title span {
-      color: var(--accent-1);
-    }
-
-    .metric-row {
+      margin-top: 16px;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(15, 23, 42, 0.7);
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      border-radius: 999px;
-      padding: 6px 10px;
-      margin-bottom: 8px;
-      font-size: 12px;
-    }
-
-    .metric-label {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .metric-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-    }
-
-    .metric-dot.good { background: var(--accent-3); }
-    .metric-dot.warn { background: #facc15; }
-    .metric-dot.bad  { background: var(--danger); }
-
-    .metric-value {
-      font-weight: 600;
-      font-size: 11px;
-      text-transform: uppercase;
-    }
-
-    .badge-strip {
-      display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
       gap: 8px;
-      margin-top: 10px;
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    .badge {
-      padding: 3px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      font-size: 10px;
-      text-transform: uppercase;
-    }
-
-    section {
-      margin-top: 48px;
-    }
-
-    .section-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--text-soft);
-      margin-bottom: 6px;
-    }
-
-    .section-heading {
-      font-size: 22px;
-      margin-bottom: 8px;
-    }
-
-    .section-heading span {
-      color: var(--accent-1);
-    }
-
-    .section-sub {
-      font-size: 14px;
-      color: var(--text-soft);
-      max-width: 640px;
-    }
-
-    /* FEATURES GRID */
-    .feature-grid {
-      margin-top: 20px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 16px;
-    }
-
-    .feature-card {
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      border-radius: var(--radius-lg);
-      padding: 14px;
-    }
-
-    .feature-tag {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: rgba(148, 163, 184, 0.9);
-      margin-bottom: 4px;
-    }
-
-    .feature-title {
-      font-size: 15px;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .feature-body {
       font-size: 13px;
       color: var(--text-soft);
     }
 
-    .feature-chip-row {
-      margin-top: 8px;
+    .hero-actions {
+      margin-top: 22px;
       display: flex;
       flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .hero-tagline {
+      font-size: 12px;
+      color: var(--accent-1);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-top: 16px;
+    }
+
+    .hero-right {
+      position: relative;
+    }
+
+    .hero-card {
+      animation: float 9s ease-in-out infinite;
+    }
+
+    .hero-metric-chip {
+      position: absolute;
+      right: 10%;
+      top: -10%;
+      padding: 8px 12px;
+      border-radius: 18px;
+      background: rgba(15, 23, 42, 0.94);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      font-size: 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+    }
+
+    .hero-metric-chip strong {
+      color: var(--accent-1);
+      font-size: 13px;
+    }
+
+    /* SECTION HEADINGS ------------------------------------------------ */
+
+    .section-kicker {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-soft);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: clamp(1.7rem, 2.4vw, 2.1rem);
+      margin-bottom: 12px;
+    }
+
+    .section-intro {
+      max-width: 34rem;
+      font-size: 14px;
+    }
+
+    /* FEATURES -------------------------------------------------------- */
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 26px;
+    }
+
+    .feature-label {
+      display: inline-flex;
+      align-items: center;
       gap: 6px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent-1);
+      margin-bottom: 8px;
     }
 
     .chip {
+      display: inline-flex;
+      align-items: center;
       padding: 3px 9px;
-      font-size: 11px;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      color: #e5e7eb;
-      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 11px;
+      color: var(--text-soft);
+      gap: 4px;
     }
 
-    /* HOW IT WORKS STEPS */
-    .step-list {
-      margin-top: 18px;
+    .chip-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent-1);
+    }
+
+    .card h3 {
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .pill-mini {
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(31, 41, 55, 1);
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    /* HOW IT WORKS ---------------------------------------------------- */
+
+    .how-grid {
       display: grid;
-      gap: 12px;
-      list-style: none;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr);
+      gap: 26px;
+      align-items: start;
     }
 
     .step {
       display: flex;
-      gap: 12px;
-      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 14px;
     }
 
-    .step-number {
+    .step-num {
       width: 22px;
       height: 22px;
-      border-radius: 50%;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 1);
       border: 1px solid rgba(148, 163, 184, 0.7);
+      font-size: 11px;
       display: flex;
       align-items: center;
       justify-content: center;
+      color: var(--accent-1);
+      flex-shrink: 0;
+    }
+
+    .step h4 {
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    .how-note {
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-top: 10px;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .tag {
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 1);
+      border: 1px solid rgba(31, 41, 55, 1);
       font-size: 11px;
-      font-weight: 600;
-    }
-
-    .step-content {
-      font-size: 13px;
       color: var(--text-soft);
     }
 
-    .step-content strong {
-      color: #e5e7eb;
-    }
-        /* APP DEMO SECTION */
-    .app-layout {
-      margin-top: 22px;
+    /* DASHBOARD / APP PREVIEW ---------------------------------------- */
+
+    .dashboard-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr);
-      gap: 18px;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: 26px;
+      align-items: center;
     }
 
-    .app-card {
-      background: rgba(15, 23, 42, 0.96);
-      border-radius: var(--radius-xl);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      padding: 16px;
-      box-shadow: var(--shadow-soft);
+    .dash-meta {
       font-size: 13px;
+    }
+
+    .dash-meta ul {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0 0;
+    }
+
+    .dash-meta li {
+      margin-bottom: 6px;
       color: var(--text-soft);
     }
 
-    .app-header {
+    .dash-meta li::before {
+      content: "• ";
+      color: var(--accent-1);
+    }
+
+    .dash-screen {
+      position: relative;
+      background: radial-gradient(circle at top left, #0f172a, #020617);
+      border-radius: 26px;
+      border: 1px solid rgba(30, 64, 175, 0.85);
+      padding: 16px 16px 18px;
+      box-shadow: 0 28px 70px rgba(15, 23, 42, 1);
+    }
+
+    .dash-topbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 10px;
-    }
-
-    .app-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: #e5e7eb;
-    }
-
-    .app-pill {
-      padding: 2px 8px;
-      border-radius: 999px;
-      border: 1px solid var(--accent-1);
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .app-upload {
-      border-radius: 12px;
-      border: 1px dashed rgba(148, 163, 184, 0.7);
-      padding: 12px;
-      margin-bottom: 10px;
-      background: rgba(15, 23, 42, 0.9);
-    }
-
-    .app-field-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: rgba(148, 163, 184, 0.9);
-      margin-bottom: 4px;
-    }
-
-    .app-input-row {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 6px;
-    }
-
-    .app-input-fake {
-      flex: 1;
-      min-width: 120px;
-      padding: 6px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      font-size: 12px;
-      color: rgba(148, 163, 184, 0.9);
-    }
-
-    .app-chip-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 8px;
       font-size: 11px;
       color: var(--text-soft);
     }
 
-    .app-side {
+    .dot-row {
+      display: inline-flex;
+      gap: 4px;
+    }
+
+    .dot-row span {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.6);
+    }
+
+    .dot-row span:first-child {
+      background: #ef4444;
+    }
+    .dot-row span:nth-child(2) {
+      background: #fbbf24;
+    }
+    .dot-row span:nth-child(3) {
+      background: #22c55e;
+    }
+
+    .dash-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 10px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .dash-col {
+      border-radius: 18px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(30, 64, 175, 0.5);
+      padding: 10px;
+    }
+
+    .dash-col h4 {
+      font-size: 12px;
+      margin-bottom: 6px;
+      color: var(--text-primary);
+    }
+
+    .mini-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .mini-pill {
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(22, 163, 74, 0.25);
+      color: var(--accent-1);
+      font-size: 10px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 1);
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 72%;
+      background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+    }
+
+    /* PRICING --------------------------------------------------------- */
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 26px;
+    }
+
+    .price-tag {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .price-tag span {
       font-size: 13px;
       color: var(--text-soft);
-      background: rgba(15, 23, 42, 0.9);
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      padding: 14px;
+      font-weight: 500;
     }
 
-    .app-side ul {
-      margin-top: 6px;
-      padding-left: 16px;
-    }
-
-    .app-side li {
-      margin-bottom: 4px;
-    }
-
-    @media (max-width: 860px) {
-      .app-layout {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-        /* PRICING SECTION */
-    .pricing-layout {
-      margin-top: 22px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr);
-      gap: 18px;
-    }
-
-    .pricing-card {
-      background: rgba(15, 23, 42, 0.96);
-      border-radius: var(--radius-xl);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      padding: 18px;
-      box-shadow: var(--shadow-soft);
-    }
-
-    .pricing-pill {
+    .price-note {
       font-size: 11px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--accent-1);
-      color: #e5e7eb;
+      color: var(--text-soft);
+      margin-bottom: 10px;
+    }
+
+    .price-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px;
+      font-size: 13px;
+    }
+
+    .price-list li {
+      margin-bottom: 6px;
+      color: var(--text-soft);
+    }
+
+    .price-list li::before {
+      content: "✓ ";
+      color: var(--accent-1);
+    }
+
+    /* FOUNDER --------------------------------------------------------- */
+
+    .founder-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 26px;
+      align-items: start;
+    }
+
+    .founder-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      margin-bottom: 10px;
-      background: rgba(15, 23, 42, 0.9);
-    }
-
-    .pricing-main {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .pricing-note {
-      font-size: 12px;
-      color: var(--text-soft);
-      margin-bottom: 10px;
-    }
-
-    .pricing-ul {
-      list-style: none;
-      font-size: 13px;
-      color: var(--text-soft);
-    }
-
-    .pricing-ul li {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 6px;
-    }
-
-    .pricing-ul li::before {
-      content: "•";
-      color: var(--accent-3);
-    }
-
-    .secondary-card {
-      background: rgba(15, 23, 42, 0.9);
-      border-radius: var(--radius-lg);
-      border: 1px dashed rgba(148, 163, 184, 0.5);
-      padding: 14px;
-      font-size: 13px;
-      color: var(--text-soft);
-    }
-
-    /* DASHBOARD MOCKUP */
-    .dashboard-layout {
-      margin-top: 22px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr);
-      gap: 18px;
-    }
-
-    .dashboard-card {
-      background: rgba(15, 23, 42, 0.98);
-      border-radius: var(--radius-xl);
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      padding: 16px;
-      box-shadow: var(--shadow-soft);
-    }
-
-    .dash-header {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-    }
-
-    .dash-title {
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    .dash-pill {
-      font-size: 10px;
-      padding: 2px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      color: var(--text-soft);
-    }
-
-    .dash-tabs {
-      display: flex;
-      gap: 8px;
-      font-size: 11px;
-      margin-bottom: 10px;
-    }
-
-    .dash-tab {
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(31, 41, 55, 0.9);
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--text-soft);
-    }
-
-    .dash-tab.active {
-      border-color: var(--accent-1);
-      color: #e5e7eb;
-    }
-
-    .dash-body {
-      background: rgba(15, 23, 42, 0.98);
-      padding: 10px;
-      border-radius: 14px;
-      border: 1px solid rgba(31, 41, 55, 0.8);
-    }
-
-    .dash-row {
-      display: flex;
-      justify-content: space-between;
-      border-bottom: 1px dashed rgba(31, 41, 55, 0.7);
-      padding: 6px 0;
-    }
-
-    .dash-row:last-child {
-      border-bottom: none;
-    }
-
-    .dash-left {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .dash-name {
-      font-size: 11px;
-      font-weight: 600;
-    }
-
-    .dash-sub {
-      font-size: 10px;
-      color: var(--text-soft);
-    }
-
-    .dash-tag {
-      padding: 2px 7px;
-      border-radius: 999px;
-      font-size: 10px;
-      border: 1px solid var(--accent-2);
-      background: rgba(22, 163, 74, 0.15);
-      color: #bbf7d0;
-    }
-
-    .dash-tag.warn {
-      border-color: #facc15;
-      background: rgba(250, 204, 21, 0.15);
-      color: #fef9c3;
-    }
-
-    /* PARTNER CARD */
-    .partner-card {
-      background: rgba(15, 23, 42, 0.9);
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      padding: 14px;
-      font-size: 13px;
-      color: var(--text-soft);
-    }
-
-    .partner-label {
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(148, 163, 184, 0.96);
-      margin-bottom: 4px;
-    }
-
-    .partner-name {
-      font-size: 15px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .partner-pill {
       padding: 3px 9px;
       border-radius: 999px;
-      border: 1px solid var(--accent-1);
-      font-size: 10px;
+      background: rgba(15, 23, 42, 1);
+      border: 1px solid rgba(31, 41, 55, 1);
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 10px;
+    }
+
+    .quote {
+      font-size: 14px;
+      font-style: italic;
       color: #e5e7eb;
-      margin-top: 6px;
-      text-transform: uppercase;
-      background: rgba(15, 23, 42, 0.9);
+      border-left: 2px solid rgba(148, 163, 184, 0.6);
+      padding-left: 12px;
+      margin-top: 10px;
     }
 
-    /* FAQ GRID */
-    .faq-grid {
-      margin-top: 20px;
+    /* BETA FORM ------------------------------------------------------- */
+
+    .beta-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: 26px;
+      align-items: start;
     }
 
-    .faq-item {
-      background: rgba(15, 23, 42, 0.9);
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      padding: 14px;
+    form {
+      display: grid;
+      gap: 10px;
       font-size: 13px;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
       color: var(--text-soft);
     }
 
-    .faq-item h4 {
-      color: #e5e7eb;
-      font-size: 14px;
-      margin-bottom: 4px;
-    }
-
-    /* FOUNDER SECTION */
-    .founder-grid {
-      margin-top: 20px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-      gap: 18px;
-    }
-
-    .contact-box {
-      background: rgba(15, 23, 42, 0.96);
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--accent-1);
-      padding: 18px;
-      margin-top: 30px;
-      display: grid;
-      gap: 12px;
-    }
-
-    .waitlist-form {
-      display: grid;
-      gap: 10px;
-      margin-top: 8px;
-    }
-
-    .waitlist-form input,
-    .waitlist-form textarea {
-      width: 100%;
-      padding: 8px 10px;
-      border-radius: 10px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.9);
-      color: #e5e7eb;
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+      border-radius: 14px;
+      border: 1px solid rgba(31, 41, 55, 1);
+      background: rgba(15, 23, 42, 0.94);
+      padding: 7px 10px;
+      color: var(--text-primary);
       font-size: 13px;
+      resize: vertical;
+      min-height: 34px;
     }
 
-    .waitlist-form button {
-      width: fit-content;
-      justify-content: center;
+    textarea {
+      min-height: 70px;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(148, 163, 184, 0.7);
+    }
+
+    .form-row-inline {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .small-text {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-top: 6px;
+    }
+
+    /* CONTACT + FOOTER ----------------------------------------------- */
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 26px;
+      align-items: start;
+      font-size: 13px;
     }
 
     footer {
-      margin-top: 40px;
-      padding: 16px;
-      border-top: 1px solid rgba(148, 163, 184, 0.3);
+      border-top: 1px solid rgba(15, 23, 42, 1);
+      padding: 18px 0 26px;
       font-size: 11px;
       color: var(--text-soft);
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
+      text-align: center;
     }
 
-    @media (max-width: 860px) {
-      .hero {
-        grid-template-columns: 1fr;
+    /* RESPONSIVE ------------------------------------------------------ */
+
+    @media (max-width: 960px) {
+      .hero-grid,
+      .features-grid,
+      .how-grid,
+      .dashboard-grid,
+      .pricing-grid,
+      .founder-layout,
+      .beta-grid,
+      .contact-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .features-grid,
+      .pricing-grid {
+        gap: 14px;
+      }
+
+      .hero-right {
+        order: -1;
+      }
+    }
+
+    @media (max-width: 720px) {
+      header {
+        position: sticky;
+      }
+
+      .nav {
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 10px 14px;
       }
 
       .nav-links {
-        display: none;
+        order: 3;
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 12px;
+        font-size: 13px;
       }
 
-      .pricing-layout,
-      .dashboard-layout,
-      .founder-grid {
-        grid-template-columns: 1fr;
+      .nav-cta {
+        order: 2;
+      }
+
+      .logo-square {
+        width: 34px;
+        height: 34px;
+      }
+
+      .logo-square img {
+        width: 26px;
+        height: 26px;
+      }
+
+      #hero {
+        padding-top: 64px;
+      }
+
+      section {
+        padding: 56px 0;
       }
     }
   </style>
 </head>
-
 <body>
 
-<header>
-  <div class="nav">
-    <div class="logo-mark">
-      <div class="logo-img-wrap">
-    <img src="C34AC1C6-9F2E-47D6-9F12-BE7553FC1B8B.png" alt="IgniteGrapple logo">
-</div>
-      </div>
-      <div class="logo-text">
-        <div class="logo-title">IGNITE<span>GRAPPLE</span></div>
-        <div class="logo-sub">AI-Powered Wrestling Coach</div>
-      </div>
-    </div>
-
-    <div class="nav-links">
-      <a href="#features">Features</a>
-      <a href="#how">How it works</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#dashboard">Dashboard</a>
-      <a href="#founder">Founder</a>
-      <a href="#beta">Join</a>
-    </div>
-
-    <div class="nav-cta">
-      <a href="#beta" class="btn">Join beta</a>
-      <a href="#contact" class="btn-outline"><small>Contact</small></a>
-    </div>
-  </div>
-</header>
-<main>
-
-  <!-- HERO SECTION -->
-  <section class="hero" id="top">
-    <div class="animate-fade-up">
-      <div class="tagline">
-        <span class="tag-dot"></span>
-        Built for real wrestling rooms
-      </div>
-
-      <h1>
-        Turn every practice into a
-        <span>championship-level session.</span>
-      </h1>
-
-      <p class="hero-sub">
-        <strong>IgniteGrapple</strong> is an AI assistant coach that breaks down your film,
-        tracks athlete progress, and builds smarter training plans for your club, team,
-        private lessons, or off-season training — without you spending all night on notes.
-      </p>
-
-      <div class="hero-actions">
-        <a href="#beta" class="btn">Get early access</a>
-        <a href="#features" class="btn-outline">See what it does</a>
-      </div>
-
-      <p class="hero-meta">
-        <span>Coach-first platform.</span> Designed for youth, HS, private rooms, and competitive clubs.
-      </p>
-    </div>
-
-    <!-- HERO RIGHT CARD -->
-    <aside class="hero-card animate-float animate-fade-up delay-1">
-      <div class="card-label">Live example · Practice breakdown</div>
-
-      <div class="card-title">
-        HS 152 lbs · Single-leg series <span>film review</span>
-      </div>
-
-      <div class="metric-row">
-        <div class="metric-label">
-          <span class="metric-dot good"></span>
-          Hip drive
-        </div>
-        <div class="metric-value">ON POINT</div>
-      </div>
-
-      <div class="metric-row">
-        <div class="metric-label">
-          <span class="metric-dot warn"></span>
-          Head position
-        </div>
-        <div class="metric-value">FIX NEXT</div>
-      </div>
-
-      <div class="metric-row">
-        <div class="metric-label">
-          <span class="metric-dot bad"></span>
-          Finish choices
-        </div>
-        <div class="metric-value">MISSED 3</div>
-      </div>
-
-      <p class="metric-note">
-        Recommendation: When opponent sprawls heavy, keep your head tight to the ribs,
-        switch to a dump finish, and circle away from their whizzer hand.
-      </p>
-
-      <div class="badge-strip">
-        <span class="badge">Auto-tags attempts & finishes</span>
-        <span class="badge">Exports coach notes</span>
-      </div>
-    </aside>
-  </section>
-
-  <!-- FEATURES SECTION -->
-  <section id="features" class="animate-fade-up delay-1">
-    <div class="section-label">Why IgniteGrapple</div>
-
-    <h2 class="section-heading">
-      What IgniteGrapple <span>helps you do</span>
-    </h2>
-
-    <p class="section-sub">
-      This isn’t generic “sports AI.” IgniteGrapple is tuned for real wrestling rooms –
-      hand-fighting, chain wrestling, mat returns, neutral attacks, and bottom urgency.
-    </p>
-
-    <div class="feature-grid">
-
-      <article class="feature-card">
-        <div class="feature-tag">Film → Feedback</div>
-        <h3 class="feature-title">Break down practice in minutes.</h3>
-        <p class="feature-body">
-          Upload practice or match clips and get position-based breakdowns:
-          shot setups, finishes, transitions, mat returns, scrambles, and escapes.
-        </p>
-        <div class="feature-chip-row">
-          <span class="chip">Auto-tag attempts</span>
-          <span class="chip">Positional analysis</span>
-        </div>
-      </article>
-
-      <article class="feature-card">
-        <div class="feature-tag">Smart training</div>
-        <h3 class="feature-title">Custom training plans.</h3>
-        <p class="feature-body">
-          AI generates weekly or athlete-specific training plans, based on the film.
-        </p>
-        <div class="feature-chip-row">
-          <span class="chip">Youth · HS · College</span>
-          <span class="chip">Live-go sequences</span>
-        </div>
-      </article>
-
-      <article class="feature-card">
-        <div class="feature-tag">Clear communication</div>
-        <h3 class="feature-title">Send progress reports.</h3>
-        <p class="feature-body">
-          Export PDF summaries for parents/athletes: what they improved,
-          what's next, and where they need focus.
-        </p>
-        <div class="feature-chip-row">
-          <span class="chip">Progress snapshots</span>
-          <span class="chip">Club-branded PDFs</span>
-        </div>
-      </article>
-
-      <article class="feature-card">
-        <div class="feature-tag">New income streams</div>
-        <h3 class="feature-title">Turn your coaching into revenue.</h3>
-        <p class="feature-body">
-          Package your systems into digital products, online courses, memberships,
-          or premium athlete development programs.
-        </p>
-        <div class="feature-chip-row">
-          <span class="chip">Digital clinics</span>
-          <span class="chip">Paid memberships</span>
-        </div>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section id="how" class="animate-fade-up delay-2">
-
-    <div class="section-label">Workflow</div>
-
-    <h2 class="section-heading">
-      How IgniteGrapple <span>fits into your week</span>
-    </h2>
-
-    <p class="section-sub">
-      No new tech stack. Just your phone, your room, your athletes.
-    </p>
-
-    <ol class="step-list">
-
-      <li class="step">
-        <div class="step-number">1</div>
-        <div class="step-content">
-          <strong>Record practice or matches.</strong><br>
-          Phone, tablet, or camera. No special angles needed.
-        </div>
-      </li>
-
-      <li class="step">
-        <div class="step-number">2</div>
-        <div class="step-content">
-          <strong>Upload to IgniteGrapple.</strong><br>
-          AI tags attempts, positions, finishes, escapes, and bad habits.
-        </div>
-      </li>
-
-      <li class="step">
-        <div class="step-number">3</div>
-        <div class="step-content">
-          <strong>Review insights.</strong><br>
-          Patterns, mistakes, technical weaknesses, effort tracking, and urgency.
-        </div>
-      </li>
-
-      <li class="step">
-        <div class="step-number">4</div>
-        <div class="step-content">
-          <strong>Generate training plans.</strong><br>
-          Daily or weekly workouts based on your room’s actual performance.
-        </div>
-      </li>
-
-      <li class="step">
-        <div class="step-number">5</div>
-        <div class="step-content">
-          <strong>Send progress reports.</strong><br>
-          Parents love it. Athletes understand it. Coaches save hours.
-        </div>
-      </li>
-
-    </ol>
-
-  </section>
-    <!-- APP DEMO / BETA EXPERIENCE -->
-  <section id="app-demo" class="animate-fade-up delay-2">
-    <div class="section-label">Beta app experience</div>
-
-    <h2 class="section-heading">
-      What coaches will <span>actually use</span> inside IgniteGrapple
-    </h2>
-
-    <p class="section-sub">
-      This is a preview of how the early beta version of the app will feel:
-      upload film, select athletes, and let AI build breakdowns and training focuses.
-      (The live product will sit behind a secure coach login.)
-    </p>
-
-    <div class="app-layout">
-
-      <!-- Left: App-style card -->
-      <div class="app-card">
-        <div class="app-header">
-          <div class="app-title">IgniteGrapple · Beta Coach App</div>
-          <div class="app-pill">DEMO VIEW</div>
-        </div>
-
-        <div class="app-upload">
-          <div class="app-field-label">Upload practice / match film</div>
-          <div class="app-input-row">
-            <div class="app-input-fake">Choose file… (video.mp4)</div>
-            <button type="button" class="btn" style="font-size:11px;padding:6px 10px;">
-              Upload
-            </button>
+  <!-- HEADER -------------------------------------------------------- -->
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <div class="logo-block">
+          <div class="logo-square">
+            <img src="C34AC1C6-9F2E-47D6-9F12-BE7553FC1B8B.png" alt="IgniteGrapple logo" />
           </div>
-          <div class="app-chip-row">
-            <span class="chip">Practice – Live goes</span>
-            <span class="chip">Varsity room</span>
-            <span class="chip">Neutral focus</span>
+          <div class="brand-text">
+            <div class="brand-title">IGNITE<span>GRAPPLE</span></div>
+            <div class="brand-sub">AI-Powered Wrestling Coach</div>
           </div>
         </div>
-
-        <div style="margin-top:10px;">
-          <div class="app-field-label">Tag athletes</div>
-          <div class="app-input-row">
-            <div class="app-input-fake">Example: 152 – Rivera · 126 – Harris · 138 – Lee</div>
-          </div>
-        </div>
-
-        <div style="margin-top:12px;">
-          <div class="app-field-label">AI suggestions (preview)</div>
-          <ul style="margin-top:6px;padding-left:16px;font-size:12px;">
-            <li>Rivera: Improve finish choices off single legs under heavy sprawl.</li>
-            <li>Harris: Increase bottom urgency first 10 seconds.</li>
-            <li>Lee: Add leg attacks from motion instead of waiting on ties.</li>
-          </ul>
-        </div>
       </div>
 
-      <!-- Right: How beta will work -->
-      <aside class="app-side">
-        <strong>How beta coaches will use the app:</strong>
-        <ul>
-          <li><strong>1.</strong> Film practices or matches on your phone.</li>
-          <li><strong>2.</strong> Upload clips to the IgniteGrapple coach app.</li>
-          <li><strong>3.</strong> Tag athletes, weight classes, or groups.</li>
-          <li><strong>4.</strong> Review AI breakdowns and edit where needed.</li>
-          <li><strong>5.</strong> One tap → build practice plans and progress reports.</li>
-        </ul>
+      <nav class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#how">How it works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#founder">Founder</a>
+        <a href="#beta">Join</a>
+      </nav>
 
-        <p style="margin-top:8px;">
-          As a beta partner, you’ll help decide what shows up here first —
-          more film tools, more athlete tracking, or more plan templates.
-        </p>
-      </aside>
-
-    </div>
-  </section>
-    <!-- PRICING / VALUE SECTION -->
-  <section id="pricing" class="animate-fade-up delay-2">
-    <div class="section-label">For clubs & private rooms</div>
-
-    <h2 class="section-heading">
-      Built for serious programs — <span>priced like a tool, not a headache.</span>
-    </h2>
-
-    <p class="section-sub">
-      During the beta we’re working closely with a small group of wrestling clubs,
-      high schools, and private coaches to shape pricing and features based on
-      real room needs.
-    </p>
-
-    <div class="pricing-layout">
-
-      <div class="pricing-card">
-        <div class="pricing-pill">Early access · Limited slots</div>
-
-        <div class="pricing-main">
-          Beta partner pricing starts at a club-friendly rate.
-        </div>
-
-        <div class="pricing-note">
-          Founding programs lock in permanent discounted pricing.
-        </div>
-
-        <ul class="pricing-ul">
-          <li>Coach dashboard for managing athletes and film.</li>
-          <li>Monthly breakdown quota scaled to room size.</li>
-          <li>Custom onboarding based on your training system.</li>
-          <li>Tools to monetize with digital camps/courses.</li>
-        </ul>
+      <div class="nav-cta">
+        <a href="#beta" class="btn">Join beta</a>
+        <a href="#contact" class="btn-outline">Contact</a>
       </div>
-
-      <aside class="secondary-card">
-        <strong>Who this is for:</strong><br>
-        • Youth clubs wanting stronger feedback.<br>
-        • High school programs chasing titles & college looks.<br>
-        • Private coaches wanting to scale their time.<br><br>
-        If you already break down film weekly, IgniteGrapple saves you hours.
-      </aside>
-
     </div>
-  </section>
+  </header>
 
-  <!-- COACH DASHBOARD MOCKUP SECTION -->
-  <section id="dashboard" class="animate-fade-up delay-2">
-
-    <div class="section-label">Coach dashboard</div>
-
-    <h2 class="section-heading">
-      What the <span>coach view</span> looks like
-    </h2>
-
-    <p class="section-sub">
-      A clean dashboard that keeps your room’s athletes, film, and focus areas organized —
-      no more scattered notes apps, text threads, and whiteboards.
-    </p>
-
-    <div class="dashboard-layout">
-
-      <!-- Dashboard UI Mock -->
-      <div class="dashboard-card animate-float">
-        <div class="dash-header">
-          <div class="dash-title">IgniteGrapple • Coach Dashboard</div>
-          <div class="dash-pill">BETA VIEW</div>
-        </div>
-
-        <div class="dash-tabs">
-          <div class="dash-tab active">Athletes</div>
-          <div class="dash-tab">Film</div>
-          <div class="dash-tab">Plans</div>
-          <div class="dash-tab">Reports</div>
-        </div>
-
-        <div class="dash-body">
-
-          <div class="dash-row">
-            <div class="dash-left">
-              <span class="dash-name">152 — J. Rivera</span>
-              <span class="dash-sub">Aggressive neutral • needs cleaner finishes</span>
-            </div>
-            <span class="dash-tag">FINISHES</span>
-          </div>
-
-          <div class="dash-row">
-            <div class="dash-left">
-              <span class="dash-name">126 — T. Harris</span>
-              <span class="dash-sub">Great motion • struggles on bottom</span>
-            </div>
-            <span class="dash-tag warn">ESCAPES</span>
-          </div>
-
-          <div class="dash-row">
-            <div class="dash-left">
-              <span class="dash-name">138 — K. Lee</span>
-              <span class="dash-sub">Strong rider • needs more leg attacks</span>
-            </div>
-            <span class="dash-tag">ATTACK RATE</span>
-          </div>
-
-          <div class="dash-row">
-            <div class="dash-left">
-              <span class="dash-name">Team View</span>
-              <span class="dash-sub">Weekly focus: mat returns, attacks, urgency</span>
-            </div>
-            <span class="dash-tag">ROOM FOCUS</span>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Partner Program Section -->
-      <aside class="partner-card">
-        <div class="partner-label">Featured Beta Partner</div>
-
-        <div class="partner-name">Future Champs of Dallas</div>
-
-        <p>
-          Future Champs of Dallas represents the perfect example of who IgniteGrapple is built for —
-          talented athletes, dedicated coaches, and a competitive culture that wants every edge.
-        </p>
-
-        <p style="margin-top: 8px;">
-          As one of the first beta partners, they help shape real-world athlete tracking,
-          practice intensity scoring, match performance insights, and development planning.
-        </p>
-
-        <div class="partner-pill">
-          Future Champs of Dallas • Beta Partner
-        </div>
-      </aside>
-
-    </div>
-  </section>
-    <!-- FOUNDER & VISION -->
-  <section id="founder" class="animate-fade-up delay-3">
-    <div class="section-label">Founder & vision</div>
-
-    <h2 class="section-heading">
-      Who’s behind <span>IgniteGrapple?</span>
-    </h2>
-
-    <p class="section-sub">
-      IgniteGrapple is built by someone who actually lived the grind — low-income background,
-      late-blooming wrestler, state champ, and first NCAA All-American for his college.
-    </p>
-
-    <div class="founder-grid">
-
-      <!-- Founder Story -->
-      <article class="feature-card">
-        <div class="feature-tag">Founder</div>
-        <h3 class="feature-title">Kevin Almond, MBA – Founder & Builder of IgniteGrapple</h3>
-
-        <p class="feature-body">
-          Kevin grew up without traditional resources — no private rooms, no expensive camps,
-          using carpet patterns and yard space to drill motion and stance. He started wrestling
-          JV in 8th grade, made the state finals from 10th–12th grade, and became a state champion
-          his senior year.
-        </p>
-
-        <p class="feature-body" style="margin-top: 8px;">
-          In college, he became the <strong>first NCAA All-American in school history</strong> for Emmanuel College
-          and the first All-American across all sports once the program was accepted into NCAA D2.
-          He was later inducted into a wrestling hall of fame organization for that achievement.
-        </p>
-
-        <p class="feature-body" style="margin-top: 8px;">
-          After navigating relationship stress, becoming a single dad, and doubling down on education,
-          Kevin earned his <strong>MBA</strong> and started building systems that combine mindset, structure,
-          and technology for athletes and coaches.
-        </p>
-
-        <div class="feature-chip-row">
-          <span class="chip">State champion wrestler</span>
-          <span class="chip">First NCAA All-American – Emmanuel</span>
-          <span class="chip">MBA – Strategy & Systems</span>
-          <span class="chip">Coach & builder</span>
-        </div>
-      </article>
-
-      <!-- Vision Card -->
-      <article class="feature-card">
-        <div class="feature-tag">Vision</div>
-        <h3 class="feature-title">Why IgniteGrapple exists</h3>
-
-        <p class="feature-body">
-          Most wrestling coaches are doing 10 jobs with 1 paycheck: practice planning, film review,
-          parent communication, recruiting help, mindset work, and fundraising. IgniteGrapple is built to:
-        </p>
-
-        <ul class="pricing-ul" style="margin-top: 8px;">
-          <li>Turn film and practice effort into usable, trackable data.</li>
-          <li>Give athletes clear feedback instead of vague “work harder.”</li>
-          <li>Help coaches build new income streams from their knowledge.</li>
-          <li>Protect the culture of the room while using real technology.</li>
-        </ul>
-
-        <p class="feature-body" style="margin-top: 8px;">
-          The long-term vision is simple: wrestling coaches worldwide plug into IgniteGrapple to make
-          their rooms sharper, their time more effective, and their athletes more prepared — mentally
-          and physically.
-        </p>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- FAQ SECTION -->
-  <section class="animate-fade-up delay-3">
-    <div class="section-label">Questions</div>
-
-    <h2 class="section-heading">
-      What coaches usually ask first
-    </h2>
-
-    <div class="faq-grid">
-
-      <article class="faq-item">
-        <h4>Is this 100% online and AI-powered?</h4>
-        <p>
-          Yes. IgniteGrapple is a digital platform. You film practice/matches, upload,
-          and the AI handles the first layer of breakdown. You approve, adjust, and decide
-          what goes to your athletes.
-        </p>
-      </article>
-
-      <article class="faq-item">
-        <h4>Do I need special cameras or software?</h4>
-        <p>
-          No. Your current phone or tablet is enough. This is built to fit into real-life
-          wrestling rooms, not polished studio setups.
-        </p>
-      </article>
-
-      <article class="faq-item">
-        <h4>Will this replace real coaching?</h4>
-        <p>
-          No. IgniteGrapple is built to make good coaches more dangerous — by reducing the
-          time spent on repetitive breakdowns and admin work so you can coach live.
-        </p>
-      </article>
-
-      <article class="faq-item">
-        <h4>What does “beta” actually mean?</h4>
-        <p>
-          Beta means the product is actively being built with early partners. You get
-          discounted pricing, direct access to the builder, influence on feature priorities,
-          and a chance to shape how this looks for wrestling long-term.
-        </p>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- BETA / CONTACT / WAITLIST -->
-  <section id="beta" class="animate-fade-up delay-3">
-    <div class="section-label">Join the beta</div>
-
-    <h2 class="section-heading">
-      Want IgniteGrapple in your room first?
-    </h2>
-
-    <p class="section-sub">
-      We’re hand-selecting a small group of clubs, high school programs, and private coaches
-      to be part of the first IgniteGrapple rollout. If you care about development, mindset,
-      and structure — you’re who we want to hear from.
-    </p>
-
-    <div class="contact-box" id="contact">
-
-      <p>
-        <strong>Option 1 — Email directly.</strong><br>
-        Send a short intro to <strong>1ignitegrapple@gmail.com</strong> with:
-      </p>
-
-      <ul class="pricing-ul" style="margin-top: 6px;">
-        <li>Your name and coaching role.</li>
-        <li>Club / school / program and city (Ex: Future Champs of Dallas).</li>
-        <li>Approximate number of athletes you work with.</li>
-        <li>One problem you want solved (film, training plans, communication, etc.).</li>
-      </ul>
-
-      <p style="margin-top: 10px;">
-        <strong>Option 2 — Quick waitlist form.</strong><br>
-        This form sends straight to the IgniteGrapple inbox so we can follow up.
-      </p>
-
-      <form class="waitlist-form"
-            action="mailto:1ignitegrapple@gmail.com"
-            method="POST"
-            enctype="text/plain">
+  <!-- HERO ---------------------------------------------------------- -->
+  <main>
+    <section id="hero">
+      <div class="shell hero-grid">
         <div>
-          <label for="name" style="font-size:11px;text-transform:uppercase;letter-spacing:0.11em;">Name</label>
-          <input id="name" name="Name" type="text" placeholder="Your name" required>
+          <div class="pill">
+            <span class="pill-dot"></span>
+            BUILT FOR REAL WRESTLING ROOMS
+          </div>
+
+          <h1 class="hero-title">
+            Turn every practice into a <span>championship-level</span> session.
+          </h1>
+
+          <p class="hero-lead">
+            IgniteGrapple is an AI assistant coach that breaks down your film,
+            tracks athlete progress, and builds smarter training plans for your club,
+            team, or private room — without you spending all night on notes.
+          </p>
+
+          <div class="hero-meta">
+            <div>Coach-first platform. Designed for youth, high school, and college wrestling.</div>
+            <div>Run by a former state champ and NCAA All-American who lived the grind.</div>
+          </div>
+
+          <div class="hero-actions">
+            <a href="#beta" class="btn">Get early access</a>
+            <a href="#dashboard" class="btn-outline">See sample dashboard</a>
+          </div>
+
+          <div class="hero-tagline">
+            Less busy-work. More mat time. Better results.
+          </div>
         </div>
 
-        <div>
-          <label for="role" style="font-size:11px;text-transform:uppercase;letter-spacing:0.11em;">Role / Program</label>
-          <input id="role" name="Role / Program" type="text" placeholder="Head coach, assistant, private coach, etc." required>
+        <div class="hero-right">
+          <div class="card hero-card">
+            <div class="hero-metric-chip">
+              <span>Room impact snapshot</span>
+              <strong>+29% more scoring attempts</strong>
+              <span>over the last 6 weeks</span>
+            </div>
+
+            <h3 style="font-size:13px; margin-bottom:6px;">Tonight’s live-go focus – HS 152 lbs room</h3>
+            <p style="font-size:12px;">
+              IgniteGrapple suggests <strong>3-shot chains</strong> off your single:
+              misdirection → re-attack → go-behind. Film tags show your athletes
+              struggle most when opponents sprawl heavy.
+            </p>
+
+            <div class="pill-row">
+              <span class="pill-mini">🔥 Auto-tag attempts &amp; finishes</span>
+              <span class="pill-mini">🎯 Position-based notes</span>
+              <span class="pill-mini">📊 Coach summary export</span>
+            </div>
+          </div>
         </div>
-
-        <div>
-          <label for="email" style="font-size:11px;text-transform:uppercase;letter-spacing:0.11em;">Best contact email</label>
-          <input id="email" name="Contact email" type="email" placeholder="you@example.com" required>
-        </div>
-
-        <div>
-          <label for="challenge" style="font-size:11px;text-transform:uppercase;letter-spacing:0.11em;">Biggest challenge</label>
-          <textarea id="challenge" name="Biggest challenge" rows="3"
-            placeholder="Example: I don’t have time to break down film for every athlete each week."></textarea>
-        </div>
-
-        <button type="submit" class="btn">
-          Join the waitlist
-        </button>
-
-        <p style="font-size:11px;color:rgba(226,232,240,0.85);">
-          Submitting will open your email app and send this info directly to IgniteGrapple.
-        </p>
-      </form>
-
-      <p style="margin-top: 10px;">
-        <strong>Option 3 — Book time through Google Calendar.</strong><br>
-        Use Google Calendar to propose a time to talk about how IgniteGrapple could fit your room.
-      </p>
-
-      <div class="contact-actions" style="display:flex;flex-wrap:wrap;gap:8px;">
-        <a href="mailto:1ignitegrapple@gmail.com?subject=IgniteGrapple%20Beta%20Inquiry"
-           class="btn">
-          Email to join beta
-        </a>
-
-        <!-- Later you can replace this with a Google Appointment Schedule link -->
-        <a href="https://calendar.google.com" target="_blank" rel="noopener" class="btn-outline">
-          Open Google Calendar
-        </a>
       </div>
+    </section>
 
-    </div>
-  </section>
+    <!-- FEATURES ----------------------------------------------------- -->
+    <section id="features">
+      <div class="shell">
+        <div class="section-kicker">Why IgniteGrapple</div>
+        <h2 class="section-title">What IgniteGrapple helps you do</h2>
+        <p class="section-intro">
+          This isn’t generic “sports AI.” IgniteGrapple is tuned for real
+          wrestling rooms — hand-fighting, shot selection, chain wrestling,
+          mat returns, bottom urgency, and conditioning.
+        </p>
+
+        <div class="features-grid">
+          <div class="card">
+            <div class="feature-label">Film → Feedback</div>
+            <h3>Break down practice in minutes, not hours.</h3>
+            <p>
+              Upload practice or match clips and get position-based breakdowns:
+              shot setups, finishes, transitions, mat returns, scrambles, and escapes.
+            </p>
+            <div class="pill-row">
+              <span class="pill-mini">Auto-tag attempts</span>
+              <span class="pill-mini">Finish % by position</span>
+              <span class="pill-mini">Common bad habits</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="feature-label">Smart training</div>
+            <h3>Custom training plans that fit your room.</h3>
+            <p>
+              IgniteGrapple turns film data into weekly training blocks: live-go sequences,
+              situational goes, and drill progressions tuned for your club or team.
+            </p>
+            <div class="pill-row">
+              <span class="pill-mini">Youth • HS • College</span>
+              <span class="pill-mini">Live-go ladders</span>
+              <span class="pill-mini">Conditioning templates</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="feature-label">Clear communication</div>
+            <h3>Share progress reports with parents &amp; athletes.</h3>
+            <p>
+              Export simple reports that show effort, attendance, and key focus areas
+              without giving away all your system details.
+            </p>
+            <div class="pill-row">
+              <span class="pill-mini">Coach-only views</span>
+              <span class="pill-mini">Athlete summaries</span>
+              <span class="pill-mini">Parent-friendly language</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+        <!-- HOW IT WORKS ------------------------------------------------- -->
+    <section id="how">
+      <div class="shell how-grid">
+        <div>
+          <div class="section-kicker">How it works</div>
+          <h2 class="section-title">The IgniteGrapple workflow for your room</h2>
+          <p class="section-intro">
+            During beta, we keep things personal. You get access to the app-style dashboard
+            plus direct support from Kevin to shape the product around real rooms in Dallas and beyond.
+          </p>
+
+          <div class="step">
+            <div class="step-num">1</div>
+            <div>
+              <h4>Upload film or tell us what’s happening in practice.</h4>
+              <p>Start with a basic Dropbox/Drive link or short clips — even from a phone tripod.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num">2</div>
+            <div>
+              <h4>IgniteGrapple tags positions, tendencies, and problem areas.</h4>
+              <p>You get a clean breakdown: where your athletes are scoring, getting stuck, or fading late.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-num">3</div>
+            <div>
+              <h4>Turn it into a weekly plan inside the dashboard.</h4>
+              <p>We translate that data into specific drills, live-go sequences, and focus themes for the week.</p>
+            </div>
+          </div>
+
+          <p class="how-note">
+            You keep full control of your system and culture — IgniteGrapple just does the heavy lifting
+            on film, tracking, and planning so you can coach.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3 style="font-size:14px;">Who beta is built for</h3>
+          <p>
+            • Youth &amp; HS club owners who are tired of doing everything by hand.<br />
+            • School programs trying to compete with bigger rooms &amp; bigger budgets.<br />
+            • Private coaches in Dallas who want a “second coach in their pocket.”
+          </p>
+
+          <div class="tag-list">
+            <span class="tag">Dallas / DFW focus first</span>
+            <span class="tag">Limited early-access spots</span>
+            <span class="tag">Hands-on onboarding</span>
+            <span class="tag">Discounted founding-room pricing</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DASHBOARD / APP PREVIEW -------------------------------------- -->
+    <section id="dashboard">
+      <div class="shell dashboard-grid">
+        <div>
+          <div class="section-kicker">The beta “app”</div>
+          <h2 class="section-title">IgniteGrapple dashboard – your room’s control panel</h2>
+          <p class="section-intro">
+            During beta, you’ll use a web-based dashboard that feels like an app:
+            film breakdowns, athlete summaries, and weekly plans in one place.
+          </p>
+
+          <div class="dash-meta">
+            <ul>
+              <li>Track attempts, finishes, and scoring sequences by position.</li>
+              <li>See which athletes need more mat time or focused reps.</li>
+              <li>Export coach-only notes or athlete-safe summaries in one tap.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="dash-screen">
+          <div class="dash-topbar">
+            <div class="dot-row">
+              <span></span><span></span><span></span>
+            </div>
+            <div>IgniteGrapple • Room overview</div>
+            <div style="font-size:10px; color:var(--text-soft);">Beta v0.1</div>
+          </div>
+
+          <div class="dash-layout">
+            <div class="dash-col">
+              <h4>Practice breakdown – last 10 sessions</h4>
+              <div class="mini-row">
+                <span>Shot attempts per live go</span>
+                <span class="mini-pill">+18%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill"></div>
+              </div>
+
+              <div class="mini-row" style="margin-top:10px;">
+                <span>Mat returns after escape</span>
+                <span style="color:var(--danger); font-weight:500;">Needs work</span>
+              </div>
+              <p style="margin-top:4px;">
+                IgniteGrapple suggests adding 2x 90-second “return or score” goes
+                to the end of practice 3x per week.
+              </p>
+            </div>
+
+            <div class="dash-col">
+              <h4>Athlete spotlight</h4>
+              <p style="margin-bottom:6px;">
+                <strong>152 – Room leader</strong><br />
+                • Great from underhooks, but fading in third periods.<br />
+                • Bottom urgency improved last 3 matches.
+              </p>
+              <p>
+                Recommended focus: live-go conditioning ladders and
+                scoring off re-attacks instead of backing straight out.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING ------------------------------------------------------- -->
+    <section id="pricing">
+      <div class="shell">
+        <div class="section-kicker">Beta pricing</div>
+        <h2 class="section-title">Founding-room deals for early clubs &amp; programs</h2>
+        <p class="section-intro">
+          Pricing below is for the beta phase. As a founding room, you lock in
+          your rate even after public launch, as long as you stay active.
+        </p>
+
+        <div class="pricing-grid">
+          <div class="card">
+            <h3>Starter room</h3>
+            <div class="price-tag">
+              $97<span>/month</span>
+            </div>
+            <div class="price-note">Up to ~15 athletes</div>
+            <ul class="price-list">
+              <li>Film breakdown for 1 main practice block per week.</li>
+              <li>Weekly training focus &amp; live-go templates.</li>
+              <li>Coach-only dashboard access.</li>
+            </ul>
+            <a href="#beta" class="btn-outline">Apply as starter room</a>
+          </div>
+
+          <div class="card" style="border-color:rgba(178,255,59,0.5);">
+            <h3>Club / HS program</h3>
+            <div class="price-tag">
+              $197<span>/month</span>
+            </div>
+            <div class="price-note">15–40 athletes or full HS program</div>
+            <ul class="price-list">
+              <li>Film breakdown for 2–3 practice blocks per week.</li>
+              <li>Position-based reports for athletes or groups.</li>
+              <li>Quarterly strategy call with Kevin.</li>
+            </ul>
+            <a href="#beta" class="btn">Best for clubs &amp; HS</a>
+          </div>
+
+          <div class="card">
+            <h3>Custom / college / academy</h3>
+            <div class="price-tag">
+              Let’s talk<span></span>
+            </div>
+            <div class="price-note">For larger or multi-room setups</div>
+            <ul class="price-list">
+              <li>Deeper breakdowns &amp; custom reports.</li>
+              <li>Staff sessions + recruiting-friendly summaries.</li>
+              <li>Built-around-you beta partnership.</li>
+            </ul>
+            <a href="#contact" class="btn-outline">Schedule a call</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOUNDER STORY ------------------------------------------------- -->
+    <section id="founder">
+      <div class="shell founder-layout">
+        <div>
+          <div class="section-kicker">Who’s behind IgniteGrapple?</div>
+          <h2 class="section-title">Built by someone who actually lived the grind.</h2>
+          <p>
+            IgniteGrapple is built by <strong>Kevin Almond, MBA</strong> — a
+            low-income kid with no father figure who learned stance and motion
+            in the yard and on rug patterns before he ever stepped on a mat.
+          </p>
+          <p>
+            Kevin started wrestling late, as a JV wrestler in 8th grade, then
+            went on to reach the <strong>Georgia state finals</strong> from
+            10th–12th grade and win it as a senior. He later became the first
+            <strong>NCAA All-American</strong> in school history for Emmanuel
+            College — and the first NCAA All-American across all sports when
+            the college joined Division II in 2018.
+          </p>
+          <p>
+            He did it without fancy camps or big money. Just persistence,
+            creativity, and coaches who pushed him to train harder — even when
+            the resources weren’t there.
+          </p>
+          <p class="quote">
+            “I know what it feels like to be the underdog room — small budget,
+            limited help, trying to give your kids a real chance. IgniteGrapple
+            exists to put more intelligence, structure, and belief behind
+            coaches like that.”
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="founder-badge">
+            <span class="chip-dot"></span>
+            Founder snapshot
+          </div>
+          <p>
+            • Late-start wrestler → state champ<br />
+            • First NCAA All-American in school history<br />
+            • MBA in Human Resource Management &amp; coaching background<br />
+            • Single father who understands pressure off the mat too
+          </p>
+          <p>
+            Kevin’s goal with IgniteGrapple is simple: make it easier for
+            coaches to build confident, well-prepared athletes without burning
+            themselves out with film, paperwork, and planning.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BETA SIGNUP --------------------------------------------------- -->
+    <section id="beta">
+      <div class="shell beta-grid">
+        <div>
+          <div class="section-kicker">Join the beta</div>
+          <h2 class="section-title">Want IgniteGrapple in your room?</h2>
+          <p class="section-intro">
+            Tell us a little about your program so we can match you with the
+            right level of support during the beta phase. We’re starting with a
+            limited group of rooms (especially around Dallas / DFW).
+          </p>
+          <p class="small-text">
+            During beta you’ll get app access, hands-on setup help, and
+            discounted founding-room pricing in exchange for honest feedback.
+          </p>
+        </div>
+
+        <div class="card">
+          <!-- Replace the action URL with your Formspree / typeform / backend later -->
+          <form action="#" method="post">
+            <div class="form-row-inline">
+              <label>
+                Name
+                <input type="text" name="name" placeholder="Coach name" />
+              </label>
+              <label>
+                Email
+                <input type="email" name="email" placeholder="you@example.com" />
+              </label>
+            </div>
+
+            <div class="form-row-inline">
+              <label>
+                Club / school
+                <input type="text" name="program" placeholder="Program name" />
+              </label>
+              <label>
+                City / state
+                <input type="text" name="location" placeholder="Dallas, TX" />
+              </label>
+            </div>
+
+            <div class="form-row-inline">
+              <label>
+                Approx. athletes
+                <select name="size">
+                  <option value="">Select</option>
+                  <option value="under15">Under 15</option>
+                  <option value="15-40">15–40</option>
+                  <option value="40plus">40+</option>
+                </select>
+              </label>
+              <label>
+                Level
+                <select name="level">
+                  <option value="">Choose</option>
+                  <option value="youth">Youth club</option>
+                  <option value="hs">High school</option>
+                  <option value="college">College</option>
+                  <option value="private">Private room</option>
+                </select>
+              </label>
+            </div>
+
+            <label>
+              What do you struggle with most right now?
+              <textarea name="struggles" placeholder="Example: organizing film, making weekly plans, keeping parents in the loop, etc."></textarea>
+            </label>
+
+            <label>
+              What would a “win” with IgniteGrapple look like for you this season?
+              <textarea name="win"></textarea>
+            </label>
+
+            <button type="submit" class="btn">Request a beta spot</button>
+            <div class="small-text">
+              No spam. Kevin will personally reply to early beta requests.
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT ------------------------------------------------------- -->
+    <section id="contact">
+      <div class="shell contact-grid">
+        <div>
+          <div class="section-kicker">Contact</div>
+          <h2 class="section-title">Need to talk through your room?</h2>
+          <p class="section-intro">
+            If you’re a Dallas / DFW coach (or run a serious program anywhere),
+            you can reach out directly to talk through whether IgniteGrapple
+            fits your room.
+          </p>
+        </div>
+        <div>
+          <p>
+            For now, beta spots and calls are handled manually so Kevin can stay
+            close to real coaches and rooms.
+          </p>
+          <p>
+            • Email: <strong>ignitegrapple@gmail.com</strong> (or your preferred email)<br />
+            • Instagram (example): <strong>@ignitegrapple</strong><br />
+            • Location: Based in Dallas, TX – supporting rooms anywhere.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <footer>
-    <span>© <span id="year"></span> IgniteGrapple. Built for wrestlers who want more than “just drill harder.”</span>
-    <span>Founder: Kevin Almond, MBA · Questions? <a href="mailto:1ignitegrapple@gmail.com" style="color:#b2ff3b;text-decoration:none;">Email 1ignitegrapple@gmail.com</a></span>
+    IgniteGrapple &copy; <span id="year"></span>. Built for real wrestling rooms.
   </footer>
 
-</main>
-
-<script>
-  // Auto-update year in footer
-  document.getElementById("year").textContent = new Date().getFullYear();
-</script>
-
+  <script>
+    // Simple script: keep footer year current
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
