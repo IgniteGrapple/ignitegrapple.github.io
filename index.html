@@ -925,6 +925,141 @@
       box-shadow: 0 0 12px rgba(125, 252, 76, 0.7);
     }
 
+    /* NEW: HOW IT WORKS DEMO */
+
+    .how-demo-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.2fr);
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .how-demo-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(30, 64, 175, 0.7);
+      background: radial-gradient(circle at top left, #0b1730 0, #020817 55%);
+      box-shadow: 0 24px 55px rgba(0, 0, 0, 0.95);
+      padding: 16px;
+      font-size: 13px;
+      color: #e5e7eb;
+    }
+
+    .how-step-list {
+      list-style: none;
+      margin-top: 10px;
+      display: grid;
+      gap: 8px;
+      font-size: 12px;
+      color: #d1d5db;
+    }
+
+    .how-step {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .how-step span {
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: #e5e7eb;
+    }
+
+    .how-demo-status {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #9ca3af;
+      min-height: 40px;
+    }
+
+    .how-demo-actions {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .how-demo-pill {
+      font-size: 11px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+      cursor: pointer;
+    }
+
+    /* NEW: COMPETITOR COMPARISON */
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .compare-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      background: radial-gradient(circle at top left, rgba(148, 163, 184, 0.22), #020817 60%);
+      padding: 16px;
+      font-size: 13px;
+    }
+
+    .compare-header {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .compare-tag {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: #e5e7eb;
+    }
+
+    .compare-columns {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .compare-competitor,
+    .compare-ignite {
+      flex: 1;
+    }
+
+    .compare-competitor-title,
+    .compare-ignite-title {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .compare-list {
+      list-style: none;
+      font-size: 12px;
+      color: var(--text-sub);
+      display: grid;
+      gap: 4px;
+    }
+
+    .compare-ignite-badge {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(125, 252, 76, 0.14);
+      border: 1px solid rgba(125, 252, 76, 0.5);
+      color: var(--accent);
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+
     /* RESPONSIVE */
 
     @media (max-width: 960px) {
@@ -938,10 +1073,12 @@
 
     @media (max-width: 840px) {
       .feature-grid,
-      .pricing-grid {
+      .pricing-grid,
+      .compare-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
-      .app-shell {
+      .app-shell,
+      .how-demo-shell {
         grid-template-columns: minmax(0, 1fr);
       }
     }
@@ -979,7 +1116,8 @@
       }
 
       .feature-grid,
-      .pricing-grid {
+      .pricing-grid,
+      .compare-grid {
         grid-template-columns: minmax(0, 1fr);
       }
 
@@ -1063,7 +1201,7 @@
 
           <div class="hero-actions">
             <a href="#beta" class="btn">Join beta</a>
-            <a href="#app" class="btn-outline">See what it does</a>
+            <a href="#how-demo" class="btn-outline" id="seeWhatBtn">See what it does</a>
           </div>
 
           <p class="hero-footnote">
@@ -1161,11 +1299,161 @@
       <section id="how" data-screen="home">
         <div class="section-kicker">How it works</div>
         <h2 class="section-title">Coach-first, not tech-first.</h2>
+
         <p class="section-body">
-          Start simple: tag a handful of athletes and their key focus areas.
-          IgniteGrapple builds a living snapshot of your room so you can adjust
-          practice with confidence.
+          IgniteGrapple is designed to work <strong>exactly the way real wrestling rooms work</strong>.
+          You don’t need a film crew, a big stat team, or complicated tech — everything starts with
+          what you're already doing as a coach. IgniteGrapple observes your practices, identifies the
+          patterns inside your room, and converts them into <strong>actionable focus lists, practice plans,
+          and athlete guidance</strong> you can use immediately.
         </p>
+
+        <p class="section-body">
+          Instead of wasting hours breaking down footage or repeating the same corrections to 30 athletes,
+          IgniteGrapple helps you <strong>spot what matters most</strong>, present it clearly, and deliver it
+          in a way athletes actually understand. It's not replacing a coach — it's giving you another coach
+          working beside you, analyzing the room for you, and keeping everyone aligned.
+        </p>
+
+        <div class="feature-grid">
+          <article class="feature-card">
+            <h3 class="feature-title">1. Capture your room naturally.</h3>
+            <p>
+              Record practices or matches on your phone — live-go, drilling, technique, conditioning,
+              or full duals. IgniteGrapple learns the athletes, their tendencies, and the positions
+              that appear over and over.
+            </p>
+            <div class="feature-tagrow">
+              <span class="tag">Live-go capture</span>
+              <span class="tag">Match uploads</span>
+            </div>
+          </article>
+
+          <article class="feature-card">
+            <h3 class="feature-title">2. AI identifies patterns you may miss.</h3>
+            <p>
+              IgniteGrapple tags shot attempts, finishes, mat returns, bottom escapes, chain wrestling,
+              hand-fighting pace, scramble tendencies and more. It shows you what your room does well,
+              what needs attention, and how it shifts from practice to practice.
+            </p>
+            <div class="feature-tagrow">
+              <span class="tag">Shot selection</span>
+              <span class="tag">Chain wrestling</span>
+              <span class="tag">Bottom urgency</span>
+            </div>
+          </article>
+
+          <article class="feature-card">
+            <h3 class="feature-title">3. It turns patterns into a ready-to-run plan.</h3>
+            <p>
+              IgniteGrapple builds <strong>custom practice blocks</strong> based on the needs of your room:
+              warm-ups, live-go sequences, partner focuses, positional reps, and mental cues. Athletes receive
+              simplified versions of this plan so they know <strong>exactly</strong> what they should improve
+              each day.
+            </p>
+            <div class="feature-tagrow">
+              <span class="tag">Daily plans</span>
+              <span class="tag">Athlete focus lists</span>
+              <span class="tag">Coach snapshots</span>
+            </div>
+          </article>
+        </div>
+
+        <p class="section-body" style="margin-top:20px;">
+          IgniteGrapple doesn’t drown you in data. It gives you:
+          <br /><br />
+          ✔ A clear view of the room<br />
+          ✔ A simple focus for each athlete<br />
+          ✔ Practice plans that match real weaknesses<br />
+          ✔ Mindset cues athletes actually follow<br />
+          ✔ Less chaos and more direction
+        </p>
+
+        <p class="section-body">
+          When you're ready to see it in action, tap “See what it does” — it will open a brand-new
+          interactive demo that shows the full workflow from coach view to athlete experience.
+        </p>
+      </section>
+
+      <!-- ============ NEW: HOW IT WORKS LIVE DEMO SCREEN ============ -->
+
+      <section id="how-demo" data-screen="howdemo">
+        <div class="section-kicker">Live workflow demo</div>
+        <h2 class="section-title">What IgniteGrapple actually does for coaches &amp; athletes.</h2>
+        <p class="section-body">
+          This mini-demo shows the flow: a coach uploads film, IgniteGrapple tags positions,
+          builds a room focus list, and gives athletes daily cues they can actually use.
+          In the full app, this connects to your real clips and roster.
+        </p>
+
+        <div class="how-demo-shell">
+          <!-- COACH WORKFLOW DEMO -->
+          <article class="how-demo-card">
+            <h3 style="font-size:15px; margin-bottom:4px;">Coach workflow demo</h3>
+            <p class="dash-muted">
+              Click “Run example sequence” to see how a typical session flows from film
+              → focus list → practice plan.
+            </p>
+
+            <ul class="how-step-list">
+              <li class="how-step">
+                <span>Step 1</span>
+                <div>Upload 3–5 clips from last night’s dual or live-go practice.</div>
+              </li>
+              <li class="how-step">
+                <span>Step 2</span>
+                <div>IgniteGrapple tags shots, finishes, bottom work, and mat returns.</div>
+              </li>
+              <li class="how-step">
+                <span>Step 3</span>
+                <div>It builds a <strong>room focus list</strong> and recommended practice blocks.</div>
+              </li>
+              <li class="how-step">
+                <span>Step 4</span>
+                <div>You tweak it like a coach, then run practice off a clear, simple plan.</div>
+              </li>
+            </ul>
+
+            <div class="how-demo-status" id="coachDemoStatus">
+              Click “Run example sequence” to see a sample coach view.
+            </div>
+
+            <div class="how-demo-actions">
+              <button type="button" class="btn-save" id="coachDemoBtn">
+                Run example sequence
+              </button>
+            </div>
+          </article>
+
+          <!-- ATHLETE EXPERIENCE DEMO -->
+          <article class="how-demo-card">
+            <h3 style="font-size:15px; margin-bottom:4px;">Athlete experience demo</h3>
+            <p class="dash-muted">
+              Athletes don’t see “AI.” They just see clear cues: what to focus on, why it matters,
+              and simple mindset checks that line up with your coach’s plan.
+            </p>
+
+            <p style="font-size:12px; color:#d1d5db; margin-top:6px;">
+              Tap a question to see how IgniteGrapple would talk to a wrestler in your room:
+            </p>
+
+            <div class="how-demo-actions">
+              <button type="button" class="how-demo-pill" data-athlete-q="single">
+                “Why do I keep getting stuck on single legs?”
+              </button>
+              <button type="button" class="how-demo-pill" data-athlete-q="bottom">
+                “How do I get off bottom faster?”
+              </button>
+              <button type="button" class="how-demo-pill" data-athlete-q="mindset">
+                “What’s my mindset cue for tonight?”
+              </button>
+            </div>
+
+            <div class="how-demo-status" id="athleteDemoStatus">
+              Pick one of the questions above to see a sample response.
+            </div>
+          </article>
+        </div>
       </section>
 
       <!-- ============ COACH / ATHLETE DASHBOARD DEMO (FOCUS TAB) ============ -->
@@ -1493,6 +1781,220 @@
           During beta, athlete mode is free. Wrestlers and parents can try it
           alongside their coaches and give feedback on what actually helps on
           match day.
+        </p>
+      </section>
+
+      <!-- ============ NEW: COMPETITOR COMPARISON ============ -->
+
+      <section id="comparison" data-screen="home">
+        <div class="section-kicker">Why we’re different</div>
+        <h2 class="section-title">How IgniteGrapple stacks up vs. everyone else.</h2>
+        <p class="section-body">
+          FloWrestling, Hudl, Athletes Ocean, RUDIS+, and others are great at what they do —
+          but none of them were built as an <strong>AI-powered assistant coach</strong> for
+          the day-to-day reality of wrestling rooms. Here’s how IgniteGrapple fits in.
+        </p>
+
+        <div class="compare-grid">
+          <!-- FloWrestling -->
+          <article class="compare-card">
+            <div class="compare-header">
+              <span>FloWrestling</span>
+              <span class="compare-tag">Media &amp; live streams</span>
+            </div>
+            <div class="compare-columns">
+              <div class="compare-competitor">
+                <div class="compare-competitor-title">What they do well</div>
+                <ul class="compare-list">
+                  <li>• Live events, interviews, and hype content.</li>
+                  <li>• Technique libraries and documentaries.</li>
+                  <li>• Big-picture coverage of the sport.</li>
+                </ul>
+                <div class="compare-competitor-title" style="margin-top:8px;">What’s missing</div>
+                <ul class="compare-list">
+                  <li>• No AI film breakdown for your room.</li>
+                  <li>• No athlete focus tracking.</li>
+                  <li>• No daily practice planning tools.</li>
+                </ul>
+              </div>
+              <div class="compare-ignite">
+                <div class="compare-ignite-badge">IgniteGrapple advantage</div>
+                <div class="compare-ignite-title">How we solve it</div>
+                <ul class="compare-list">
+                  <li>• Built for <strong>your room’s film</strong>, not national broadcast.</li>
+                  <li>• Tracks athlete focus and room patterns over time.</li>
+                  <li>• Turns video into practice plans and focus lists.</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <!-- Hudl -->
+          <article class="compare-card">
+            <div class="compare-header">
+              <span>Hudl / Krossover</span>
+              <span class="compare-tag">Generic sports film tools</span>
+            </div>
+            <div class="compare-columns">
+              <div class="compare-competitor">
+                <div class="compare-competitor-title">What they do well</div>
+                <ul class="compare-list">
+                  <li>• Store and share game film.</li>
+                  <li>• Basic tagging and highlight tools.</li>
+                  <li>• Multi-sport support (football, basketball, etc.).</li>
+                </ul>
+                <div class="compare-competitor-title" style="margin-top:8px;">What’s missing</div>
+                <ul class="compare-list">
+                  <li>• Not tuned just for wrestling.</li>
+                  <li>• No mindset or athlete-mode focus.</li>
+                  <li>• No practice block suggestions.</li>
+                </ul>
+              </div>
+              <div class="compare-ignite">
+                <div class="compare-ignite-badge">IgniteGrapple advantage</div>
+                <div class="compare-ignite-title">How we solve it</div>
+                <ul class="compare-list">
+                  <li>• Wrestling-specific positions (shots, mat returns, bottom work).</li>
+                  <li>• Separate coach &amp; athlete experiences.</li>
+                  <li>• Practice flows built from your room’s data.</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <!-- Athletes Ocean -->
+          <article class="compare-card">
+            <div class="compare-header">
+              <span>Athletes Ocean</span>
+              <span class="compare-tag">Technique video library</span>
+            </div>
+            <div class="compare-columns">
+              <div class="compare-competitor">
+                <div class="compare-competitor-title">What they do well</div>
+                <ul class="compare-list">
+                  <li>• Centralized library of technique clips.</li>
+                  <li>• Easy to browse moves and positions.</li>
+                </ul>
+                <div class="compare-competitor-title" style="margin-top:8px;">What’s missing</div>
+                <ul class="compare-list">
+                  <li>• Many drills you could find free on YouTube.</li>
+                  <li>• No AI connecting video to your wrestlers.</li>
+                  <li>• No live snapshot of your room’s needs.</li>
+                </ul>
+              </div>
+              <div class="compare-ignite">
+                <div class="compare-ignite-badge">IgniteGrapple advantage</div>
+                <div class="compare-ignite-title">How we solve it</div>
+                <ul class="compare-list">
+                  <li>• Focus on <strong>your athletes</strong>, not just clips.</li>
+                  <li>• Practice + mindset tied to actual film from your room.</li>
+                  <li>• Athlete focus lists and coach dashboards.</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <!-- RUDIS+ / Fanatic Wrestling -->
+          <article class="compare-card">
+            <div class="compare-header">
+              <span>RUDIS+ / Fanatic Wrestling</span>
+              <span class="compare-tag">High-level instruction</span>
+            </div>
+            <div class="compare-columns">
+              <div class="compare-competitor">
+                <div class="compare-competitor-title">What they do well</div>
+                <ul class="compare-list">
+                  <li>• Deep technical breakdowns from elite athletes.</li>
+                  <li>• Great for coaches and students studying positions.</li>
+                </ul>
+                <div class="compare-competitor-title" style="margin-top:8px;">What’s missing</div>
+                <ul class="compare-list">
+                  <li>• No integration with your room’s daily practices.</li>
+                  <li>• No progress tracking per athlete.</li>
+                  <li>• No practice planner or live focus engine.</li>
+                </ul>
+              </div>
+              <div class="compare-ignite">
+                <div class="compare-ignite-badge">IgniteGrapple advantage</div>
+                <div class="compare-ignite-title">How we solve it</div>
+                <ul class="compare-list">
+                  <li>• Converts film data into <strong>real practice structure</strong>.</li>
+                  <li>• Shows exactly who needs what in your room.</li>
+                  <li>• Pairs with mindset + athlete-mode tools.</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <!-- Wrestling Mindset TV -->
+          <article class="compare-card">
+            <div class="compare-header">
+              <span>Wrestling Mindset TV</span>
+              <span class="compare-tag">Mindset training</span>
+            </div>
+            <div class="compare-columns">
+              <div class="compare-competitor">
+                <div class="compare-competitor-title">What they do well</div>
+                <ul class="compare-list">
+                  <li>• Strong focus on mental preparation and mindset.</li>
+                  <li>• Content around confidence, composure, and habits.</li>
+                </ul>
+                <div class="compare-competitor-title" style="margin-top:8px;">What’s missing</div>
+                <ul class="compare-list">
+                  <li>• No technical film breakdown for your room.</li>
+                  <li>• No direct integration into daily practice plans.</li>
+                </ul>
+              </div>
+              <div class="compare-ignite">
+                <div class="compare-ignite-badge">IgniteGrapple advantage</div>
+                <div class="compare-ignite-title">How we solve it</div>
+                <ul class="compare-list">
+                  <li>• Combines mindset cues <strong>with</strong> technical focus.</li>
+                  <li>• Daily athlete check-ins connected to coach view.</li>
+                  <li>• Lets you see how mindset trends match performance.</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <!-- Generic AI / Sports Tech -->
+          <article class="compare-card">
+            <div class="compare-header">
+              <span>Generic AI / Sports Tech</span>
+              <span class="compare-tag">Non-wrestling specific</span>
+            </div>
+            <div class="compare-columns">
+              <div class="compare-competitor">
+                <div class="compare-competitor-title">What they do well</div>
+                <ul class="compare-list">
+                  <li>• Advanced models for multi-sport analytics.</li>
+                  <li>• Great for big data / pro environments.</li>
+                </ul>
+                <div class="compare-competitor-title" style="margin-top:8px;">What’s missing</div>
+                <ul class="compare-list">
+                  <li>• Not built around wrestling positions and scoring.</li>
+                  <li>• No understanding of hand-fighting, mat returns, bottom urgency.</li>
+                  <li>• No “coach &amp; athlete” dual experience.</li>
+                </ul>
+              </div>
+              <div class="compare-ignite">
+                <div class="compare-ignite-badge">IgniteGrapple advantage</div>
+                <div class="compare-ignite-title">How we solve it</div>
+                <ul class="compare-list">
+                  <li>• Wrestling-only focus: shots, scrambles, bottom work.</li>
+                  <li>• Designed for real rooms: youth, HS, club, college.</li>
+                  <li>• Simple tools your whole program can use day one.</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <p class="section-body" style="margin-top:20px;">
+          IgniteGrapple doesn’t replace the content you already use — it sits on top of it and
+          turns all that work, all that film, and all those reps into <strong>clear direction</strong>
+          for your room. That’s why we believe we’re not just “another platform” — we’re
+          the connective tissue that makes your whole system smarter.
         </p>
       </section>
 
@@ -2180,6 +2682,60 @@
         const body = encodeURIComponent(bodyLines.join("\n"));
 
         window.location.href = `mailto:1ignitegrapple@gmail.com?subject=${subject}&body=${body}`;
+      });
+    }
+
+    // -------------- NEW: HOW DEMO INTERACTIONS --------------
+
+    const coachDemoBtn = document.getElementById("coachDemoBtn");
+    const coachDemoStatus = document.getElementById("coachDemoStatus");
+    const athleteDemoStatus = document.getElementById("athleteDemoStatus");
+    const athleteDemoButtons = document.querySelectorAll("[data-athlete-q]");
+    const seeWhatBtn = document.getElementById("seeWhatBtn");
+
+    if (coachDemoBtn && coachDemoStatus) {
+      coachDemoBtn.addEventListener("click", () => {
+        coachDemoStatus.textContent =
+          "Example coach view: 6 athletes tagged for shot defense, 4 for bottom urgency, 3 struggling with mat returns. " +
+          "IgniteGrapple recommends: 10-minute stance & motion warm-up, 15 minutes of partner mat return reps, " +
+          "12 minutes of live-bottom go’s for tagged athletes, and a 6-minute hand-fighting pace finisher.";
+      });
+    }
+
+    if (athleteDemoButtons && athleteDemoStatus) {
+      athleteDemoButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const type = btn.getAttribute("data-athlete-q");
+          if (type === "single") {
+            athleteDemoStatus.textContent =
+              "IgniteGrapple: You’re getting stuck because you pause after contact. Focus on: level change first, hands to the leg second, " +
+              "then drive across your feet instead of reaching. Tonight, your cue is: ‘Change, touch, drive through the hips.’";
+          } else if (type === "bottom") {
+            athleteDemoStatus.textContent =
+              "IgniteGrapple: Your first move can’t be a guess. Tonight, your bottom focus is: explode on the whistle, clear hands, " +
+              "stand up, and never let your knees hit twice. Your cue is: ‘First move, fast hands, constant feet.’";
+          } else if (type === "mindset") {
+            athleteDemoStatus.textContent =
+              "IgniteGrapple: You wrestle your best when you breathe, move your feet, and trust the work you already did. " +
+              "Tonight’s mindset: ‘Score the next point. Don’t chase the match, win each position.’";
+          }
+        });
+      });
+    }
+
+    if (seeWhatBtn) {
+      seeWhatBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const howDemo = document.getElementById("how-demo");
+
+        if (window.innerWidth <= MOBILE_BREAKPOINT) {
+          // Mobile: switch to howdemo screen and scroll top
+          applyTab("howdemo");
+          window.scrollTo({ top: 0, behavior: "instant" });
+        } else if (howDemo) {
+          // Desktop: smooth scroll to demo section
+          howDemo.scrollIntoView({ behavior: "smooth" });
+        }
       });
     }
   </script>
