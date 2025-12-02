@@ -2180,7 +2180,7 @@
 
           <p style="margin-top:10px;">
             Use the form below to request a beta spot or a short call — your answers
-            go straight to Kevin’s email.
+            go straight into our private beta sheet.
           </p>
 
           <ul class="contact-list">
@@ -2201,7 +2201,7 @@
             </li>
           </ul>
 
-          <!-- Simple email-based form (mailto) -->
+          <!-- Beta/contact form -> Google Sheets -->
           <form id="betaForm" class="contact-form">
             <div class="contact-form-row">
               <div>
@@ -2242,8 +2242,8 @@
             </div>
 
             <button type="submit" class="btn">Send beta request</button>
-            <small style="display:block; margin-top:6px; color:#9ca3af;">
-              This will open your email app with the details filled in so you can send directly.
+            <small id="betaStatus" style="display:block; margin-top:6px; color:#9ca3af;">
+              Submits securely to our IgniteGrapple beta sheet. No app or login required.
             </small>
           </form>
         </div>
@@ -2791,8 +2791,11 @@
 
     applyMode("coach");
 
-    // -------------- CONTACT FORM -> MAILTO --------------
+    // -------------- CONTACT FORM -> GOOGLE SHEETS --------------
     const betaForm = document.getElementById("betaForm");
+    const betaStatus = document.getElementById("betaStatus");
+
+    // Reuse analytics helper from feedback system (hoisted)
     if (betaForm) {
       betaForm.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -2803,20 +2806,53 @@
         const time = document.getElementById("formTime").value.trim();
         const message = document.getElementById("formMessage").value.trim();
 
-        const subject = encodeURIComponent("IgniteGrapple beta request");
-        const bodyLines = [
-          `Name: ${name}`,
-          `Role: ${role}`,
-          `Program / Club: ${program}`,
-          `Contact email: ${email}`,
-          `Preferred day / time for a call: ${time}`,
-          "",
-          "What they’re hoping IgniteGrapple helps with:",
-          message || "(not provided)",
-        ];
-        const body = encodeURIComponent(bodyLines.join("\n"));
+        if (!name || !role) {
+          if (betaStatus) {
+            betaStatus.textContent = "Please add your name and role before submitting.";
+          }
+          return;
+        }
 
-        window.location.href = `mailto:1ignitegrapple@gmail.com?subject=${subject}&body=${body}`;
+        const payload = {
+          name,
+          role,
+          program,
+          email,
+          time,
+          message,
+          source: "beta-contact",
+          submittedAt: new Date().toISOString(),
+          analytics: getAnalyticsMeta()
+        };
+
+        if (betaStatus) {
+          betaStatus.textContent = "Sending…";
+        }
+
+        fetch(
+          "https://script.google.com/macros/s/AKfycbwUNRWfi4eIrJbdOArHu5E5QM-hpNnrw1Xm1oHl2GZULjhdeXZuDcdrai41Ufdkldef/exec",
+          {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+          }
+        )
+          .then(() => {
+            if (betaStatus) {
+              betaStatus.textContent = "Beta request sent. I’ll reach out soon.";
+            }
+            betaForm.reset();
+          })
+          .catch((err) => {
+            console.error("Beta form error", err);
+            if (betaStatus) {
+              betaStatus.textContent =
+                "Could not send right now. Please try again in a minute or email 1ignitegrapple@gmail.com.";
+            }
+          });
       });
     }
 
