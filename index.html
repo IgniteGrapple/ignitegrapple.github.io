@@ -206,39 +206,6 @@
       background: radial-gradient(circle at top left, #020c1b 0, #020817 60%);
     }
 
-    /* COACH / ATHLETE MODE TOGGLE */
-
-    .mode-switch {
-      display: inline-flex;
-      align-items: center;
-      padding: 2px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-    }
-
-    .mode-chip {
-      border: none;
-      background: transparent;
-      color: #9ca3af;
-      font-size: 11px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: background 140ms ease-out, color 140ms ease-out, transform 120ms ease-out;
-    }
-
-    .mode-chip.is-active {
-      background: radial-gradient(circle at 0 0, #ecfccb 0, #7dfc4c 45%, #22c55e 100%);
-      color: #020817;
-      font-weight: 600;
-      box-shadow: 0 0 18px rgba(125, 252, 76, 0.7);
-    }
-
-    .mode-chip:is(:hover, :focus-visible) {
-      transform: translateY(-1px);
-    }
-
     /* HERO */
 
     main {
@@ -731,6 +698,31 @@
       border: 1px solid rgba(125, 252, 76, 0.4);
     }
 
+    /* ATHLETE MODE SECTION */
+
+    .athlete-section .section-kicker {
+      color: #fca5a5;
+    }
+
+    .athlete-section .section-title span {
+      color: #fb7185;
+    }
+
+    .athlete-grid .feature-card {
+      background: radial-gradient(circle at top left, rgba(248, 113, 113, 0.25), #020817 60%);
+      border-color: rgba(248, 113, 113, 0.6);
+    }
+
+    .athlete-grid .feature-title {
+      color: #fee2e2;
+    }
+
+    .athlete-note {
+      margin-top: 14px;
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
     /* PRICING, FOUNDER, BETA, CONTACT */
 
     .pricing-grid {
@@ -804,6 +796,25 @@
       color: #e5e7eb;
       text-decoration: underline;
       text-decoration-color: rgba(148, 163, 184, 0.6);
+    }
+
+    /* CONTACT FORM */
+
+    .contact-form {
+      margin-top: 18px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .contact-form-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .contact-form small {
+      font-size: 11px;
+      color: #9ca3af;
     }
 
     footer {
@@ -908,8 +919,6 @@
       .nav-cta {
         width: 100%;
         justify-content: flex-start;
-        flex-wrap: wrap;
-        gap: 8px;
       }
 
       .hero {
@@ -931,6 +940,10 @@
         padding-inline: 14px;
       }
 
+      .contact-form-row {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
       .mobile-tabbar {
         display: flex;
       }
@@ -942,6 +955,7 @@
     }
 
     @media (min-width: 721px) {
+      /* On desktop, all screens are visible; tabs are hidden */
       [data-screen] {
         display: block !important;
       }
@@ -951,13 +965,13 @@
     }
   </style>
 </head>
-<body data-mode="coach">
+<body>
   <header>
     <div class="page">
       <nav class="nav">
         <div class="nav-left">
           <div class="logo-box">
-            <!-- Your logo file in the repo root -->
+            <!-- Use your logo file stored in the repo root -->
             <img src="C34AC1C6-9F2E-47D6-9F12-BE7553FC1B8B.png" alt="IgniteGrapple logo" />
           </div>
           <div class="logo-text">
@@ -971,6 +985,7 @@
           <a href="#features">Features</a>
           <a href="#how">How it works</a>
           <a href="#app">App preview</a>
+          <a href="#athlete">Athlete mode</a>
           <a href="#pricing">Pricing</a>
           <a href="#founder">Founder</a>
           <a href="#beta">Beta</a>
@@ -978,12 +993,6 @@
         </div>
 
         <div class="nav-cta">
-          <!-- Coach / Athlete toggle -->
-          <div class="mode-switch">
-            <button class="mode-chip is-active" data-mode="coach">Coach</button>
-            <button class="mode-chip" data-mode="athlete">Athlete</button>
-          </div>
-
           <a href="#beta" class="btn">Join beta</a>
           <a href="#app" class="btn-outline">View app demo</a>
         </div>
@@ -1283,92 +1292,68 @@
         </div>
       </section>
 
-      <!-- ===================== ATHLETE MODE VIEW ===================== -->
-      <!-- Shown when the top-right toggle is set to Athlete -->
-      <section id="athlete-app" data-mode-view="athlete" style="display:none;">
-        <div class="section-kicker">Athlete mode</div>
-        <h2 class="section-title">Built for wrestlers who want to win March.</h2>
+      <!-- ===================== ATHLETE MODE SCREEN ===================== -->
+      <section
+        id="athlete"
+        class="athlete-section"
+        data-screen="athlete"
+      >
+        <div class="section-kicker">ATHLETE MODE</div>
+        <h2 class="section-title">
+          Built for wrestlers who want to <span>peak when it counts.</span>
+        </h2>
         <p class="section-body">
-          When coaches invite athletes into IgniteGrapple, they get a simple view:
-          daily focus, mindset prompts, and a place to track what they actually did
-          on the mat. This is an example of what the athlete app will feel like.
+          Athlete Mode is where wrestlers will see their own checklists, routines,
+          and mindset work — connected to what their coaches track in the room.
+          During beta, this is being shaped with real clubs and athletes.
         </p>
 
-        <div class="app-shell">
-          <div class="dash-shell">
-            <div class="dash-head">
-              <div class="dash-title">Athlete • Home</div>
-              <div class="dash-sub">Example athlete view (beta)</div>
-            </div>
-
-            <div class="dash-grid">
-              <div class="dash-card">
-                <h4>Today’s focus</h4>
-                <p class="dash-muted">
-                  Pulled from your coach’s plan. Check these off after practice.
-                </p>
-                <ul style="list-style:none; padding-left:0; font-size:12px; color:#e5e7eb; margin-top:6px;">
-                  <li>• Clear 10+ collar-tie ties</li>
-                  <li>• 20 clean low singles (both sides)</li>
-                  <li>• 3 go’s starting bottom, stand up on whistle</li>
-                </ul>
-              </div>
-
-              <div class="dash-card">
-                <h4>Mindset for the day</h4>
-                <p class="dash-muted">
-                  Short mindset cues to keep you locked in.
-                </p>
-                <p style="font-size:12px; color:#e5e7eb; margin-top:6px;">
-                  “Score first. Clear ties. Breathe between exchanges. One point at a time.”
-                </p>
-                <p style="font-size:11px; color:#9ca3af; margin-top:8px;">
-                  In the full app, these will adjust based on your recent matches and habits.
-                </p>
-              </div>
-            </div>
-
-            <div class="dash-grid" style="margin-top:12px;">
-              <div class="dash-card">
-                <h4>Training log</h4>
-                <p class="dash-muted">
-                  Log what you actually did — not just what was planned.
-                </p>
-                <ul style="list-style:none; padding-left:0; font-size:12px; color:#e5e7eb; margin-top:6px;">
-                  <li>• Live go’s: 6 × 2 minutes</li>
-                  <li>• Finishes off single: 18 / 24 clean</li>
-                  <li>• Bottom escapes: 7 / 10</li>
-                </ul>
-              </div>
-
-              <div class="dash-card">
-                <h4>Profile &amp; goals</h4>
-                <p class="dash-muted">
-                  Season targets stay in front of the athlete every day.
-                </p>
-                <ul style="list-style:none; padding-left:0; font-size:12px; color:#e5e7eb; margin-top:6px;">
-                  <li>• Weight: 152</li>
-                  <li>• Season goal: Place top 3 at state</li>
-                  <li>• Immediate goal: Finish clean on first shot</li>
-                  <li>• Long-term: All-American at nationals</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <aside class="app-copy">
-            <h3>How athletes will use it</h3>
+        <div class="feature-grid athlete-grid">
+          <article class="feature-card">
+            <h3 class="feature-title">Daily training checklist.</h3>
             <p>
-              Athletes get a lightweight view focused on action: what to work on
-              today, how they felt, and whether they’re getting closer to their
-              season goals.
+              Turn your coach’s focus areas into simple daily tasks:
+              shots each side, bottom escapes, hand-fighting reps, and
+              live-go goals you can actually check off.
             </p>
-            <p style="margin-top:8px;">
-              Future versions will add streaks, confidence check-ins, and simple
-              prompts to build a tougher wrestling mindset — not just more noise.
+            <div class="feature-tagrow">
+              <span class="tag-soft">Reps you can track</span>
+              <span class="tag">Coach-connected</span>
+            </div>
+          </article>
+
+          <article class="feature-card">
+            <h3 class="feature-title">Tournament day routines.</h3>
+            <p>
+              Map out your dual, state, or national tournament day:
+              warm-up sequences, breathing resets, and between-match
+              plans so you don’t burn out before the finals.
             </p>
-          </aside>
+            <div class="feature-tagrow">
+              <span class="tag-soft">Match-day checklist</span>
+              <span class="tag">Between-match reset</span>
+            </div>
+          </article>
+
+          <article class="feature-card">
+            <h3 class="feature-title">Mindset & long-term goals.</h3>
+            <p>
+              Set big goals like placing at state or becoming an All-American,
+              then break them into weekly standards, confidence reps, and short
+              mindfulness prompts you can use when matches get tight.
+            </p>
+            <div class="feature-tagrow">
+              <span class="tag-soft">Mindset & confidence</span>
+              <span class="tag">State & national goals</span>
+            </div>
+          </article>
         </div>
+
+        <p class="athlete-note">
+          <strong>Beta note:</strong> Athlete Mode is being built with real rooms.
+          If you want your athletes to be part of this, join the beta below and
+          mention “athlete access” when you reach out.
+        </p>
       </section>
 
       <!-- PRICING -->
@@ -1469,10 +1454,10 @@
             <li>• Influence over features, reports, and practice tools.</li>
             <li>• Priority when native iOS / Android apps go live.</li>
           </ul>
-          <p style="margin-top:10px; font-size:13px; color:#9ca3af;">
-            <strong>Right now, beta access itself is free</strong> for a small group of
-            rooms while we shape the product. Use the contact form below to request
-            a call and see if your room is a fit.
+          <p style="margin-top:12px; font-size:13px; color:#9ca3af;">
+            <strong>Important:</strong> While in early beta, IgniteGrapple access
+            can be offered <strong>free or heavily discounted</strong> to a small
+            number of partner rooms while we dial in the system.
           </p>
         </div>
       </section>
@@ -1489,8 +1474,9 @@
           </p>
 
           <p style="margin-top:10px;">
-            For now, beta spots and calls are handled manually so Kevin can stay
-            close to real coaches and rooms.
+            <strong>Beta is free to apply for.</strong> A small number of rooms
+            will be invited into early access at no cost or with locked-in
+            beta pricing. Use the form below to request a call.
           </p>
 
           <ul class="contact-list">
@@ -1511,80 +1497,102 @@
             </li>
           </ul>
 
-          <h3 style="margin-top:18px; font-size:16px; color:#e5e7eb;">
-            Request a free beta call
-          </h3>
-          <p style="font-size:13px; color:#9ca3af; margin-top:4px; margin-bottom:8px;">
-            Beta is free right now for a small group of rooms. Share a few details
-            below and Kevin will follow up by email or phone.
-          </p>
-
-          <!-- Simple email-based form -->
+          <!-- Simple email-based contact form -->
           <form
-            id="contactForm"
+            class="contact-form"
             action="mailto:1ignitegrapple@gmail.com"
             method="POST"
             enctype="text/plain"
-            style="margin-top:8px; display:grid; gap:8px;"
           >
-            <div style="display:grid; gap:6px;">
-              <label for="contactName" style="font-size:12px; color:#9ca3af;">Name</label>
-              <input id="contactName" name="Name" type="text" required />
+            <div class="contact-form-row">
+              <div>
+                <label for="contactName">Name</label>
+                <input
+                  id="contactName"
+                  name="Name"
+                  type="text"
+                  placeholder="Coach / athlete name"
+                  required
+                />
+              </div>
+              <div>
+                <label for="contactRole">Role</label>
+                <input
+                  id="contactRole"
+                  name="Role"
+                  type="text"
+                  placeholder="Coach, athlete, club director..."
+                  required
+                />
+              </div>
             </div>
 
-            <div style="display:grid; gap:6px;">
-              <label for="contactEmail" style="font-size:12px; color:#9ca3af;">Email</label>
-              <input id="contactEmail" name="Email" type="email" required />
+            <div class="contact-form-row">
+              <div>
+                <label for="contactOrg">Club / School</label>
+                <input
+                  id="contactOrg"
+                  name="Club or School"
+                  type="text"
+                  placeholder="Program name (optional)"
+                />
+              </div>
+              <div>
+                <label for="contactTime">Preferred time to talk</label>
+                <input
+                  id="contactTime"
+                  name="Preferred time"
+                  type="text"
+                  placeholder="Evenings, weekends, specific time..."
+                />
+              </div>
             </div>
 
-            <div style="display:grid; gap:6px;">
-              <label for="contactRole" style="font-size:12px; color:#9ca3af;">I am a…</label>
-              <select id="contactRole" name="Role" required>
-                <option value="">Select one</option>
-                <option>Head coach</option>
-                <option>Assistant coach</option>
-                <option>Club director</option>
-                <option>Athlete</option>
-                <option>Parent</option>
-                <option>Other</option>
-              </select>
+            <div class="contact-form-row">
+              <div>
+                <label for="contactEmail">Email</label>
+                <input
+                  id="contactEmail"
+                  name="Email"
+                  type="email"
+                  placeholder="you@example.com"
+                  required
+                />
+              </div>
+              <div>
+                <label for="contactPhone">Phone (optional)</label>
+                <input
+                  id="contactPhone"
+                  name="Phone"
+                  type="text"
+                  placeholder="Best number to reach you"
+                />
+              </div>
             </div>
 
-            <div style="display:grid; gap:6px;">
-              <label for="contactOrg" style="font-size:12px; color:#9ca3af;">Program / club / school</label>
-              <input id="contactOrg" name="Program" type="text" />
+            <div>
+              <label for="contactMessage">What do you need help with?</label>
+              <textarea
+                id="contactMessage"
+                name="Message"
+                placeholder="Example: HS room in Dallas, want coach + athlete access before next season."
+              ></textarea>
             </div>
 
-            <div style="display:grid; gap:6px;">
-              <label for="contactTime" style="font-size:12px; color:#9ca3af;">Best time / window for a quick call</label>
-              <input
-                id="contactTime"
-                name="Best time"
-                type="text"
-                placeholder="Example: Weeknights after 7pm CST"
-              />
-            </div>
-
-            <div style="display:grid; gap:6px;">
-              <label for="contactMessage" style="font-size:12px; color:#9ca3af;">
-                What are you hoping IgniteGrapple helps with?
-              </label>
-              <textarea id="contactMessage" name="What I need" rows="3"></textarea>
-            </div>
-
-            <button type="submit" class="btn" style="margin-top:6px; justify-self:flex-start;">
-              Request beta spot
+            <button type="submit" class="btn-save" style="margin-top:4px;">
+              Request beta call
             </button>
 
-            <p style="font-size:11px; color:#6b7280;">
-              When you tap submit, your email app will open so you can send this request
-              directly to Kevin.
-            </p>
+            <small>
+              This form sends your details to
+              <strong>1ignitegrapple@gmail.com</strong>. Kevin will follow up
+              personally to schedule a call.
+            </small>
           </form>
         </div>
       </section>
 
-      <!-- INSTALL APP CTA -->
+      <!-- INSTALL APP CTA (still part of Home screen) -->
       <section id="install-app" data-screen="home" style="padding: 60px 20px; background: #0b0f16; text-align: center; border-top: 1px solid #1c2333; margin-top:64px;">
         <h2 style="color: #8fff57; font-size: 2rem; margin-bottom: 10px;">
           Download the IgniteGrapple App
@@ -1622,11 +1630,12 @@
     </div>
   </main>
 
-  <!-- MOBILE TAB BAR (ONLY SHOWS ON SMALL SCREENS, COACH MODE) -->
+  <!-- MOBILE TAB BAR (ONLY SHOWS ON SMALL SCREENS) -->
   <nav class="mobile-tabbar">
     <button class="mobile-tab is-active" data-tab="home"><span>Home</span></button>
     <button class="mobile-tab" data-tab="focus"><span>Focus</span></button>
     <button class="mobile-tab" data-tab="progress"><span>Progress</span></button>
+    <button class="mobile-tab" data-tab="athlete"><span>Athlete</span></button>
   </nav>
 
   <script>
@@ -1754,6 +1763,7 @@
 
       progressSummaryText.textContent = `${athletes.length} athlete(s) tracked in this demo.`;
 
+      // Count per focus
       const counts = {};
       athletes.forEach((a) => {
         const key = a.focus || "Unassigned";
@@ -1850,96 +1860,47 @@
       });
     }
 
-    // ---------------- SIMPLE CONTACT FORM HINT ----------------
-    const contactForm = document.getElementById("contactForm");
-    if (contactForm) {
-      contactForm.addEventListener("submit", () => {
-        // Let the browser open the mail app, just give the user a quick heads-up.
-        alert("After this, your email app should open with the details pre-filled. Just hit send.");
-      });
-    }
-
-    // ---------------- MOBILE TABS (COACH MODE ONLY) ----------------
+    // ---------------- MOBILE TABS: HOME / FOCUS / PROGRESS / ATHLETE ----------------
     const MOBILE_BREAKPOINT = 720;
     const screens = document.querySelectorAll("[data-screen]");
     const tabButtons = document.querySelectorAll(".mobile-tab");
-    const modeButtons = document.querySelectorAll(".mode-chip");
-    const athleteScreens = document.querySelectorAll("[data-mode-view='athlete']");
-
     let tabMode = window.innerWidth <= MOBILE_BREAKPOINT;
     let currentTab = "home";
-    let currentMode = "coach";
 
     function applyTab(tab) {
-      if (currentMode !== "coach") return; // Tabs only apply in coach mode
       currentTab = tab;
 
+      // Highlight tab button
       tabButtons.forEach((btn) => {
         btn.classList.toggle("is-active", btn.dataset.tab === tab);
       });
 
       if (!tabMode) {
+        // Desktop: show everything, no hiding
         screens.forEach((el) => (el.style.display = ""));
         return;
       }
 
+      // Mobile: hide/show by data-screen
       screens.forEach((el) => {
         const screenName = el.getAttribute("data-screen");
         if (tab === "home") {
+          // Show home sections only
           el.style.display = screenName === "home" ? "block" : "none";
         } else {
+          // Show only that screen
           el.style.display = screenName === tab ? "block" : "none";
         }
       });
-    }
 
-    function updateTabbarVisibility() {
-      const tabbar = document.querySelector(".mobile-tabbar");
-      if (!tabbar) return;
-      if (currentMode === "coach" && window.innerWidth <= MOBILE_BREAKPOINT) {
-        tabbar.style.display = "flex";
-      } else {
-        tabbar.style.display = "none";
-      }
-    }
-
-    function setMode(mode) {
-      currentMode = mode;
-      document.body.setAttribute("data-mode", mode);
-
-      modeButtons.forEach((btn) => {
-        btn.classList.toggle("is-active", btn.dataset.mode === mode);
-      });
-
-      if (mode === "coach") {
-        // Show coach screens via tab system
-        screens.forEach((el) => (el.style.display = ""));
-        athleteScreens.forEach((el) => (el.style.display = "none"));
-        applyTab(currentTab || "home");
-      } else {
-        // Hide coach screens, show athlete screens
-        screens.forEach((el) => (el.style.display = "none"));
-        athleteScreens.forEach((el) => (el.style.display = "block"));
-        window.scrollTo({ top: 0, behavior: "instant" });
-      }
-
-      updateTabbarVisibility();
+      // Scroll to top on screen change
+      window.scrollTo({ top: 0, behavior: "instant" });
     }
 
     tabButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
         const tab = btn.dataset.tab;
         applyTab(tab);
-        window.scrollTo({ top: 0, behavior: "instant" });
-      });
-    });
-
-    modeButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const mode = btn.dataset.mode;
-        if (mode !== currentMode) {
-          setMode(mode);
-        }
       });
     });
 
@@ -1947,20 +1908,14 @@
       const newMode = window.innerWidth <= MOBILE_BREAKPOINT;
       if (newMode !== tabMode) {
         tabMode = newMode;
-        if (currentMode === "coach") {
-          screens.forEach((el) => (el.style.display = ""));
-          applyTab(currentTab || "home");
-        } else {
-          screens.forEach((el) => (el.style.display = "none"));
-          athleteScreens.forEach((el) => (el.style.display = "block"));
-        }
+        // Reset displays when switching modes
+        screens.forEach((el) => (el.style.display = ""));
+        applyTab("home");
       }
-      updateTabbarVisibility();
     });
 
     // Initial state
     applyTab("home");
-    setMode("coach");
   </script>
 </body>
 </html>
