@@ -478,16 +478,16 @@
       color: #e5e7eb;
     }
 
-  .dash-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 12px;
-  font-size: 12px;
-  color: #9ca3af;
-  gap: 6px 10px;
-  flex-wrap: wrap;
-}
+    .dash-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      font-size: 12px;
+      color: #9ca3af;
+      gap: 6px 10px;
+      flex-wrap: wrap;
+    }
 
     .dash-title-group {
       display: flex;
@@ -507,30 +507,30 @@
 
     /* Coach/Athlete mode toggle */
 
-   .mode-toggle {
-  display: inline-flex;
-  border-radius: 999px;
-  border: 1px solid rgba(148, 163, 184, 0.5);
-  overflow: hidden;
-  background: rgba(15, 23, 42, 0.9);
-  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.9);
-  flex-shrink: 0;
-  margin-top: 4px;
-}
+    .mode-toggle {
+      display: inline-flex;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      overflow: hidden;
+      background: rgba(15, 23, 42, 0.9);
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.9);
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
 
-   .mode-btn {
-  padding: 5px 14px;
-  font-size: 11px;
-  border: none;
-  background: transparent;
-  color: #9ca3af;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  min-width: 82px;
-}
+    .mode-btn {
+      padding: 5px 14px;
+      font-size: 11px;
+      border: none;
+      background: transparent;
+      color: #9ca3af;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      min-width: 82px;
+    }
 
     .mode-btn span.toggle-dot {
       width: 8px;
@@ -1572,6 +1572,14 @@
               and focus areas. Wrestlers can log how they feel and what they’re chasing.
             </p>
 
+            <!-- NEW FEEDBACK BUTTON FOR THIS DEMO -->
+            <button id="openFeedbackBtn" class="btn" style="margin-top:14px;">
+              Send feedback on this demo
+            </button>
+            <p style="margin-top:6px;font-size:11px;color:#9ca3af;">
+              Tags which demo you used and sends it to our beta feedback sheet (no login, no phone).
+            </p>
+
             <ul class="app-stat-list">
               <li class="app-stat">
                 <div>
@@ -2241,6 +2249,61 @@
         </div>
       </section>
 
+      <!-- ============ NEW FEEDBACK SCREEN (GOES TO GOOGLE SHEET) ============ -->
+      <section id="feedbackScreen" data-screen="feedback" style="margin-top:64px;">
+        <div class="section-kicker">Feedback</div>
+        <div class="contact-card">
+          <h2 class="section-title">Help shape IgniteGrapple.</h2>
+          <p class="section-body">
+            This form sends straight to a private beta feedback sheet. We also tag which demo you were using and basic
+            analytics (device, screen size) — no phone number needed.
+          </p>
+
+          <form id="feedbackForm" class="contact-form">
+            <!-- Hidden demo identifier; filled from JS -->
+            <input type="hidden" id="fb-demo" value="unknown" />
+
+            <div class="contact-form-row">
+              <div>
+                <label for="fb-name">Name (optional)</label>
+                <input id="fb-name" type="text" placeholder="Your name" />
+              </div>
+              <div>
+                <label for="fb-role">You are a…</label>
+                <select id="fb-role" required>
+                  <option value="">Select one</option>
+                  <option value="Coach">Coach</option>
+                  <option value="Athlete">Athlete</option>
+                  <option value="Parent">Parent</option>
+                  <option value="Club director">Club director</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label for="fb-email">Email (optional, if you want a reply)</label>
+              <input id="fb-email" type="text" placeholder="Best email to follow up (optional)" />
+            </div>
+
+            <div>
+              <label for="fb-message">Feedback</label>
+              <textarea
+                id="fb-message"
+                placeholder="What worked? What was confusing? What should change before launch?"
+                required
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn">Send feedback</button>
+            <small style="display:block; margin-top:6px; color:#9ca3af;">
+              Submits to the IgniteGrapple beta sheet through Google Apps Script. No login or phone number required.
+            </small>
+            <p id="fb-status" style="margin-top:8px; font-size:12px; color:#9ca3af;"></p>
+          </form>
+        </div>
+      </section>
+
       <section id="install-app" data-screen="home" style="padding: 60px 20px; background: #0b0f16; text-align: center; border-top: 1px solid #1c2333; margin-top:64px;">
         <h2 style="color: #8fff57; font-size: 2rem; margin-bottom: 10px;">
           Download the IgniteGrapple App
@@ -2283,6 +2346,8 @@
     <button class="mobile-tab" data-tab="focus"><span>Coach</span></button>
     <button class="mobile-tab" data-tab="progress"><span>Room</span></button>
     <button class="mobile-tab" data-tab="athlete"><span>Athletes</span></button>
+    <!-- NEW FEEDBACK TAB -->
+    <button class="mobile-tab" data-tab="feedback"><span>Feedback</span></button>
   </nav>
 
   <script>
@@ -2304,6 +2369,8 @@
 
     let athletes = [];
     let athleteLogs = [];
+    // Tracks which demo they were using last (for feedback tagging)
+    let igniteLastDemo = "coach-dashboard";
 
     function loadAthletes() {
       try {
@@ -2642,7 +2709,7 @@
       });
     }
 
-    // -------------- MOBILE TABS: HOME / FOCUS / PROGRESS / ATHLETE --------------
+    // -------------- MOBILE TABS: HOME / FOCUS / PROGRESS / ATHLETE / FEEDBACK --------------
     const MOBILE_BREAKPOINT = 720;
     const screens = document.querySelectorAll("[data-screen]");
     const tabButtons = document.querySelectorAll(".mobile-tab");
@@ -2706,6 +2773,13 @@
       modeViews.forEach((view) => {
         view.style.display = view.getAttribute("data-mode-view") === mode ? "block" : "none";
       });
+
+      // Track which dashboard demo is currently active
+      if (mode === "coach") {
+        igniteLastDemo = "coach-dashboard";
+      } else if (mode === "athlete") {
+        igniteLastDemo = "athlete-dashboard";
+      }
     }
 
     modeButtons.forEach((btn) => {
@@ -2896,6 +2970,9 @@
         if (practiceStatus) {
           practiceStatus.textContent = "Example outline generated below.";
         }
+
+        // Mark that they used the practice builder demo
+        igniteLastDemo = "practice-builder";
       });
     }
 
@@ -2994,6 +3071,94 @@
         if (prepStatus) {
           prepStatus.textContent = "Prep checklist generated below.";
         }
+
+        // Mark that they used the match prep demo
+        igniteLastDemo = "match-prep";
+      });
+    }
+
+    // -------------- FEEDBACK SYSTEM (GOOGLE APP SCRIPT) --------------
+    const feedbackScreen = document.getElementById("feedbackScreen");
+    const openFeedbackBtn = document.getElementById("openFeedbackBtn");
+    const fbForm = document.getElementById("feedbackForm");
+    const fbStatus = document.getElementById("fb-status");
+
+    if (openFeedbackBtn) {
+      openFeedbackBtn.addEventListener("click", () => {
+        applyTab("feedback");
+        if (feedbackScreen) {
+          feedbackScreen.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    }
+
+    function getAnalyticsMeta() {
+      return {
+        userAgent: navigator.userAgent || "",
+        language: navigator.language || "",
+        viewport: `${window.innerWidth}x${window.innerHeight}`,
+        screen: window.screen ? `${screen.width}x${screen.height}` : "",
+        path: window.location.pathname || ""
+      };
+    }
+
+    if (fbForm) {
+      fbForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById("fb-name").value.trim();
+        const role = document.getElementById("fb-role").value;
+        const email = document.getElementById("fb-email").value.trim();
+        const message = document.getElementById("fb-message").value.trim();
+        const demo = igniteLastDemo || "unknown";
+
+        if (!message || !role) {
+          if (fbStatus) {
+            fbStatus.textContent = "Please choose your role and add feedback before submitting.";
+          }
+          return;
+        }
+
+        const fbDemoInput = document.getElementById("fb-demo");
+        if (fbDemoInput) {
+          fbDemoInput.value = demo;
+        }
+
+        const payload = {
+          name,
+          role,
+          email,
+          message,
+          demo,
+          submittedAt: new Date().toISOString(),
+          analytics: getAnalyticsMeta()
+        };
+
+        if (fbStatus) fbStatus.textContent = "Sending…";
+
+        fetch(
+          "https://script.google.com/macros/s/AKfycbzH4p_IitE_dJ9n9E_In4tr2ykzpxZydxoQgEN21J672Fss7QkxlUpDsIwp0KCF4e9R/exec",
+          {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+          }
+        )
+          .then(() => {
+            if (fbStatus) {
+              fbStatus.textContent = "Feedback sent. Thanks for helping shape IgniteGrapple.";
+            }
+            fbForm.reset();
+          })
+          .catch((err) => {
+            console.error("Feedback error", err);
+            if (fbStatus) {
+              fbStatus.textContent = "Could not send feedback. Please try again in a minute.";
+            }
+          });
       });
     }
   </script>
