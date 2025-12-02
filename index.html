@@ -185,14 +185,15 @@
     }
 
     .btn {
-      background: radial-gradient(circle at 0 0, #ecfccb 0, #7dfc4c 45%, #22c55e 100%);
+      /* toned down but still bright */
+      background: linear-gradient(135deg, #4ade80, #16a34a);
       color: #02100a;
-      box-shadow: var(--shadow-glow);
+      box-shadow: 0 0 24px rgba(34, 197, 94, 0.55);
     }
 
     .btn:hover {
       transform: translateY(-1px);
-      box-shadow: 0 0 30px rgba(125, 252, 76, 0.7);
+      box-shadow: 0 0 30px rgba(34, 197, 94, 0.8);
     }
 
     .btn-outline {
@@ -1149,7 +1150,7 @@
 
         <div class="nav-cta">
           <a href="#beta" data-target-screen="home" class="btn">Join beta</a>
-          <a href="#app" data-target-screen="focus" class="btn-outline" id="navViewAppDemo">
+          <a href="#demo" data-target-screen="focus" class="btn-outline" id="navViewAppDemo">
             View app demo
           </a>
         </div>
@@ -1178,11 +1179,11 @@
           </p>
 
           <div class="hero-actions">
-            <a href="#beta" data-target-screen="home" class="btn">
+            <a href="#beta" data-target-screen="home" class="btn" id="heroJoinBeta">
               Join beta
               <span class="badge-free">Beta access is free right now</span>
             </a>
-            <a href="#app" data-target-screen="focus" class="btn-outline" id="heroSeeDemo">
+            <a href="#demo" data-target-screen="focus" class="btn-outline" id="heroSeeDemo">
               See what it does
             </a>
           </div>
@@ -1322,7 +1323,7 @@
         </p>
         <p class="section-body" style="margin-top:0;">
           Click <strong>“See what it does”</strong> or <strong>“View app demo”</strong>
-          to try the live coach &amp; athlete dashboard in your browser before the full app drops.
+          to try the live coach &amp; athlete demos in your browser before the full app drops.
         </p>
       </section>
 
@@ -1330,7 +1331,7 @@
 
       <section id="app" data-screen="focus">
         <div class="section-kicker">App preview</div>
-        <h2 class="section-title">Live coach &amp; athlete demo you can use right now.</h2>
+        <h2 class="section-title">Live coach &amp; athlete dashboard you can use right now.</h2>
         <p class="section-body">
           This isn’t a fake mockup — it’s a working mini-app running in your browser.
           Coaches can add athletes and focus areas. Wrestlers can log mindset and daily
@@ -1575,6 +1576,175 @@
               </li>
             </ul>
           </aside>
+        </div>
+      </section>
+
+      <!-- ============ NEW HANDS-ON DEMO (SEE WHAT IT DOES) ============ -->
+
+      <section id="demo" data-screen="focus">
+        <div class="section-kicker">Hands-on demo</div>
+        <h2 class="section-title">Build a practice &amp; match prep in a few taps.</h2>
+        <p class="section-body">
+          This is a second demo that feels closer to the final app. Coaches can build
+          a quick practice outline based on what they want to hit tonight, and wrestlers
+          can get a simple match-prep checklist. All of this runs right here in your browser.
+        </p>
+
+        <div class="app-shell">
+          <!-- COACH PRACTICE BUILDER -->
+          <div class="dash-shell">
+            <div class="dash-head">
+              <div class="dash-title-group">
+                <div class="dash-title">Coach demo • Practice builder</div>
+                <div class="dash-sub">Pick focus areas and length, we’ll build an outline.</div>
+              </div>
+            </div>
+
+            <div class="dash-card">
+              <h4>Tonight’s practice</h4>
+              <p class="dash-muted">
+                Choose what you want to emphasize and see an example practice flow.
+              </p>
+
+              <form id="practiceForm" class="dash-form">
+                <div class="dash-form-row">
+                  <div>
+                    <label for="practiceLength">Practice length</label>
+                    <select id="practiceLength" required>
+                      <option value="">Select</option>
+                      <option value="60">~60 minutes</option>
+                      <option value="75">~75 minutes</option>
+                      <option value="90">~90 minutes</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="practicePhase">Time of year</label>
+                    <select id="practicePhase" required>
+                      <option value="">Select</option>
+                      <option value="preseason">Preseason / building base</option>
+                      <option value="midseason">Mid-season grind</option>
+                      <option value="postseason">Postseason / peaking</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label>What do you want to sharpen tonight?</label>
+                  <div class="chip-row" id="practiceFocusChips">
+                    <button type="button" class="chip">Shot defense</button>
+                    <button type="button" class="chip">Finishes</button>
+                    <button type="button" class="chip">Bottom urgency</button>
+                    <button type="button" class="chip">Mat returns</button>
+                    <button type="button" class="chip">Hand-fighting pace</button>
+                    <button type="button" class="chip">Chain wrestling</button>
+                  </div>
+                </div>
+
+                <div>
+                  <label for="practiceRoomNote">Room note (optional)</label>
+                  <textarea
+                    id="practiceRoomNote"
+                    placeholder="Example: Kids are drained from school finals, keep pace high but simple."
+                  ></textarea>
+                </div>
+
+                <div class="dash-save-row">
+                  <small id="practiceStatus">
+                    This is an example — nothing is saved to a server.
+                  </small>
+                  <button type="submit" class="btn-save" id="generatePracticeBtn">
+                    Generate practice outline
+                  </button>
+                </div>
+              </form>
+
+              <div style="margin-top:10px;">
+                <h4 style="margin-bottom:4px;">Example outline</h4>
+                <p class="dash-muted">
+                  Use this as a feel for how IgniteGrapple can turn a few inputs into a plan.
+                </p>
+                <div id="practiceOutput" class="dash-list"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ATHLETE MATCH PREP DEMO -->
+          <div class="dash-shell">
+            <div class="dash-head">
+              <div class="dash-title-group">
+                <div class="dash-title">Athlete demo • Match prep</div>
+                <div class="dash-sub">Answer a few questions and see a prep checklist.</div>
+              </div>
+            </div>
+
+            <div class="dash-card">
+              <h4>Match prep simulator</h4>
+              <p class="dash-muted">
+                Wrestlers can see how IgniteGrapple will turn their situation into simple,
+                clear actions before a big match.
+              </p>
+
+              <form id="prepForm" class="dash-form">
+                <div class="dash-form-row">
+                  <div>
+                    <label for="prepTimeframe">When’s the next battle?</label>
+                    <select id="prepTimeframe" required>
+                      <option value="">Select</option>
+                      <option value="dualTonight">Dual tonight</option>
+                      <option value="tournamentWeekend">Tournament this weekend</option>
+                      <option value="stateSoon">State in 2–4 weeks</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="prepStruggle">Biggest struggle right now</label>
+                    <select id="prepStruggle" required>
+                      <option value="">Select</option>
+                      <option value="nerves">Nerves / overthinking</option>
+                      <option value="slowStart">Slow start</option>
+                      <option value="gassing">Gas tank / fading late</option>
+                      <option value="finishing">Finishing attacks</option>
+                      <option value="bottom">Getting off bottom</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label>How do you want to feel when you step on the line?</label>
+                  <div class="chip-row" id="prepFeelingChips">
+                    <button type="button" class="chip">Loose &amp; calm</button>
+                    <button type="button" class="chip">Locked in</button>
+                    <button type="button" class="chip">Aggressive</button>
+                    <button type="button" class="chip">Patient &amp; smart</button>
+                  </div>
+                </div>
+
+                <div>
+                  <label for="prepNote">Anything specific about this opponent?</label>
+                  <textarea
+                    id="prepNote"
+                    placeholder="Example: Heavy hands, good re-shots, gasses in the 3rd."
+                  ></textarea>
+                </div>
+
+                <div class="dash-save-row">
+                  <small id="prepStatus">
+                    This is a demo checklist — it stays on this device.
+                  </small>
+                  <button type="submit" class="btn-save" id="generatePrepBtn">
+                    Generate match prep
+                  </button>
+                </div>
+              </form>
+
+              <div style="margin-top:10px;">
+                <h4 style="margin-bottom:4px;">Prep checklist</h4>
+                <p class="dash-muted">
+                  This shows the kind of simple game plan athletes will see inside the app.
+                </p>
+                <div id="prepOutput" class="dash-list"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -2569,9 +2739,9 @@
 
         const explicitScreen = link.dataset.targetScreen;
         // Default mapping if data-target-screen isn't set
-        let targetScreen = explicitScreen || (targetId === "app" ? "focus" : "home");
+        let targetScreen = explicitScreen || (targetId === "app" || targetId === "demo" ? "focus" : "home");
 
-        if (!tabMode && !explicitScreen && targetId !== "app") {
+        if (!tabMode && !explicitScreen && targetId !== "app" && targetId !== "demo") {
           // Desktop, normal anchor scroll for non-demo links
           return;
         }
@@ -2591,6 +2761,221 @@
         }, 60);
       });
     });
+
+    // -------------- NEW HANDS-ON DEMO LOGIC --------------
+
+    // Coach practice builder
+    const practiceForm = document.getElementById("practiceForm");
+    const practiceFocusChips = document.getElementById("practiceFocusChips");
+    const practiceOutput = document.getElementById("practiceOutput");
+    const practiceStatus = document.getElementById("practiceStatus");
+
+    if (practiceFocusChips) {
+      practiceFocusChips.addEventListener("click", (e) => {
+        if (e.target.classList.contains("chip")) {
+          e.target.classList.toggle("is-active");
+        }
+      });
+    }
+
+    function buildPracticeOutline(length, phase, focuses, note) {
+      const blocks = [];
+
+      // Warm up
+      blocks.push("5–10 min • Dynamic warm-up & stance/motion");
+
+      // Technique block depending on phase
+      if (phase === "preseason") {
+        blocks.push("15–20 min • Fundamentals: position, level change, penetration steps.");
+      } else if (phase === "midseason") {
+        blocks.push("15–20 min • Live-speed drilling in your main attacks & counters.");
+      } else if (phase === "postseason") {
+        blocks.push("15–20 min • Sharpen go-to attacks & finishes you trust under pressure.");
+      }
+
+      // Focus-driven blocks
+      focuses.forEach((f) => {
+        if (f === "Shot defense") {
+          blocks.push("10–15 min • Shot defense: down-block, sprawl, re-attack from ties.");
+        }
+        if (f === "Finishes") {
+          blocks.push("10–15 min • Finishes: run the pipe, shelf the leg, finish on the edge.");
+        }
+        if (f === "Bottom urgency") {
+          blocks.push("10–15 min • Bottom urgency: first move, build base, stand-ups, mat returns fought.");
+        }
+        if (f === "Mat returns") {
+          blocks.push("8–12 min • Mat returns: lift, mat return, cover, chain to turns.");
+        }
+        if (f === "Hand-fighting pace") {
+          blocks.push("8–12 min • Hand-fighting pace: control ties, snap, move feet, win positions.");
+        }
+        if (f === "Chain wrestling") {
+          blocks.push("10–15 min • Chain wrestling: 2–3 attack chains from your best setups.");
+        }
+      });
+
+      // Live & conditioning
+      if (length === "60") {
+        blocks.push("10–12 min • Situational live from your focus positions.");
+        blocks.push("5–8 min • Short conditioning finisher & cool-down.");
+      } else if (length === "75") {
+        blocks.push("15–18 min • Situational + live goes (short matches).");
+        blocks.push("8–10 min • Conditioning & cool-down.");
+      } else if (length === "90") {
+        blocks.push("18–22 min • Live goes (matches or shark bait) around focus areas.");
+        blocks.push("10–12 min • Hard conditioning + focused cool-down.");
+      }
+
+      if (note) {
+        blocks.push(`Coach note: ${note}`);
+      }
+
+      return blocks;
+    }
+
+    if (practiceForm && practiceOutput) {
+      practiceForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const length = document.getElementById("practiceLength").value;
+        const phase = document.getElementById("practicePhase").value;
+        const note = document.getElementById("practiceRoomNote").value.trim();
+
+        if (!length || !phase) {
+          if (practiceStatus) {
+            practiceStatus.textContent = "Pick a length and time of year to build the outline.";
+          }
+          return;
+        }
+
+        let focuses = [];
+        if (practiceFocusChips) {
+          const active = practiceFocusChips.querySelectorAll(".chip.is-active");
+          focuses = Array.from(active).map((c) => c.textContent.trim());
+        }
+        if (!focuses.length) {
+          focuses = ["Shot defense", "Finishes"];
+        }
+
+        const blocks = buildPracticeOutline(length, phase, focuses, note);
+
+        practiceOutput.innerHTML = "";
+        blocks.forEach((b) => {
+          const item = document.createElement("div");
+          item.className = "athlete-pill";
+          const main = document.createElement("div");
+          main.className = "athlete-main";
+          const line = document.createElement("div");
+          line.className = "athlete-meta";
+          line.textContent = b;
+          main.appendChild(line);
+          item.appendChild(main);
+          practiceOutput.appendChild(item);
+        });
+
+        if (practiceStatus) {
+          practiceStatus.textContent = "Example outline generated below.";
+        }
+      });
+    }
+
+    // Athlete match prep demo
+    const prepForm = document.getElementById("prepForm");
+    const prepFeelingChips = document.getElementById("prepFeelingChips");
+    const prepOutput = document.getElementById("prepOutput");
+    const prepStatus = document.getElementById("prepStatus");
+
+    if (prepFeelingChips) {
+      prepFeelingChips.addEventListener("click", (e) => {
+        if (e.target.classList.contains("chip")) {
+          e.target.classList.toggle("is-active");
+        }
+      });
+    }
+
+    function buildPrepChecklist(timeframe, struggle, feelings, note) {
+      const lines = [];
+
+      // Timeframe-based
+      if (timeframe === "dualTonight") {
+        lines.push("Tonight • Keep routine simple: light drill, short sweat, review 2–3 go-to attacks.");
+        lines.push("90–60 min out • Start warm-up & breathing — no new moves, just sharpen weapons.");
+      } else if (timeframe === "tournamentWeekend") {
+        lines.push("Day before • Get weight right, 20–30 min move & drill, early sleep.");
+        lines.push("Morning of • 15–20 min stance/motion + finishes, visualize 1st period of round 1.");
+      } else if (timeframe === "stateSoon") {
+        lines.push("This week • Double down on what already works, don’t reinvent your style.");
+        lines.push("2–3 days out • Shorter practices, high quality reps, protect your body.");
+      }
+
+      // Struggle-based
+      if (struggle === "nerves") {
+        lines.push("Mindset • 3 slow breaths between whistles, talk to yourself like a coach, not a critic.");
+      } else if (struggle === "slowStart") {
+        lines.push("First whistle • Commit to scoring first: one clean setup, one committed attack.");
+      } else if (struggle === "gassing") {
+        lines.push("Pace • Win the ties, but don’t wrestle in chaos. Pick your moments, keep stance sharp.");
+      } else if (struggle === "finishing") {
+        lines.push("Attacks • Drill 10–15 clean finishes from your best shots before you compete.");
+      } else if (struggle === "bottom") {
+        lines.push("Bottom • First move ready: explode to your base, stand, and clear hands without pausing.");
+      }
+
+      // Feelings
+      if (feelings.length) {
+        lines.push(`Intention • Step on the line feeling: ${feelings.join(", ")}.`);
+      }
+
+      if (note) {
+        lines.push(`Opponent note • Remember: ${note}`);
+      }
+
+      lines.push("Reminder • You already did the work. Breathe, move your feet, trust your training.");
+
+      return lines;
+    }
+
+    if (prepForm && prepOutput) {
+      prepForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const timeframe = document.getElementById("prepTimeframe").value;
+        const struggle = document.getElementById("prepStruggle").value;
+        const note = document.getElementById("prepNote").value.trim();
+
+        if (!timeframe || !struggle) {
+          if (prepStatus) {
+            prepStatus.textContent = "Pick when you compete and what you struggle with most.";
+          }
+          return;
+        }
+
+        let feelings = [];
+        if (prepFeelingChips) {
+          const active = prepFeelingChips.querySelectorAll(".chip.is-active");
+          feelings = Array.from(active).map((c) => c.textContent.trim());
+        }
+
+        const lines = buildPrepChecklist(timeframe, struggle, feelings, note);
+
+        prepOutput.innerHTML = "";
+        lines.forEach((text) => {
+          const row = document.createElement("div");
+          row.className = "athlete-pill";
+          const main = document.createElement("div");
+          main.className = "athlete-main";
+          const meta = document.createElement("div");
+          meta.className = "athlete-meta";
+          meta.textContent = text;
+          main.appendChild(meta);
+          row.appendChild(main);
+          prepOutput.appendChild(row);
+        });
+
+        if (prepStatus) {
+          prepStatus.textContent = "Prep checklist generated below.";
+        }
+      });
+    }
   </script>
 </body>
 </html>
