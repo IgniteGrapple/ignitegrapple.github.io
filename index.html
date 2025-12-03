@@ -1,4 +1,3 @@
-Here you go — full updated HTML with the hologram founder photo + highlight + reveal effect added, and nothing else broken:
 
 <!DOCTYPE html>
 <html lang="en">
@@ -1040,136 +1039,6 @@ Here you go — full updated HTML with the hologram founder photo + highlight + 
       box-shadow: 0 0 12px rgba(125, 252, 76, 0.7);
     }
 
-    /* HIGHLIGHT PILL FOR FREE / $0 / BETA */
-
-    .highlight-pill {
-      display: inline-flex;
-      align-items: center;
-      padding: 0 0.45em;
-      border-radius: 999px;
-      background: rgba(125, 252, 76, 0.16);
-      color: var(--accent);
-      box-shadow: 0 0 14px rgba(125, 252, 76, 0.7);
-      font-weight: 600;
-      letter-spacing: 0.03em;
-    }
-
-    /* FOUNDER HOLOGRAM PHOTO */
-
-    .founder-photo-wrap {
-      position: relative;
-      width: 230px;
-      max-width: 100%;
-      margin: 18px auto 10px;
-      perspective: 1100px;
-    }
-
-    .founder-photo-inner {
-      position: relative;
-      border-radius: 26px;
-      padding: 4px;
-      background:
-        radial-gradient(circle at 10% 0, rgba(148, 163, 184, 0.3), transparent 55%),
-        radial-gradient(circle at 90% 100%, rgba(125, 252, 76, 0.35), #020817 60%);
-      box-shadow:
-        0 0 0 1px rgba(15, 23, 42, 0.9),
-        0 0 40px rgba(125, 252, 76, 0.6);
-      transform-style: preserve-3d;
-      transition: transform 220ms ease-out, box-shadow 220ms ease-out;
-    }
-
-    .founder-photo-inner::before {
-      content: "";
-      position: absolute;
-      inset: -1px;
-      border-radius: inherit;
-      border: 1px solid rgba(125, 252, 76, 0.55);
-      opacity: 0.7;
-      mix-blend-mode: screen;
-      pointer-events: none;
-    }
-
-    .founder-photo-inner::after {
-      content: "";
-      position: absolute;
-      inset: 16% 10%;
-      border-radius: inherit;
-      background: linear-gradient(
-        to bottom,
-        rgba(125, 252, 76, 0.08),
-        transparent 40%,
-        rgba(37, 99, 235, 0.1),
-        transparent 80%
-      );
-      opacity: 0.9;
-      mix-blend-mode: soft-light;
-      pointer-events: none;
-    }
-
-    .founder-photo-img {
-      width: 100%;
-      border-radius: 22px;
-      object-fit: cover;
-      display: block;
-      filter: saturate(1.12) contrast(1.05);
-    }
-
-    .founder-tag {
-      position: absolute;
-      left: 50%;
-      bottom: 10px;
-      transform: translateX(-50%);
-      padding: 5px 12px;
-      border-radius: 999px;
-      background: rgba(2, 8, 23, 0.92);
-      border: 1px solid rgba(125, 252, 76, 0.8);
-      font-size: 11px;
-      color: #e5e7eb;
-      box-shadow:
-        0 0 18px rgba(125, 252, 76, 0.9),
-        0 0 0 1px rgba(15, 23, 42, 0.9);
-      white-space: nowrap;
-    }
-
-    .founder-holo-ring {
-      position: absolute;
-      left: 12px;
-      right: 12px;
-      bottom: -26px;
-      height: 26px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 50% 0, rgba(125, 252, 76, 0.85), transparent 62%);
-      filter: blur(4px);
-      opacity: 0.85;
-      animation: holoFloat 3.4s ease-in-out infinite alternate;
-    }
-
-    @keyframes holoFloat {
-      from {
-        transform: translateY(2px) scale(0.96);
-        opacity: 0.55;
-      }
-      to {
-        transform: translateY(-2px) scale(1.04);
-        opacity: 0.98;
-      }
-    }
-
-    /* REVEAL TEXT SEQUENCE */
-
-    .reveal-block {
-      opacity: 0;
-      transform: translateY(12px);
-      transition:
-        opacity 320ms ease-out,
-        transform 320ms ease-out;
-    }
-
-    .reveal-block.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
     /* RESPONSIVE */
 
     @media (max-width: 960px) {
@@ -1247,10 +1116,6 @@ Here you go — full updated HTML with the hologram founder photo + highlight + 
 
       .how-grid {
         grid-template-columns: minmax(0, 1fr);
-      }
-
-      .founder-photo-wrap {
-        width: 190px;
       }
     }
 
@@ -1382,7 +1247,7 @@ Here you go — full updated HTML with the hologram founder photo + highlight + 
           and help shape what stays — before any subscription kicks in.
         </p>
         <ul class="contact-list">
-          <li>• <strong><span class="highlight-pill">$0</span> during <span class="highlight-pill">beta</span></strong> for committed rooms and wrestlers.</li>
+          <li>• <strong>$0 during beta</strong> for committed rooms and wrestlers.</li>
           <li>• You give feedback on what actually helps practice and match day.</li>
           <li>• Your room gets <strong>locked-in pricing</strong> when the full version launches.</li>
         </ul>
@@ -1997,8 +1862,7 @@ Here you go — full updated HTML with the hologram founder photo + highlight + 
         </div>
 
         <p class="section-body" style="margin-top:18px;">
-          During <span class="highlight-pill">beta</span>, athlete mode is
-          <span class="highlight-pill">free</span>. Wrestlers and parents can try it
+          During beta, athlete mode is free. Wrestlers and parents can try it
           alongside their coaches and give feedback on what actually helps on
           match day.
         </p>
@@ -2210,13 +2074,12 @@ Here you go — full updated HTML with the hologram founder photo + highlight + 
       <section id="pricing" data-screen="home">
         <div class="section-kicker">Beta pricing</div>
         <h2 class="section-title">
-          Future plans are set. <span class="highlight-pill">Beta is free right now.</span>
+          Future plans are set. <span style="color:#7dfc4c;">Beta is free right now.</span>
         </h2>
         <p class="section-body">
           Early rooms get locked-in pricing and direct access to Kevin while
           IgniteGrapple is being shaped around real wrestling programs.
-          <strong>During <span class="highlight-pill">beta</span>, qualified rooms pay
-          <span class="highlight-pill">$0</span> — we just ask for honest feedback.</strong>
+          <strong>During beta, qualified rooms pay $0 — we just ask for honest feedback.</strong>
         </p>
 
         <div class="pricing-grid">
@@ -2230,7 +2093,7 @@ Here you go — full updated HTML with the hologram founder photo + highlight + 
               drowning coaches in admin work.
             </p>
             <p class="free-note">
-              <span class="highlight-pill">Beta:</span> <strong><span class="highlight-pill">$0</span></strong> — if you’re helping shape the product, you’re not paying yet.
+              Beta: <strong>$0</strong> — if you’re helping shape the product, you’re not paying yet.
             </p>
           </article>
 
@@ -2244,7 +2107,7 @@ Here you go — full updated HTML with the hologram founder photo + highlight + 
               need everyone on the same page.
             </p>
             <p class="free-note">
-              <span class="highlight-pill">Beta:</span> <strong><span class="highlight-pill">$0</span></strong> — your room gets locked-in pricing later for helping now.
+              Beta: <strong>$0</strong> — your room gets locked-in pricing later for helping now.
             </p>
           </article>
 
@@ -2258,7 +2121,7 @@ Here you go — full updated HTML with the hologram founder photo + highlight + 
               long-term planning with Kevin in the loop.
             </p>
             <p class="free-note">
-              <span class="highlight-pill">Beta:</span> <strong><span class="highlight-pill">$0</span></strong> for serious partners; we focus on results, then on billing.
+              Beta: <strong>$0</strong> for serious partners; we focus on results, then on billing.
             </p>
           </article>
         </div>
@@ -2273,20 +2136,6 @@ Here you go — full updated HTML with the hologram founder photo + highlight + 
             late-blooming wrestler, state champ, and first NCAA All-American for
             his college.
           </p>
-
-          <!-- HOLOGRAM FOUNDER PHOTO -->
-          <div class="founder-photo-wrap">
-            <div class="founder-photo-inner">
-              <img
-                src="founder-photo.png"
-                alt="Kevin Almond – Founder of IgniteGrapple"
-                class="founder-photo-img"
-              />
-              <span class="founder-tag">Founder • Kevin Almond</span>
-            </div>
-            <div class="founder-holo-ring"></div>
-          </div>
-
           <p class="founder-name">
             Kevin Almond, MBA – Founder &amp; Builder of IgniteGrapple
           </p>
@@ -2325,7 +2174,7 @@ Here you go — full updated HTML with the hologram founder photo + highlight + 
           </p>
           <ul class="contact-list">
             <li>• Direct access to Kevin for feedback and adjustments.</li>
-            <li>• <strong><span class="highlight-pill">Beta is free right now</span></strong> for serious rooms and wrestlers.</li>
+            <li>• <strong>Beta is free right now</strong> for serious rooms and wrestlers.</li>
             <li>• Locked-in pricing for at least the first full season after launch.</li>
             <li>• Influence over features, reports, and practice tools.</li>
             <li>• Priority when native iOS / Android apps go live.</li>
@@ -3249,7 +3098,7 @@ Here you go — full updated HTML with the hologram founder photo + highlight + 
         if (!athletes.length) {
           alert("Add at least one athlete first so there’s something to send.");
           return;
-        });
+        }
         let text = "IgniteGrapple – Coach demo snapshot\n\n";
         athletes.forEach((a) => {
           text += `Name: ${a.name}\nFocus: ${a.focus}\nNotes: ${a.notes || ""}\n\n`;
@@ -3310,62 +3159,6 @@ Here you go — full updated HTML with the hologram founder photo + highlight + 
         });
         openMailto("IgniteGrapple match prep checklist (demo)", text);
       });
-    }
-
-    // -------------- FOUNDER PHOTO 3D TILT (DESKTOP ONLY) --------------
-    const founderWrap = document.querySelector(".founder-photo-wrap");
-    if (founderWrap && window.innerWidth > 720) {
-      const inner = founderWrap.querySelector(".founder-photo-inner");
-      founderWrap.addEventListener("mousemove", (e) => {
-        const rect = founderWrap.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-        const rotateX = y * -14;
-        const rotateY = x * 18;
-        inner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(18px)`;
-      });
-
-      founderWrap.addEventListener("mouseleave", () => {
-        inner.style.transform = "rotateX(0deg) rotateY(0deg) translateZ(0)";
-      });
-    }
-
-    // -------------- REVEAL TEXT SEQUENCE --------------
-    const revealSelectors = [
-      ".hero-body",
-      ".hero-footnote",
-      ".section-body",
-      ".founder-card p",
-      ".beta-card p",
-      ".contact-card p",
-      ".price-card p",
-      ".compare-col p",
-      ".app-copy p"
-    ];
-
-    const revealTargets = [];
-    revealSelectors.forEach((sel) => {
-      document.querySelectorAll(sel).forEach((el) => {
-        el.classList.add("reveal-block");
-        revealTargets.push(el);
-      });
-    });
-
-    if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("is-visible");
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.18 }
-      );
-      revealTargets.forEach((el) => observer.observe(el));
-    } else {
-      revealTargets.forEach((el) => el.classList.add("is-visible"));
     }
   </script>
 </body>
