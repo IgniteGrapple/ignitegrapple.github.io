@@ -185,7 +185,6 @@
     }
 
     .btn {
-      /* Back to bright neon style */
       background: radial-gradient(circle at left, #ecfccb 0, #7dfc4c 45%, #22c55e 100%);
       color: #020817;
       box-shadow: 0 0 30px rgba(125, 252, 76, 0.85);
@@ -1449,6 +1448,11 @@
                       When we connect the real AI engine + backend, this widget will
                       update from live practice data and sync to your IgniteGrapple account.
                     </p>
+
+                    <!-- Email coach demo snapshot -->
+                    <button type="button" class="btn-save" id="emailCoachSnapshot" style="margin-top:6px;">
+                      Email this room snapshot
+                    </button>
                   </form>
                 </div>
               </div>
@@ -1560,6 +1564,9 @@
                   trends across the season and how your mindset lines up with your best matches.
                 </p>
                 <div id="athleteLogList" class="dash-list"></div>
+                <button type="button" class="btn-save" id="emailAthleteLogs" style="margin-top:8px;">
+                  Email my check-ins
+                </button>
               </div>
             </div>
           </div>
@@ -1572,12 +1579,12 @@
               and focus areas. Wrestlers can log how they feel and what they’re chasing.
             </p>
 
-            <!-- NEW FEEDBACK BUTTON FOR THIS DEMO -->
+            <!-- FEEDBACK BUTTON (NOW JUST NAVIGATES TO FEEDBACK SECTION) -->
             <button id="openFeedbackBtn" class="btn" style="margin-top:14px;">
               Send feedback on this demo
             </button>
             <p style="margin-top:6px;font-size:11px;color:#9ca3af;">
-              Tags which demo you used and sends it to our beta feedback sheet (no login, no phone).
+              Opens a quick feedback form that emails IgniteGrapple directly.
             </p>
 
             <ul class="app-stat-list">
@@ -1693,6 +1700,9 @@
                   Use this as a feel for how IgniteGrapple can turn a few inputs into a plan.
                 </p>
                 <div id="practiceOutput" class="dash-list"></div>
+                <button type="button" class="btn-save" id="emailPracticeOutline" style="margin-top:8px;">
+                  Email this outline
+                </button>
               </div>
             </div>
           </div>
@@ -1771,6 +1781,9 @@
                   This shows the kind of simple game plan athletes will see inside the app.
                 </p>
                 <div id="prepOutput" class="dash-list"></div>
+                <button type="button" class="btn-save" id="emailPrepChecklist" style="margin-top:8px;">
+                  Email this checklist
+                </button>
               </div>
             </div>
           </div>
@@ -2180,7 +2193,7 @@
 
           <p style="margin-top:10px;">
             Use the form below to request a beta spot or a short call — your answers
-            go straight into our private beta sheet.
+            open in your email app and send straight to IgniteGrapple.
           </p>
 
           <ul class="contact-list">
@@ -2189,8 +2202,10 @@
               <a href="mailto:1ignitegrapple@gmail.com">1ignitegrapple@gmail.com</a>
             </li>
             <li>
-              Instagram (coming soon):
-              <strong>@1ignitegrapple</strong>
+              Instagram:
+              <a href="https://www.instagram.com/1ignitegrapple?igsh=Z2I1NWwycWY1ODJ1&utm_source=qr" target="_blank" rel="noopener">
+                <strong>@1ignitegrapple</strong>
+              </a>
             </li>
             <li>
               Location: Based in Dallas, TX — supporting rooms anywhere.
@@ -2201,16 +2216,22 @@
             </li>
           </ul>
 
-          <!-- Beta/contact form -> Google Sheets -->
-          <form id="betaForm" class="contact-form">
+          <!-- Beta/contact form -> mailto -->
+          <form
+            id="betaForm"
+            class="contact-form"
+            action="mailto:1ignitegrapple@gmail.com"
+            method="POST"
+            enctype="text/plain"
+          >
             <div class="contact-form-row">
               <div>
                 <label for="formName">Name</label>
-                <input id="formName" type="text" placeholder="Your name" required />
+                <input id="formName" name="Name" type="text" placeholder="Your name" required />
               </div>
               <div>
                 <label for="formRole">Role</label>
-                <select id="formRole" required>
+                <select id="formRole" name="Role" required>
                   <option value="">Coach / Athlete / Parent</option>
                   <option>Coach</option>
                   <option>Athlete</option>
@@ -2223,54 +2244,63 @@
             <div class="contact-form-row">
               <div>
                 <label for="formProgram">Program / Club</label>
-                <input id="formProgram" type="text" placeholder="School or club name" />
+                <input id="formProgram" name="Program/Club" type="text" placeholder="School or club name" />
               </div>
               <div>
                 <label for="formEmail">Email</label>
-                <input id="formEmail" type="text" placeholder="Best email to reach you" />
+                <input id="formEmail" name="Email" type="text" placeholder="Best email to reach you" />
               </div>
             </div>
 
             <div>
               <label for="formTime">Preferred day / time for a quick call</label>
-              <input id="formTime" type="text" placeholder="Example: Weeknights after 7pm CT" />
+              <input id="formTime" name="Preferred time" type="text" placeholder="Example: Weeknights after 7pm CT" />
             </div>
 
             <div>
               <label for="formMessage">What are you hoping IgniteGrapple helps with?</label>
-              <textarea id="formMessage" placeholder="Briefly describe your room, level, and what you’d like help with."></textarea>
+              <textarea
+                id="formMessage"
+                name="What you need help with"
+                placeholder="Briefly describe your room, level, and what you’d like help with."
+              ></textarea>
             </div>
 
             <button type="submit" class="btn">Send beta request</button>
             <small id="betaStatus" style="display:block; margin-top:6px; color:#9ca3af;">
-              Submits securely to our IgniteGrapple beta sheet. No app or login required.
+              This opens your email app with all your answers filled in. Tap send to reach IgniteGrapple.
             </small>
           </form>
         </div>
       </section>
 
-      <!-- ============ NEW FEEDBACK SCREEN (GOES TO GOOGLE SHEET) ============ -->
+      <!-- ============ NEW FEEDBACK SCREEN (NOW MAILTO) ============ -->
       <section id="feedbackScreen" data-screen="feedback" style="margin-top:64px;">
         <div class="section-kicker">Feedback</div>
         <div class="contact-card">
           <h2 class="section-title">Help shape IgniteGrapple.</h2>
           <p class="section-body">
-            This form sends straight to a private beta feedback sheet. We also tag which demo you were using and basic
-            analytics (device, screen size) — no phone number needed.
+            This quick form opens your email with everything filled in so you can
+            send feedback directly to IgniteGrapple — no accounts, no logins.
           </p>
 
-          <form id="feedbackForm" class="contact-form">
-            <!-- Hidden demo identifier; filled from JS -->
-            <input type="hidden" id="fb-demo" value="unknown" />
+          <form
+            id="feedbackForm"
+            class="contact-form"
+            action="mailto:1ignitegrapple@gmail.com"
+            method="POST"
+            enctype="text/plain"
+          >
+            <input type="hidden" id="fb-demo" name="Demo source" value="unknown" />
 
             <div class="contact-form-row">
               <div>
                 <label for="fb-name">Name (optional)</label>
-                <input id="fb-name" type="text" placeholder="Your name" />
+                <input id="fb-name" name="Name" type="text" placeholder="Your name" />
               </div>
               <div>
                 <label for="fb-role">You are a…</label>
-                <select id="fb-role" required>
+                <select id="fb-role" name="Role" required>
                   <option value="">Select one</option>
                   <option value="Coach">Coach</option>
                   <option value="Athlete">Athlete</option>
@@ -2283,13 +2313,14 @@
 
             <div>
               <label for="fb-email">Email (optional, if you want a reply)</label>
-              <input id="fb-email" type="text" placeholder="Best email to follow up (optional)" />
+              <input id="fb-email" name="Email" type="text" placeholder="Best email to follow up (optional)" />
             </div>
 
             <div>
               <label for="fb-message">Feedback</label>
               <textarea
                 id="fb-message"
+                name="Feedback"
                 placeholder="What worked? What was confusing? What should change before launch?"
                 required
               ></textarea>
@@ -2297,14 +2328,18 @@
 
             <button type="submit" class="btn">Send feedback</button>
             <small style="display:block; margin-top:6px; color:#9ca3af;">
-              Submits to the IgniteGrapple beta sheet through Google Apps Script. No login or phone number required.
+              Your email app will pop up with everything filled in — just hit send.
             </small>
             <p id="fb-status" style="margin-top:8px; font-size:12px; color:#9ca3af;"></p>
           </form>
         </div>
       </section>
 
-      <section id="install-app" data-screen="home" style="padding: 60px 20px; background: #0b0f16; text-align: center; border-top: 1px solid #1c2333; margin-top:64px;">
+      <section
+        id="install-app"
+        data-screen="home"
+        style="padding: 60px 20px; background: #0b0f16; text-align: center; border-top: 1px solid #1c2333; margin-top:64px;"
+      >
         <h2 style="color: #8fff57; font-size: 2rem; margin-bottom: 10px;">
           Download the IgniteGrapple App
         </h2>
@@ -2314,7 +2349,8 @@
           offline access, and faster performance.
         </p>
 
-        <button id="installBtn"
+        <button
+          id="installBtn"
           style="
             background: #8fff57;
             border: none;
@@ -2325,7 +2361,8 @@
             font-weight: bold;
             cursor: pointer;
             transition: 0.2s;
-          ">
+          "
+        >
           Install App
         </button>
 
@@ -2346,7 +2383,6 @@
     <button class="mobile-tab" data-tab="focus"><span>Coach</span></button>
     <button class="mobile-tab" data-tab="progress"><span>Room</span></button>
     <button class="mobile-tab" data-tab="athlete"><span>Athletes</span></button>
-    <!-- NEW FEEDBACK TAB -->
     <button class="mobile-tab" data-tab="feedback"><span>Feedback</span></button>
   </nav>
 
@@ -2369,7 +2405,6 @@
 
     let athletes = [];
     let athleteLogs = [];
-    // Tracks which demo they were using last (for feedback tagging)
     let igniteLastDemo = "coach-dashboard";
 
     function loadAthletes() {
@@ -2724,7 +2759,6 @@
       });
 
       if (!tabMode) {
-        // On desktop, don't hide sections – just keep them visible
         screens.forEach((el) => (el.style.display = ""));
         return;
       }
@@ -2774,7 +2808,6 @@
         view.style.display = view.getAttribute("data-mode-view") === mode ? "block" : "none";
       });
 
-      // Track which dashboard demo is currently active
       if (mode === "coach") {
         igniteLastDemo = "coach-dashboard";
       } else if (mode === "athlete") {
@@ -2791,71 +2824,6 @@
 
     applyMode("coach");
 
-    // -------------- CONTACT FORM -> GOOGLE SHEETS --------------
-    const betaForm = document.getElementById("betaForm");
-    const betaStatus = document.getElementById("betaStatus");
-
-    // Reuse analytics helper from feedback system (hoisted)
-    if (betaForm) {
-      betaForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const name = document.getElementById("formName").value.trim();
-        const role = document.getElementById("formRole").value.trim();
-        const program = document.getElementById("formProgram").value.trim();
-        const email = document.getElementById("formEmail").value.trim();
-        const time = document.getElementById("formTime").value.trim();
-        const message = document.getElementById("formMessage").value.trim();
-
-        if (!name || !role) {
-          if (betaStatus) {
-            betaStatus.textContent = "Please add your name and role before submitting.";
-          }
-          return;
-        }
-
-        const payload = {
-          name,
-          role,
-          program,
-          email,
-          time,
-          message,
-          source: "beta-contact",
-          submittedAt: new Date().toISOString(),
-          analytics: getAnalyticsMeta()
-        };
-
-        if (betaStatus) {
-          betaStatus.textContent = "Sending…";
-        }
-
-        fetch(
-          "https://script.google.com/macros/s/AKfycbwUNRWfi4eIrJbdOArHu5E5QM-hpNnrw1Xm1oHl2GZULjhdeXZuDcdrai41Ufdkldef/exec",
-          {
-            method: "POST",
-            mode: "no-cors",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-          }
-        )
-          .then(() => {
-            if (betaStatus) {
-              betaStatus.textContent = "Beta request sent. I’ll reach out soon.";
-            }
-            betaForm.reset();
-          })
-          .catch((err) => {
-            console.error("Beta form error", err);
-            if (betaStatus) {
-              betaStatus.textContent =
-                "Could not send right now. Please try again in a minute or email 1ignitegrapple@gmail.com.";
-            }
-          });
-      });
-    }
-
     // -------------- NAV + HERO LINKS -> SWITCH SCREENS CORRECTLY --------------
     const internalLinks = document.querySelectorAll('a[href^="#"]');
 
@@ -2868,11 +2836,10 @@
         if (!targetId) return;
 
         const explicitScreen = link.dataset.targetScreen;
-        // Default mapping if data-target-screen isn't set
-        let targetScreen = explicitScreen || (targetId === "app" || targetId === "demo" ? "focus" : "home");
+        let targetScreen =
+          explicitScreen || (targetId === "app" || targetId === "demo" ? "focus" : "home");
 
         if (!tabMode && !explicitScreen && targetId !== "app" && targetId !== "demo") {
-          // Desktop, normal anchor scroll for non-demo links
           return;
         }
 
@@ -2882,7 +2849,6 @@
           applyTab(targetScreen);
         }
 
-        // Smooth scroll after small delay so the screen is visible
         setTimeout(() => {
           const el = document.getElementById(targetId);
           if (el) {
@@ -2911,10 +2877,8 @@
     function buildPracticeOutline(length, phase, focuses, note) {
       const blocks = [];
 
-      // Warm up
       blocks.push("5–10 min • Dynamic warm-up & stance/motion");
 
-      // Technique block depending on phase
       if (phase === "preseason") {
         blocks.push("15–20 min • Fundamentals: position, level change, penetration steps.");
       } else if (phase === "midseason") {
@@ -2923,7 +2887,6 @@
         blocks.push("15–20 min • Sharpen go-to attacks & finishes you trust under pressure.");
       }
 
-      // Focus-driven blocks
       focuses.forEach((f) => {
         if (f === "Shot defense") {
           blocks.push("10–15 min • Shot defense: down-block, sprawl, re-attack from ties.");
@@ -2945,7 +2908,6 @@
         }
       });
 
-      // Live & conditioning
       if (length === "60") {
         blocks.push("10–12 min • Situational live from your focus positions.");
         blocks.push("5–8 min • Short conditioning finisher & cool-down.");
@@ -3007,7 +2969,6 @@
           practiceStatus.textContent = "Example outline generated below.";
         }
 
-        // Mark that they used the practice builder demo
         igniteLastDemo = "practice-builder";
       });
     }
@@ -3029,7 +2990,6 @@
     function buildPrepChecklist(timeframe, struggle, feelings, note) {
       const lines = [];
 
-      // Timeframe-based
       if (timeframe === "dualTonight") {
         lines.push("Tonight • Keep routine simple: light drill, short sweat, review 2–3 go-to attacks.");
         lines.push("90–60 min out • Start warm-up & breathing — no new moves, just sharpen weapons.");
@@ -3041,7 +3001,6 @@
         lines.push("2–3 days out • Shorter practices, high quality reps, protect your body.");
       }
 
-      // Struggle-based
       if (struggle === "nerves") {
         lines.push("Mindset • 3 slow breaths between whistles, talk to yourself like a coach, not a critic.");
       } else if (struggle === "slowStart") {
@@ -3054,7 +3013,6 @@
         lines.push("Bottom • First move ready: explode to your base, stand, and clear hands without pausing.");
       }
 
-      // Feelings
       if (feelings.length) {
         lines.push(`Intention • Step on the line feeling: ${feelings.join(", ")}.`);
       }
@@ -3108,16 +3066,13 @@
           prepStatus.textContent = "Prep checklist generated below.";
         }
 
-        // Mark that they used the match prep demo
         igniteLastDemo = "match-prep";
       });
     }
 
-    // -------------- FEEDBACK SYSTEM (GOOGLE APP SCRIPT) --------------
+    // -------------- FEEDBACK NAV (FORM IS MAILTO) --------------
     const feedbackScreen = document.getElementById("feedbackScreen");
     const openFeedbackBtn = document.getElementById("openFeedbackBtn");
-    const fbForm = document.getElementById("feedbackForm");
-    const fbStatus = document.getElementById("fb-status");
 
     if (openFeedbackBtn) {
       openFeedbackBtn.addEventListener("click", () => {
@@ -3128,73 +3083,80 @@
       });
     }
 
-    function getAnalyticsMeta() {
-      return {
-        userAgent: navigator.userAgent || "",
-        language: navigator.language || "",
-        viewport: `${window.innerWidth}x${window.innerHeight}`,
-        screen: window.screen ? `${screen.width}x${screen.height}` : "",
-        path: window.location.pathname || ""
-      };
+    // -------------- EMAIL SNAPSHOTS VIA MAILTO --------------
+    function openMailto(subjectText, bodyText) {
+      const subject = encodeURIComponent(subjectText);
+      const body = encodeURIComponent(bodyText);
+      window.location.href = `mailto:1ignitegrapple@gmail.com?subject=${subject}&body=${body}`;
     }
 
-    if (fbForm) {
-      fbForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        const name = document.getElementById("fb-name").value.trim();
-        const role = document.getElementById("fb-role").value;
-        const email = document.getElementById("fb-email").value.trim();
-        const message = document.getElementById("fb-message").value.trim();
-        const demo = igniteLastDemo || "unknown";
-
-        if (!message || !role) {
-          if (fbStatus) {
-            fbStatus.textContent = "Please choose your role and add feedback before submitting.";
-          }
+    // Coach snapshot
+    const emailCoachSnapshotBtn = document.getElementById("emailCoachSnapshot");
+    if (emailCoachSnapshotBtn) {
+      emailCoachSnapshotBtn.addEventListener("click", () => {
+        if (!athletes.length) {
+          alert("Add at least one athlete first so there’s something to send.");
           return;
         }
+        let text = "IgniteGrapple – Coach demo snapshot\n\n";
+        athletes.forEach((a) => {
+          text += `Name: ${a.name}\nFocus: ${a.focus}\nNotes: ${a.notes || ""}\n\n`;
+        });
+        openMailto("IgniteGrapple coach demo snapshot", text);
+      });
+    }
 
-        const fbDemoInput = document.getElementById("fb-demo");
-        if (fbDemoInput) {
-          fbDemoInput.value = demo;
+    // Athlete logs
+    const emailAthleteLogsBtn = document.getElementById("emailAthleteLogs");
+    if (emailAthleteLogsBtn) {
+      emailAthleteLogsBtn.addEventListener("click", () => {
+        if (!athleteLogs.length) {
+          alert("No check-ins yet. Save at least one check-in first.");
+          return;
         }
-
-        const payload = {
-          name,
-          role,
-          email,
-          message,
-          demo,
-          submittedAt: new Date().toISOString(),
-          analytics: getAnalyticsMeta()
-        };
-
-        if (fbStatus) fbStatus.textContent = "Sending…";
-
-        fetch(
-          "https://script.google.com/macros/s/AKfycbzH4p_IitE_dJ9n9E_In4tr2ykzpxZydxoQgEN21J672Fss7QkxlUpDsIwp0KCF4e9R/exec",
-          {
-            method: "POST",
-            mode: "no-cors",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-          }
-        )
-          .then(() => {
-            if (fbStatus) {
-              fbStatus.textContent = "Feedback sent. Thanks for helping shape IgniteGrapple.";
-            }
-            fbForm.reset();
-          })
-          .catch((err) => {
-            console.error("Feedback error", err);
-            if (fbStatus) {
-              fbStatus.textContent = "Could not send feedback. Please try again in a minute.";
-            }
+        let text = "IgniteGrapple – Athlete check-in demo\n\n";
+        athleteLogs
+          .slice()
+          .sort((a, b) => b.createdAt - a.createdAt)
+          .forEach((log) => {
+            const date = new Date(log.createdAt).toLocaleString();
+            text += `Date: ${date}\nName: ${log.name}\nGoal: ${log.goal}\nEnergy: ${log.energy}\nMindset: ${log.mindset}\nFocus: ${log.focus}\nKeys: ${log.mindsetKeys || ""}\nNote: ${log.note || ""}\n\n`;
           });
+        openMailto("IgniteGrapple athlete check-ins (demo)", text);
+      });
+    }
+
+    // Practice outline email
+    const emailPracticeOutlineBtn = document.getElementById("emailPracticeOutline");
+    if (emailPracticeOutlineBtn && practiceOutput) {
+      emailPracticeOutlineBtn.addEventListener("click", () => {
+        const items = practiceOutput.querySelectorAll(".athlete-meta");
+        if (!items.length) {
+          alert("Generate an outline first, then email it.");
+          return;
+        }
+        let text = "IgniteGrapple – Practice outline demo\n\n";
+        items.forEach((el) => {
+          text += el.textContent.trim() + "\n";
+        });
+        openMailto("IgniteGrapple practice outline (demo)", text);
+      });
+    }
+
+    // Prep checklist email
+    const emailPrepChecklistBtn = document.getElementById("emailPrepChecklist");
+    if (emailPrepChecklistBtn && prepOutput) {
+      emailPrepChecklistBtn.addEventListener("click", () => {
+        const items = prepOutput.querySelectorAll(".athlete-meta");
+        if (!items.length) {
+          alert("Generate a prep checklist first, then email it.");
+          return;
+        }
+        let text = "IgniteGrapple – Match prep checklist demo\n\n";
+        items.forEach((el) => {
+          text += el.textContent.trim() + "\n";
+        });
+        openMailto("IgniteGrapple match prep checklist (demo)", text);
       });
     }
   </script>
