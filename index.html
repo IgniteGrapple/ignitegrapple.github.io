@@ -1,13 +1,12 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>IgniteGrapple – AI-Powered Wrestling Coach</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta
-    name="description"
-    content="IgniteGrapple is an AI-powered assistant coach that transforms everyday wrestling practices into championship-grade sessions."
-  />
+  <meta name="description" content="IgniteGrapple is an AI-powered assistant coach that helps wrestling rooms turn every practice into a championship-level session." />
+  <!-- PWA manifest + theme -->
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#020817" />
 
@@ -28,674 +27,3139 @@
       --radius-md: 16px;
       --radius-pill: 999px;
       --nav-height: 84px;
+      --transition-fast: 160ms ease-out;
     }
 
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", sans-serif;
-      background: radial-gradient(circle at top left, #04121f 0, #020817 45%, #000);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Inter", sans-serif;
+      background: radial-gradient(circle at top left, #04121f 0, #020817 45%, #000 100%);
       color: var(--text-main);
       min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
     img {
-      display: block;
       max-width: 100%;
+      display: block;
     }
 
     .page {
       max-width: 1120px;
-      margin: auto;
+      margin: 0 auto;
       padding: 20px 16px 80px;
     }
+
+    /* NAV */
 
     header {
       position: sticky;
       top: 0;
       z-index: 20;
-      background: rgba(2, 8, 23, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255,255,255,0.05);
+      background: radial-gradient(circle at top left, #071627 0, #020817 48%, #020817 100%);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.85);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
     }
 
-    /* ===================================================
-       NEW: CINEMATIC FOUNDER BANNER (STYLE C2 - 450px)
-       =================================================== */
-    .founder-banner {
-      width: 100%;
-      height: 450px;
-      border-radius: 24px;
-      position: relative;
+    .nav {
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-box {
+      width: 40px;
+      height: 40px;
+      border-radius: 16px;
+      background: radial-gradient(circle at 30% 0, #ffffff 0, #020817 50%, #000 100%);
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.8), 0 0 26px rgba(125, 252, 76, 0.48);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
-      margin: 32px 0;
-      cursor: pointer;
-      box-shadow: 0 0 55px rgba(125, 252, 76, 0.35);
     }
 
-    .founder-banner img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: brightness(0.88) contrast(1.05);
+    .logo-box img {
+      width: 110%;
+      height: auto;
+      object-fit: contain;
     }
 
-    /* Green neon rim glow */
-    .founder-banner::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      box-shadow:
-        0 0 45px rgba(125, 252, 76, 0.55),
-        inset 0 0 55px rgba(125, 252, 76, 0.25);
-      pointer-events: none;
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
     }
 
-    /* Dark vignette edges */
-    .founder-banner::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(
-        circle,
-        transparent 40%,
-        rgba(0,0,0,0.55) 90%
-      );
-      pointer-events: none;
-    }
-
-    /* Hologram scanning line */
-    .holo-scan {
-      position: absolute;
-      top: -100%;
-      left: 0;
-      width: 100%;
-      height: 38%;
-      background: linear-gradient(
-        to bottom,
-        rgba(125, 252, 76, 0.25),
-        rgba(125, 252, 76, 0)
-      );
-      animation: scanDown 4.5s linear infinite;
-      pointer-events: none;
-    }
-
-    @keyframes scanDown {
-      0% { top: -100%; }
-      100% { top: 120%; }
-    }
-
-    /* Floating particles */
-    .particle {
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      background: rgba(125, 252, 76, 0.65);
-      border-radius: 50%;
-      filter: blur(1.5px);
-      animation: floatParticle 6s linear infinite;
-    }
-
-    @keyframes floatParticle {
-      0% { transform: translateY(0) translateX(0); opacity: 0.8; }
-      100% { transform: translateY(-220px) translateX(40px); opacity: 0; }
-    }
-
-    /* Name over banner */
-    .founder-banner-name {
-      position: absolute;
-      bottom: 16px;
-      left: 24px;
-      font-size: 1.75rem;
+    .logo-title {
       font-weight: 700;
-      color: #7dfc4c;
-      text-shadow: 0 0 18px rgba(125, 252, 76, 0.65);
-      z-index: 3;
+      font-size: 16px;
+      letter-spacing: 0.22em;
     }
 
-    /* ===============================
-       Slide-Up Reveal Text
-       =============================== */
-    .reveal-container {
+    .logo-title span {
+      color: var(--accent);
+    }
+
+    .logo-sub {
+      font-size: 11px;
+      color: var(--text-sub);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 14px;
+      color: #e5e7eb;
+    }
+
+    .nav-links a {
+      position: relative;
+      padding: 4px 0;
+      opacity: 0.86;
+      transition: opacity var(--transition-fast);
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0%;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #7dfc4c, #bbf7d0);
+      transition: width 180ms ease-out;
+    }
+
+    .nav-links a:hover {
+      opacity: 1;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn,
+    .btn-outline {
+      padding: 10px 20px;
+      border-radius: var(--radius-pill);
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 120ms ease-out, box-shadow 120ms ease-out,
+        background 120ms ease-out, color 120ms ease-out;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn {
+      background: radial-gradient(circle at left, #ecfccb 0, #7dfc4c 45%, #22c55e 100%);
+      color: #020817;
+      box-shadow: 0 0 30px rgba(125, 252, 76, 0.85);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 40px rgba(125, 252, 76, 1);
+    }
+
+    .btn-outline {
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: radial-gradient(circle at top left, #020b16 0, #020817 60%);
+      color: #e5e7eb;
+    }
+
+    .btn-outline:hover {
+      border-color: rgba(148, 163, 184, 0.85);
+      background: radial-gradient(circle at top left, #020c1b 0, #020817 60%);
+    }
+
+    .badge-free {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      background: rgba(125, 252, 76, 0.12);
+      color: var(--accent);
+      border: 1px solid rgba(125, 252, 76, 0.5);
+      margin-left: 8px;
+    }
+
+    /* HERO */
+
+    main {
+      padding-top: 28px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 32px;
+      align-items: center;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: radial-gradient(circle at left, rgba(125, 252, 76, 0.24), transparent 70%);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #cbd5f5;
+      margin-bottom: 14px;
+    }
+
+    .hero-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 18px rgba(125, 252, 76, 0.9);
+    }
+
+    .hero-title {
+      font-size: clamp(32px, 4vw, 42px);
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+
+    .hero-title span {
+      color: var(--accent);
+    }
+
+    .hero-body {
+      color: var(--text-sub);
+      font-size: 15px;
+      max-width: 36rem;
+      margin-bottom: 22px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .hero-footnote {
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    .hero-footnote strong {
+      color: #e5e7eb;
+    }
+
+    .hero-right {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-card {
+      position: relative;
+      border-radius: var(--radius-lg);
+      background: radial-gradient(circle at top left, #0b1730 0, #020817 55%, #020817 100%);
+      border: 1px solid rgba(30, 64, 175, 0.7);
+      box-shadow: 0 24px 55px rgba(0, 0, 0, 0.9);
+      padding: 18px 18px 18px;
+      max-width: 380px;
+      width: 100%;
       overflow: hidden;
+    }
+
+    .hero-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 12px;
+      color: #e5e7eb;
+    }
+
+    .hero-card-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+    }
+
+    .hero-card-dots {
+      display: flex;
+      gap: 5px;
+    }
+
+    .hero-card-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #1f2937;
+    }
+
+    .hero-card-dot:nth-child(1) { background: #ef4444; }
+    .hero-card-dot:nth-child(2) { background: #facc15; }
+    .hero-card-dot:nth-child(3) { background: #22c55e; }
+
+    .hero-meter {
+      margin-top: 14px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: radial-gradient(circle at left, rgba(34, 197, 94, 0.16), #020b16 60%);
+      border: 1px solid rgba(34, 197, 94, 0.45);
+      font-size: 12px;
+      color: #e5fdf0;
+    }
+
+    .hero-meter-bar {
+      margin-top: 8px;
+      width: 100%;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      overflow: hidden;
+    }
+
+    .hero-meter-fill {
+      height: 100%;
+      width: 76%;
+      background: linear-gradient(90deg, #22c55e, #bbf7d0);
+      box-shadow: 0 0 18px rgba(34, 197, 94, 0.8);
+    }
+
+    /* SECTION WRAPPERS */
+
+    section {
+      margin-top: 64px;
+    }
+
+    .section-kicker {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 22px;
       margin-bottom: 12px;
     }
 
-    .reveal-line {
-      opacity: 0;
-      transform: translateY(18px);
-      animation: slideUp 0.85s ease forwards;
+    .section-body {
+      font-size: 14px;
+      color: var(--text-sub);
+      max-width: 40rem;
+      margin-bottom: 20px;
     }
 
-    @keyframes slideUp {
-      0% { opacity: 0; transform: translateY(18px); }
-      100% { opacity: 1; transform: translateY(0); }
+    /* FEATURES GRID */
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
     }
 
-    .delay-1 { animation-delay: 0.15s; }
-    .delay-2 { animation-delay: 0.35s; }
-    .delay-3 { animation-delay: 0.55s; }
-    .delay-4 { animation-delay: 0.75s; }
-    .delay-5 { animation-delay: 1.0s; }
+    .feature-card {
+      border-radius: var(--radius-md);
+      background: radial-gradient(circle at top left, rgba(148, 163, 184, 0.28), #020817 55%);
+      border: 1px solid var(--border-subtle);
+      padding: 14px 14px 16px;
+      font-size: 13px;
+    }
+
+    .feature-title {
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    .feature-tagrow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: #e5e7eb;
+    }
+
+    .tag-soft {
+      border: none;
+      background: rgba(125, 252, 76, 0.12);
+      color: var(--accent);
+    }
+
+    /* HOW IT WORKS STEPS */
+
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    .how-card {
+      border-radius: var(--radius-md);
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.9), #020817 60%);
+      border: 1px solid rgba(30, 64, 175, 0.7);
+      padding: 14px 14px 16px;
+      font-size: 13px;
+    }
+
+    .how-step-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #9ca3af;
+      margin-bottom: 6px;
+    }
+
+    /* APP PREVIEW (COACH / ATHLETE DASHBOARD DEMO) */
+
+    .app-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1.15fr);
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .dash-shell {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(30, 64, 175, 0.7);
+      background: radial-gradient(circle at top left, #0b1730 0, #020817 52%, #020817 100%);
+      box-shadow: 0 28px 65px rgba(0, 0, 0, 0.95);
+      padding: 16px;
+      color: #e5e7eb;
+    }
+
+    .dash-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      font-size: 12px;
+      color: #9ca3af;
+      gap: 6px 10px;
+      flex-wrap: wrap;
+    }
+
+    .dash-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .dash-title {
+      font-weight: 500;
+      color: #e5e7eb;
+    }
+
+    .dash-sub {
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    /* Coach/Athlete mode toggle */
+
+    .mode-toggle {
+      display: inline-flex;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      overflow: hidden;
+      background: rgba(15, 23, 42, 0.9);
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.9);
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .mode-btn {
+      padding: 5px 14px;
+      font-size: 11px;
+      border: none;
+      background: transparent;
+      color: #9ca3af;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      min-width: 82px;
+    }
+
+    .mode-btn span.toggle-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: transparent;
+      transition: background 140ms ease-out, box-shadow 140ms ease-out;
+    }
+
+    .mode-btn.is-active {
+      background: radial-gradient(circle at top, #ecfccb 0, #7dfc4c 50%, #22c55e 100%);
+      color: #020817;
+    }
+
+    .mode-btn.is-active span.toggle-dot {
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(125, 252, 76, 0.9);
+    }
+
+    .dash-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 12px;
+    }
+
+    .dash-card {
+      border-radius: 18px;
+      background: radial-gradient(circle at top left, #020b16 0, #020817 55%);
+      border: 1px solid rgba(30, 64, 175, 0.7);
+      padding: 12px;
+      font-size: 12px;
+    }
+
+    .dash-card h4 {
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .dash-muted {
+      color: #9ca3af;
+      font-size: 11px;
+      margin-bottom: 8px;
+    }
+
+    .dash-list {
+      max-height: 180px;
+      overflow-y: auto;
+      margin-top: 8px;
+      padding-right: 4px;
+    }
+
+    .athlete-pill {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 8px;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      margin-bottom: 6px;
+      gap: 8px;
+    }
+
+    .athlete-main {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .athlete-name {
+      font-weight: 500;
+      font-size: 12px;
+    }
+
+    .athlete-meta {
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    .pill-focus {
+      font-size: 11px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(125, 252, 76, 0.12);
+      color: var(--accent);
+      border: 1px solid rgba(125, 252, 76, 0.4);
+    }
+
+    .btn-xs {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.65);
+      background: transparent;
+      color: #e5e7eb;
+      cursor: pointer;
+      transition: background 120ms ease-out, color 120ms ease-out;
+    }
+
+    .btn-xs:hover {
+      background: rgba(248, 113, 113, 0.18);
+      border-color: rgba(248, 113, 113, 0.9);
+      color: #fecaca;
+    }
+
+    form.dash-form {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    label {
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 10px;
+      border: 1px solid rgba(30, 64, 175, 0.7);
+      padding: 7px 9px;
+      font-size: 12px;
+      color: #e5e7eb;
+      outline: none;
+      transition: border-color 140ms ease-out, box-shadow 140ms ease-out;
+    }
+
+    input[type="text"]:focus,
+    select:focus,
+    textarea:focus {
+      border-color: rgba(125, 252, 76, 0.8);
+      box-shadow: 0 0 0 1px rgba(125, 252, 76, 0.4);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 46px;
+      max-height: 80px;
+    }
+
+    .dash-form-row {
+      display: grid;
+      grid-template-columns: 2.1fr 1.1fr;
+      gap: 8px;
+    }
+
+    .dash-save-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .dash-save-row small {
+      font-size: 10px;
+      color: #9ca3af;
+    }
+
+    .btn-save {
+      flex-shrink: 0;
+      padding: 7px 14px;
+      font-size: 12px;
+      border-radius: 999px;
+      border: none;
+      background: radial-gradient(circle at left, #ecfccb 0, #7dfc4c 45%, #22c55e 100%);
+      color: #020817;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 0 18px rgba(125, 252, 76, 0.7);
+      transition: transform 120ms ease-out, box-shadow 120ms ease-out;
+    }
+
+    .btn-save:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 26px rgba(125, 252, 76, 0.9);
+    }
+
+    .dash-meter {
+      margin-top: 8px;
+      padding-top: 4px;
+    }
+
+    .dash-meter-label {
+      font-size: 11px;
+      color: #9ca3af;
+      margin-bottom: 4px;
+    }
+
+    .dash-meter-bar {
+      width: 100%;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      overflow: hidden;
+    }
+
+    .dash-meter-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #22c55e, #bbf7d0);
+      box-shadow: 0 0 18px rgba(34, 197, 94, 0.9);
+      transition: width 220ms ease-out;
+    }
+
+    .dash-note {
+      margin-top: 6px;
+      font-size: 10px;
+      color: #9ca3af;
+    }
+
+    /* Athlete mode specific */
+
+    .athlete-check-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .chip {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      cursor: pointer;
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+    }
+
+    .chip.is-active {
+      border-color: rgba(248, 113, 113, 0.9);
+      background: rgba(248, 113, 113, 0.2);
+      color: #fecaca;
+    }
+
+    /* STATS COLUMN */
+
+    .app-copy {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      background: radial-gradient(circle at top left, rgba(148, 163, 184, 0.24), #020817 60%);
+      padding: 16px;
+      font-size: 13px;
+    }
+
+    .app-copy h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .app-stat-list {
+      list-style: none;
+      margin-top: 10px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .app-stat {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #e5e7eb;
+    }
+
+    .app-stat span {
+      color: #9ca3af;
+      font-size: 11px;
+    }
+
+    .badge-soft {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(125, 252, 76, 0.14);
+      color: var(--accent);
+      border: 1px solid rgba(125, 252, 76, 0.4);
+    }
+
+    /* PRICING, FOUNDER, BETA, CONTACT */
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .price-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      background: radial-gradient(circle at top left, rgba(148, 163, 184, 0.32), #020817 60%);
+      padding: 16px;
+      font-size: 13px;
+    }
+
+    .price-label {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 6px;
+    }
+
+    .price-main {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .price-main span {
+      font-size: 12px;
+      font-weight: 400;
+      color: #9ca3af;
+    }
+
+    .free-note {
+      margin-top: 6px;
+      font-size: 11px;
+      color: #a7f3d0;
+    }
+
+    .founder-card,
+    .beta-card,
+    .contact-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      background: radial-gradient(circle at top left, rgba(148, 163, 184, 0.3), #020817 60%);
+      padding: 18px 16px;
+      font-size: 14px;
+      color: var(--text-sub);
+    }
+
+    .founder-name {
+      font-weight: 600;
+      color: #e5e7eb;
+      margin-top: 10px;
+      margin-bottom: 4px;
+      font-size: 15px;
+    }
+
+    .partner-note {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    .contact-list {
+      list-style: none;
+      margin-top: 10px;
+      display: grid;
+      gap: 6px;
+      font-size: 13px;
+    }
+
+    .contact-list a {
+      color: #e5e7eb;
+      text-decoration: underline;
+      text-decoration-color: rgba(148, 163, 184, 0.6);
+    }
+
+    footer {
+      margin-top: 60px;
+      font-size: 11px;
+      color: #6b7280;
+      text-align: center;
+    }
+
+    .contact-form {
+      margin-top: 18px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .contact-form-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .contact-form button {
+      justify-self: flex-start;
+    }
+
+    /* COMPARISON SECTION */
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .compare-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.9), #020817 65%);
+      padding: 14px 16px 16px;
+      font-size: 13px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .compare-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .compare-name {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .compare-chip {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.18);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: #e5e7eb;
+    }
+
+    .compare-columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 10px;
+    }
+
+    .compare-col-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9ca3af;
+      margin-bottom: 4px;
+    }
+
+    .compare-col {
+      font-size: 12px;
+      color: #d1d5db;
+    }
+
+    .compare-col strong {
+      color: #f9fafb;
+    }
+
+    /* MOBILE TAB BAR */
+
+    .mobile-tabbar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 56px;
+      background: rgba(6, 12, 24, 0.96);
+      border-top: 1px solid rgba(15, 23, 42, 0.9);
+      display: none;
+      align-items: center;
+      justify-content: space-around;
+      z-index: 40;
+      backdrop-filter: blur(18px);
+    }
+
+    .mobile-tab {
+      flex: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #9ca3af;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .mobile-tab span {
+      pointer-events: none;
+    }
+
+    .mobile-tab.is-active {
+      color: #f9fafb;
+      font-weight: 600;
+    }
+
+    .mobile-tab.is-active::after {
+      content: "";
+      position: absolute;
+      bottom: 6px;
+      width: 34px;
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #7dfc4c, #bbf7d0);
+      box-shadow: 0 0 12px rgba(125, 252, 76, 0.7);
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 960px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-right {
+        order: -1;
+      }
+    }
+
+    @media (max-width: 840px) {
+      .feature-grid,
+      .pricing-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .app-shell {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .how-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding-inline: 14px;
+      }
+
+      .nav {
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: space-between;
+      }
+
+      .nav-links {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 10px 18px;
+        font-size: 13px;
+      }
+
+      .nav-cta {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .hero {
+        margin-top: 10px;
+      }
+
+      .hero-card {
+        max-width: 100%;
+      }
+
+      .feature-grid,
+      .pricing-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .dash-shell {
+        max-width: 100%;
+        margin: 0 auto;
+        padding-inline: 14px;
+      }
+
+      .mobile-tabbar {
+        display: flex;
+      }
+
+      main {
+        padding-bottom: 72px;
+      }
+
+      .how-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (min-width: 721px) {
+      [data-screen] {
+        display: block !important;
+      }
+      .mobile-tabbar {
+        display: none;
+      }
+    }
   </style>
-  </head>
+</head>
 <body>
-
-  <div class="page">
-
-    <!-- ============================
-         NAVIGATION / HEADER
-    ============================ -->
-    <header>
+  <header>
+    <div class="page">
       <nav class="nav">
         <div class="nav-left">
-          <span class="nav-logo">IgniteGrapple</span>
+          <div class="logo-box">
+            <img src="C34AC1C6-9F2E-47D6-9F12-BE7553FC1B8B.png" alt="IgniteGrapple logo" />
+          </div>
+          <div class="logo-text">
+            <div class="logo-title">IGNITE<span>GRAPPLE</span></div>
+            <div class="logo-sub">AI-Powered Wrestling Coach</div>
+          </div>
         </div>
 
-        <div class="nav-right">
-          <button class="mode-toggle" id="roleToggle">Coach Mode</button>
+        <div class="nav-links">
+          <a href="#home" data-target-screen="home">Home</a>
+          <a href="#features" data-target-screen="home">Features</a>
+          <a href="#how" data-target-screen="home">How it works</a>
+          <a href="#app" data-target-screen="focus">App preview</a>
+          <a href="#pricing" data-target-screen="home">Pricing</a>
+          <a href="#founder" data-target-screen="home">Founder</a>
+          <a href="#beta" data-target-screen="home">Beta</a>
+          <a href="#contact" data-target-screen="home">Contact</a>
+        </div>
+
+        <div class="nav-cta">
+          <a href="#beta" data-target-screen="home" class="btn">Join beta</a>
+          <a href="#demo" data-target-screen="focus" class="btn-outline" id="navViewAppDemo">
+            View app demo
+          </a>
         </div>
       </nav>
-    </header>
+    </div>
+  </header>
 
-    <!-- ============================
-         HERO SECTION
-    ============================ -->
-    <section id="hero" data-screen="home">
-      <div class="hero-inner">
+  <main id="home">
+    <div class="page">
 
-        <h1 class="hero-title">
-          Turn every practice into a championship-level session.
-        </h1>
+      <!-- ============ HOME (COACH / MARKETING) ============ -->
 
-        <!-- 🔥 HERO SLIDE-UP REVEAL -->
-        <div class="reveal-container" id="heroReveal">
-          <div class="reveal-line delay-1">Most apps show data.</div>
-          <div class="reveal-line delay-2">IgniteGrapple interprets it.</div>
-          <div class="reveal-line delay-3">Turning your room’s film into real decisions.</div>
+      <section class="hero" id="hero" data-screen="home">
+        <div>
+          <div class="hero-kicker">
+            <span class="hero-dot"></span>
+            Built for real wrestling rooms
+          </div>
+          <h1 class="hero-title">
+            Turn every practice into a <span>championship-level session.</span>
+          </h1>
+          <p class="hero-body">
+            IgniteGrapple is an AI assistant coach that breaks down your film,
+            tracks athlete progress, and builds smarter training plans for your club,
+            team, or private room — without you spending all night on notes.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#beta" data-target-screen="home" class="btn" id="heroJoinBeta">
+              Join beta
+            </a>
+            <a href="#demo" data-target-screen="focus" class="btn-outline" id="heroSeeDemo">
+              See what it does
+            </a>
+          </div>
+
+          <p class="hero-footnote">
+            <strong>Coach-first platform.</strong> Designed for youth, high school,
+            and club wrestling. Launching in Dallas / DFW first, supporting rooms anywhere.
+          </p>
         </div>
 
-        <p class="hero-subtitle">
-          IgniteGrapple is the AI-powered wrestling assistant for coaches and athletes — 
-          helping you train sharper, plan smarter, and win more without slowing down practice.
+        <div class="hero-right">
+          <div class="hero-card">
+            <div class="hero-card-header">
+              <div class="hero-card-title">
+                <div class="hero-card-dots">
+                  <span class="hero-card-dot"></span>
+                  <span class="hero-card-dot"></span>
+                  <span class="hero-card-dot"></span>
+                </div>
+                <span>IgniteGrapple • Coach snapshot</span>
+              </div>
+              <span>Beta demo</span>
+            </div>
+
+            <div>
+              <p style="font-size:11px; color:#9ca3af;">Tonight's focus</p>
+              <ul style="list-style:none; margin-top:6px; font-size:12px; color:#e5e7eb;">
+                <li>• 152–170: Shot defense &amp; bottom urgency</li>
+                <li>• Lightweights: Mat returns &amp; chain wrestling</li>
+                <li>• Heavyweights: Hand-fighting pace &amp; finishes</li>
+              </ul>
+            </div>
+
+            <div class="hero-meter">
+              <div style="font-size:11px; color:#9ca3af;">
+                Room readiness (example)
+              </div>
+              <div class="hero-meter-bar">
+                <div class="hero-meter-fill"></div>
+              </div>
+              <p style="margin-top:6px; font-size:11px; color:#9ca3af;">
+                As the real AI engine comes online, this bar will pull from your actual practice data.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHY BETA IS FREE SECTION MOVED OUT OF BUTTON -->
+      <section id="why-beta-free" data-screen="home">
+        <div class="section-kicker">Why beta is free right now</div>
+        <h2 class="section-title">Real rooms, not fake signups.</h2>
+        <p class="section-body">
+          Instead of charging early and guessing what coaches need, IgniteGrapple
+          is free during beta for serious rooms. You get to try the tools, break them,
+          and help shape what stays — before any subscription kicks in.
+        </p>
+        <ul class="contact-list">
+          <li>• <strong>$0 during beta</strong> for committed rooms and wrestlers.</li>
+          <li>• You give feedback on what actually helps practice and match day.</li>
+          <li>• Your room gets <strong>locked-in pricing</strong> when the full version launches.</li>
+        </ul>
+      </section>
+
+      <section id="features" data-screen="home">
+        <div class="section-kicker">Why IgniteGrapple</div>
+        <h2 class="section-title">What IgniteGrapple helps you do</h2>
+        <p class="section-body">
+          This isn’t generic “sports AI.” IgniteGrapple is tuned specifically for
+          wrestling rooms — hand-fighting, shot selection, chain wrestling, mat returns,
+          and bottom urgency.
         </p>
 
-        <div class="hero-cta">
-          <a class="btn-primary" href="#practice">Try a Demo</a>
-          <a class="btn-secondary" href="#beta">Join Beta (Free)</a>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <h3 class="feature-title">Break down practice in minutes.</h3>
+            <p>
+              Upload practice or match clips and get position-based breakdowns:
+              shot setups, finishes, transitions, mat returns, scrambles, and escapes.
+            </p>
+            <div class="feature-tagrow">
+              <span class="tag">Auto-tag attempts &amp; finishes</span>
+              <span class="tag">Positional analysis</span>
+            </div>
+          </article>
+
+          <article class="feature-card">
+            <h3 class="feature-title">Custom training plans.</h3>
+            <p>
+              AI generates weekly or athlete-specific training plans, based on
+              what actually happens in your room — not a generic template.
+            </p>
+            <div class="feature-tagrow">
+              <span class="tag">Youth • HS • College</span>
+              <span class="tag">Live-go sequences</span>
+            </div>
+          </article>
+
+          <article class="feature-card">
+            <h3 class="feature-title">Clear communication.</h3>
+            <p>
+              Send simple progress reports to athletes and parents — so everyone
+              knows what the focus is, without you rewriting the same message 30 times.
+            </p>
+            <div class="feature-tagrow">
+              <span class="tag">Focus lists</span>
+              <span class="tag">Simple reports</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="how" data-screen="home">
+        <div class="section-kicker">How it works</div>
+        <h2 class="section-title">Coach-first systems, not just another app.</h2>
+        <p class="section-body">
+          IgniteGrapple starts with how real rooms operate: you have 60–90 minutes,
+          a mix of skill levels, and specific kids who need very different things.
+          The system helps you see those needs faster and turn them into a plan:
+        </p>
+
+        <div class="how-grid">
+          <article class="how-card">
+            <div class="how-step-label">Step 1 • Capture your room</div>
+            <p>
+              Tag your athletes with simple focus labels like “Bottom urgency”, “Finishes
+              on the edge”, or “Hand-fighting pace.” Add quick notes as you see trends.
+            </p>
+          </article>
+
+          <article class="how-card">
+            <div class="how-step-label">Step 2 • AI spots patterns</div>
+            <p>
+              As film and focus tags stack up, IgniteGrapple highlights patterns:
+              which positions are bleeding points, who fades late, and where practice
+              time is getting wasted.
+            </p>
+          </article>
+
+          <article class="how-card">
+            <div class="how-step-label">Step 3 • Turn patterns into plans</div>
+            <p>
+              The system suggests live-go sequences, drills, and emphasis for the night
+              — so you walk into practice already knowing what needs the most reps.
+            </p>
+          </article>
         </div>
 
-      </div>
-    </section>
-        <!-- ============================
-         FEATURES SECTION
-    ============================ -->
-    <section id="features" data-screen="home">
+        <p class="section-body" style="margin-top:10px;">
+          <strong>For athletes:</strong> mindset check-ins, daily focus, and simple
+          prompts keep them locked in on what matters for state and nationals — not
+          just random moves off YouTube.
+        </p>
+        <p class="section-body" style="margin-top:0;">
+          Click <strong>“See what it does”</strong> or <strong>“View app demo”</strong>
+          to try the live coach &amp; athlete demos in your browser before the full app drops.
+        </p>
+      </section>
 
-      <div class="section-kicker">What IgniteGrapple Helps You Do</div>
+      <!-- ============ COACH / ATHLETE DASHBOARD DEMO (FOCUS TAB) ============ -->
 
-      <h2 class="section-title">See Your Room Like Never Before.</h2>
+      <section id="app" data-screen="focus">
+        <div class="section-kicker">App preview</div>
+        <h2 class="section-title">Live coach &amp; athlete dashboard you can use right now.</h2>
+        <p class="section-body">
+          This isn’t a fake mockup — it’s a working mini-app running in your browser.
+          Coaches can add athletes and focus areas. Wrestlers can log mindset and daily
+          focus. Everything saves locally on your device so you can feel how IgniteGrapple
+          will work before the full app launches.
+        </p>
 
-      <!-- 🔥 FEATURES SLIDE-UP REVEAL -->
-      <div class="reveal-container" id="featuresReveal">
-        <div class="reveal-line delay-1">Most apps give you footage.</div>
-        <div class="reveal-line delay-2">IgniteGrapple gives you direction.</div>
-      </div>
+        <div class="app-shell">
+          <div class="dash-shell">
+            <div class="dash-head">
+              <div class="dash-title-group">
+                <div class="dash-title">IgniteGrapple • Room dashboard</div>
+                <div class="dash-sub">Switch between Coach &amp; Athlete to try both flows.</div>
+              </div>
+              <div class="mode-toggle">
+                <button class="mode-btn is-active" data-mode-btn="coach">
+                  <span class="toggle-dot"></span>Coach
+                </button>
+                <button class="mode-btn" data-mode-btn="athlete">
+                  <span class="toggle-dot"></span>Athlete
+                </button>
+              </div>
+            </div>
 
-      <p class="section-body">
-        This isn’t generic “sports AI.” IgniteGrapple is tuned specifically for real wrestling rooms —
-        the pace, the chaos, the mismatched experience levels, and the need for structure without slowing
-        anything down.
-      </p>
+            <!-- COACH VIEW -->
+            <div id="coachView" data-mode-view="coach">
+              <div class="dash-grid">
+                <div class="dash-card">
+                  <h4>Your room – focus list</h4>
+                  <p class="dash-muted">
+                    Add athletes on the right to see who needs what before practice.
+                  </p>
+                  <div id="athleteList" class="dash-list"></div>
+                </div>
 
-      <div class="feature-grid">
+                <div class="dash-card">
+                  <h4>Add / update athlete focus</h4>
+                  <p class="dash-muted">
+                    Add athletes with focus areas like “Finishes”, “Bottom urgency”,
+                    or “Mat returns.” This gives you a living snapshot of your room.
+                  </p>
 
-        <div class="feature-card">
-          <h3 class="feature-title">Analyze Your Practice Film</h3>
-          <p class="feature-text">
-            IgniteGrapple breaks down practice sessions into meaningful patterns, tendencies,
-            and technical weaknesses your athletes can fix immediately.
+                  <form id="athleteForm" class="dash-form">
+                    <div class="dash-form-row">
+                      <div>
+                        <label for="athleteName">Athlete name &amp; weight</label>
+                        <input
+                          id="athleteName"
+                          type="text"
+                          placeholder="Example: J. Rivera – 152"
+                          autocomplete="off"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label for="athleteFocus">Key focus</label>
+                        <select id="athleteFocus" required>
+                          <option value="">Choose focus</option>
+                          <option>Shot defense</option>
+                          <option>Mat returns</option>
+                          <option>Bottom urgency</option>
+                          <option>Finishes on the edge</option>
+                          <option>Hand-fighting pace</option>
+                          <option>Chain wrestling</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label for="athleteNotes">Short note (optional)</label>
+                      <textarea
+                        id="athleteNotes"
+                        placeholder="Example: Struggling to clear ties late in the period."
+                      ></textarea>
+                    </div>
+
+                    <div class="dash-save-row">
+                      <small id="saveStatus">
+                        This demo stores athletes in your browser only (local to your device).
+                      </small>
+                      <button type="submit" class="btn-save">Save to dashboard</button>
+                    </div>
+
+                    <div class="dash-meter">
+                      <div class="dash-meter-label">
+                        Room readiness (example)
+                      </div>
+                      <div class="dash-meter-bar">
+                        <div id="readinessFill" class="dash-meter-fill"></div>
+                      </div>
+                    </div>
+
+                    <p class="dash-note">
+                      When we connect the real AI engine + backend, this widget will
+                      update from live practice data and sync to your IgniteGrapple account.
+                    </p>
+
+                    <!-- Email coach demo snapshot -->
+                    <button type="button" class="btn-save" id="emailCoachSnapshot" style="margin-top:6px;">
+                      Email this room snapshot
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <!-- ATHLETE VIEW -->
+            <div id="athleteView" data-mode-view="athlete" style="display:none;">
+              <div class="dash-card" style="margin-bottom:12px;">
+                <h4>Athlete daily mindset check-in</h4>
+                <p class="dash-muted">
+                  For wrestlers: log how you’re feeling today so you and your coach
+                  can see patterns over time. This is a demo — stored only on this device.
+                </p>
+
+                <form id="athleteLogForm" class="dash-form">
+                  <div class="dash-form-row">
+                    <div>
+                      <label for="logName">Your name &amp; weight</label>
+                      <input
+                        id="logName"
+                        type="text"
+                        placeholder="Example: K. Almond – 165"
+                        autocomplete="off"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label for="logGoal">Big goal</label>
+                      <select id="logGoal" required>
+                        <option value="">Pick goal</option>
+                        <option>State qualifier</option>
+                        <option>State placer</option>
+                        <option>State champion</option>
+                        <option>National All-American</option>
+                        <option>National champion</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="athlete-check-row">
+                    <div>
+                      <label for="logEnergy">Energy (1–5)</label>
+                      <select id="logEnergy" required>
+                        <option value="">—</option>
+                        <option>1 – Drained</option>
+                        <option>2 – Low</option>
+                        <option>3 – Okay</option>
+                        <option>4 – Locked in</option>
+                        <option>5 – On fire</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label for="logMindset">Mindset (1–5)</label>
+                      <select id="logMindset" required>
+                        <option value="">—</option>
+                        <option>1 – Doubt</option>
+                        <option>2 – Nervous</option>
+                        <option>3 – Neutral</option>
+                        <option>4 – Confident</option>
+                        <option>5 – Unshakeable</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label for="logFocus">Today’s focus</label>
+                      <select id="logFocus" required>
+                        <option value="">Pick one</option>
+                        <option>Shot defense</option>
+                        <option>Finishes</option>
+                        <option>Bottom work</option>
+                        <option>Hand-fighting</option>
+                        <option>Chain wrestling</option>
+                        <option>Conditioning</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label>Mindset keys for today</label>
+                    <div class="chip-row" id="mindsetChips">
+                      <button type="button" class="chip">Stay in position</button>
+                      <button type="button" class="chip">Score first</button>
+                      <button type="button" class="chip">Win the hands</button>
+                      <button type="button" class="chip">Get off bottom fast</button>
+                      <button type="button" class="chip">Finish every attack</button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label for="logNote">Short note (what you need to hear)</label>
+                    <textarea
+                      id="logNote"
+                      placeholder="Example: I wrestle best when I breathe, move my feet, and trust the work I already did."
+                    ></textarea>
+                  </div>
+
+                  <div class="dash-save-row">
+                    <small id="athleteLogStatus">
+                      These logs stay private on this device. Share them with your coach if you want help.
+                    </small>
+                    <button type="submit" class="btn-save">Save today’s check-in</button>
+                  </div>
+                </form>
+              </div>
+
+              <div class="dash-card">
+                <h4>Your recent check-ins</h4>
+                <p class="dash-muted">
+                  This is a simple demo list. In the full version, you’ll see
+                  trends across the season and how your mindset lines up with your best matches.
+                </p>
+                <div id="athleteLogList" class="dash-list"></div>
+                <button type="button" class="btn-save" id="emailAthleteLogs" style="margin-top:8px;">
+                  Email my check-ins
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: COPY + STATS -->
+          <aside class="app-copy">
+            <h3>What this demo represents</h3>
+            <p>
+              Think of this like a “mini-app” for your room. Coaches can add athletes
+              and focus areas. Wrestlers can log how they feel and what they’re chasing.
+            </p>
+
+            <!-- FEEDBACK BUTTON (NOW JUST NAVIGATES TO FEEDBACK SECTION) -->
+            <button id="openFeedbackBtn" class="btn" style="margin-top:14px;">
+              Send feedback on this demo
+            </button>
+            <p style="margin-top:6px;font-size:11px;color:#9ca3af;">
+              Opens a quick feedback form that emails IgniteGrapple directly.
+            </p>
+
+            <ul class="app-stat-list">
+              <li class="app-stat">
+                <div>
+                  Live in your pocket
+                  <span>Runs in a browser today, native apps tomorrow.</span>
+                </div>
+                <span class="badge-soft">Beta build</span>
+              </li>
+              <li class="app-stat">
+                <div>
+                  Coach + athlete modes
+                  <span>Quick snapshots for practice planning and mindset work.</span>
+                </div>
+              </li>
+              <li class="app-stat">
+                <div>
+                  Future &amp; roadmap
+                  <span>
+                    Film breakdowns, AI-assisted practice plans, and reports
+                    that help you peak for state and nationals.
+                  </span>
+                </div>
+              </li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ============ NEW HANDS-ON DEMO (SEE WHAT IT DOES) ============ -->
+
+      <section id="demo" data-screen="focus">
+        <div class="section-kicker">Hands-on demo</div>
+        <h2 class="section-title">Build a practice &amp; match prep in a few taps.</h2>
+        <p class="section-body">
+          This is a second demo that feels closer to the final app. Coaches can build
+          a quick practice outline based on what they want to hit tonight, and wrestlers
+          can get a simple match-prep checklist. All of this runs right here in your browser.
+        </p>
+
+        <div class="app-shell">
+          <!-- COACH PRACTICE BUILDER -->
+          <div class="dash-shell">
+            <div class="dash-head">
+              <div class="dash-title-group">
+                <div class="dash-title">Coach demo • Practice builder</div>
+                <div class="dash-sub">Pick focus areas and length, we’ll build an outline.</div>
+              </div>
+            </div>
+
+            <div class="dash-card">
+              <h4>Tonight’s practice</h4>
+              <p class="dash-muted">
+                Choose what you want to emphasize and see an example practice flow.
+              </p>
+
+              <form id="practiceForm" class="dash-form">
+                <div class="dash-form-row">
+                  <div>
+                    <label for="practiceLength">Practice length</label>
+                    <select id="practiceLength" required>
+                      <option value="">Select</option>
+                      <option value="60">~60 minutes</option>
+                      <option value="75">~75 minutes</option>
+                      <option value="90">~90 minutes</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="practicePhase">Time of year</label>
+                    <select id="practicePhase" required>
+                      <option value="">Select</option>
+                      <option value="preseason">Preseason / building base</option>
+                      <option value="midseason">Mid-season grind</option>
+                      <option value="postseason">Postseason / peaking</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label>What do you want to sharpen tonight?</label>
+                  <div class="chip-row" id="practiceFocusChips">
+                    <button type="button" class="chip">Shot defense</button>
+                    <button type="button" class="chip">Finishes</button>
+                    <button type="button" class="chip">Bottom urgency</button>
+                    <button type="button" class="chip">Mat returns</button>
+                    <button type="button" class="chip">Hand-fighting pace</button>
+                    <button type="button" class="chip">Chain wrestling</button>
+                  </div>
+                </div>
+
+                <div>
+                  <label for="practiceRoomNote">Room note (optional)</label>
+                  <textarea
+                    id="practiceRoomNote"
+                    placeholder="Example: Kids are drained from school finals, keep pace high but simple."
+                  ></textarea>
+                </div>
+
+                <div class="dash-save-row">
+                  <small id="practiceStatus">
+                    This is an example — nothing is saved to a server.
+                  </small>
+                  <button type="submit" class="btn-save" id="generatePracticeBtn">
+                    Generate practice outline
+                  </button>
+                </div>
+              </form>
+
+              <div style="margin-top:10px;">
+                <h4 style="margin-bottom:4px;">Example outline</h4>
+                <p class="dash-muted">
+                  Use this as a feel for how IgniteGrapple can turn a few inputs into a plan.
+                </p>
+                <div id="practiceOutput" class="dash-list"></div>
+                <button type="button" class="btn-save" id="emailPracticeOutline" style="margin-top:8px;">
+                  Email this outline
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ATHLETE MATCH PREP DEMO -->
+          <div class="dash-shell">
+            <div class="dash-head">
+              <div class="dash-title-group">
+                <div class="dash-title">Athlete demo • Match prep</div>
+                <div class="dash-sub">Answer a few questions and see a prep checklist.</div>
+              </div>
+            </div>
+
+            <div class="dash-card">
+              <h4>Match prep simulator</h4>
+              <p class="dash-muted">
+                Wrestlers can see how IgniteGrapple will turn their situation into simple,
+                clear actions before a big match.
+              </p>
+
+              <form id="prepForm" class="dash-form">
+                <div class="dash-form-row">
+                  <div>
+                    <label for="prepTimeframe">When’s the next battle?</label>
+                    <select id="prepTimeframe" required>
+                      <option value="">Select</option>
+                      <option value="dualTonight">Dual tonight</option>
+                      <option value="tournamentWeekend">Tournament this weekend</option>
+                      <option value="stateSoon">State in 2–4 weeks</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="prepStruggle">Biggest struggle right now</label>
+                    <select id="prepStruggle" required>
+                      <option value="">Select</option>
+                      <option value="nerves">Nerves / overthinking</option>
+                      <option value="slowStart">Slow start</option>
+                      <option value="gassing">Gas tank / fading late</option>
+                      <option value="finishing">Finishing attacks</option>
+                      <option value="bottom">Getting off bottom</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label>How do you want to feel when you step on the line?</label>
+                  <div class="chip-row" id="prepFeelingChips">
+                    <button type="button" class="chip">Loose &amp; calm</button>
+                    <button type="button" class="chip">Locked in</button>
+                    <button type="button" class="chip">Aggressive</button>
+                    <button type="button" class="chip">Patient &amp; smart</button>
+                  </div>
+                </div>
+
+                <div>
+                  <label for="prepNote">Anything specific about this opponent?</label>
+                  <textarea
+                    id="prepNote"
+                    placeholder="Example: Heavy hands, good re-shots, gasses in the 3rd."
+                  ></textarea>
+                </div>
+
+                <div class="dash-save-row">
+                  <small id="prepStatus">
+                    This is a demo checklist — it stays on this device.
+                  </small>
+                  <button type="submit" class="btn-save" id="generatePrepBtn">
+                    Generate match prep
+                  </button>
+                </div>
+              </form>
+
+              <div style="margin-top:10px;">
+                <h4 style="margin-bottom:4px;">Prep checklist</h4>
+                <p class="dash-muted">
+                  This shows the kind of simple game plan athletes will see inside the app.
+                </p>
+                <div id="prepOutput" class="dash-list"></div>
+                <button type="button" class="btn-save" id="emailPrepChecklist" style="margin-top:8px;">
+                  Email this checklist
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ PROGRESS (ROOM SNAPSHOT) ============ -->
+
+      <section id="progress" data-screen="progress">
+        <div class="section-kicker">Progress (demo)</div>
+        <h2 class="section-title">Room progress at a glance.</h2>
+        <p class="section-body">
+          This view gives you (and eventually, athletes) a simple snapshot:
+          how many athletes are tagged for each focus area. When the full AI
+          engine is live, this will pull from real match &amp; practice data.
+        </p>
+
+        <div class="dash-shell">
+          <div class="dash-head">
+            <div class="dash-title-group">
+              <div class="dash-title">Focus breakdown</div>
+              <div class="dash-sub">Based on locally saved athletes</div>
+            </div>
+          </div>
+
+          <div id="progressSummary" class="dash-card" style="margin-bottom:12px;">
+            <h4>Room summary</h4>
+            <p class="dash-muted" id="progressSummaryText">
+              No athletes added yet. Add athletes on the Focus tab to see a breakdown here.
+            </p>
+          </div>
+
+          <div class="dash-card">
+            <h4>By focus area</h4>
+            <div id="progressFocusList" class="dash-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ ATHLETE MARKETING SECTION (ATHLETES TAB) ============ -->
+
+      <section id="athlete" data-screen="athlete">
+        <div class="section-kicker">ATHLETE MODE</div>
+        <h2 class="section-title">Built for wrestlers who want to peak when it counts.</h2>
+        <p class="section-body">
+          IgniteGrapple isn’t just for coaches. Athlete mode helps wrestlers
+          track mindset, energy, and daily focus so they can line up their best
+          wrestling with state and national tournaments — not just a random dual.
+        </p>
+
+        <div class="pricing-grid">
+          <article class="price-card">
+            <div class="price-label">Mindset &amp; confidence</div>
+            <p>
+              Daily check-ins to keep your head where it needs to be — confident,
+              composed, and ready to fire off your offense when it matters.
+            </p>
+          </article>
+
+          <article class="price-card">
+            <div class="price-label">Technical focus</div>
+            <p>
+              Simple focus tags (finishes, bottom urgency, hand-fighting) so you
+              always know what you’re sharpening this week.
+            </p>
+          </article>
+
+          <article class="price-card">
+            <div class="price-label">Long-term goals</div>
+            <p>
+              Keep “state champ” or “national All-American” in front of you with
+              small, daily actions that actually connect to the big goal.
+            </p>
+          </article>
+        </div>
+
+        <p class="section-body" style="margin-top:18px;">
+          During beta, athlete mode is free. Wrestlers and parents can try it
+          alongside their coaches and give feedback on what actually helps on
+          match day.
+        </p>
+      </section>
+
+      <!-- ============ COMPARISON SECTION ============ -->
+
+      <section id="comparison" data-screen="home">
+        <div class="section-kicker">Why we’re different</div>
+        <h2 class="section-title">How IgniteGrapple stacks up vs. everyone else.</h2>
+        <p class="section-body">
+          Other platforms are great for hype, streams, or generic video breakdowns.
+          IgniteGrapple is built to answer one question: <strong>“What should we
+          focus on tonight so we’re ready for state?”</strong> Here’s how we fit.
+        </p>
+
+        <div class="compare-grid">
+          <!-- FloWrestling -->
+          <article class="compare-card">
+            <div class="compare-head">
+              <div class="compare-name">FloWrestling</div>
+              <span class="compare-chip">Media • Live events</span>
+            </div>
+            <div class="compare-columns">
+              <div class="compare-col">
+                <div class="compare-col-title">What they do</div>
+                <p>
+                  Elite content, live streams, rankings, documentaries, and technique
+                  breakdowns for fans and junkies.
+                </p>
+                <p>
+                  <strong>Gap for coaches:</strong> doesn’t know your room, your kids,
+                  or what you drilled yesterday.
+                </p>
+              </div>
+              <div class="compare-col">
+                <div class="compare-col-title">IgniteGrapple</div>
+                <p>
+                  Uses <strong>your room’s data</strong> — athletes, positions, and
+                  film — to surface what your practice should actually look like this week.
+                </p>
+                <p>
+                  Think of Flo as hype. IgniteGrapple is the <strong>whiteboard</strong>
+                  behind that success.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Hudl / Krossover -->
+          <article class="compare-card">
+            <div class="compare-head">
+              <div class="compare-name">Hudl / Krossover</div>
+              <span class="compare-chip">Film platforms</span>
+            </div>
+            <div class="compare-columns">
+              <div class="compare-col">
+                <div class="compare-col-title">What they do</div>
+                <p>
+                  Store, share, and clip film. Great for sending matches and building
+                  highlight reels.
+                </p>
+                <p>
+                  <strong>Gap for coaches:</strong> tagging is manual and generic, and it
+                  doesn’t translate into “run this live-go sequence tonight”.
+                </p>
+              </div>
+              <div class="compare-col">
+                <div class="compare-col-title">IgniteGrapple</div>
+                <p>
+                  Built specifically for <strong>wrestling positions</strong> — shot
+                  defense, mat returns, bottom urgency, hand-fighting pace, and more.
+                </p>
+                <p>
+                  The end result is <strong>practice plans</strong>, not just storage.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Athletes Ocean -->
+          <article class="compare-card">
+            <div class="compare-head">
+              <div class="compare-name">Athletes Ocean</div>
+              <span class="compare-chip">Technique subscriptions</span>
+            </div>
+            <div class="compare-columns">
+              <div class="compare-col">
+                <div class="compare-col-title">What they do</div>
+                <p>
+                  A library of technique videos and “watch and learn” content your kids
+                  could often find versions of on YouTube.
+                </p>
+                <p>
+                  <strong>Gap:</strong> doesn’t know if your athlete drilled it, hit it,
+                  or still struggles in that position.
+                </p>
+              </div>
+              <div class="compare-col">
+                <div class="compare-col-title">IgniteGrapple</div>
+                <p>
+                  Focuses on <strong>application</strong> — did your athlete actually
+                  improve on bottom, on the edge, or in scrambles over the last 3 weeks?
+                </p>
+                <p>
+                  Your room’s data decides which positions get the most reps.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- RUDIS / Fanatic -->
+          <article class="compare-card">
+            <div class="compare-head">
+              <div class="compare-name">RUDIS+ / Fanatic Wrestling</div>
+              <span class="compare-chip">Technique courses</span>
+            </div>
+            <div class="compare-columns">
+              <div class="compare-col">
+                <div class="compare-col-title">What they do</div>
+                <p>
+                  High-level instruction from legends; deep dives on single positions
+                  or systems.
+                </p>
+                <p>
+                  <strong>Gap:</strong> no connection between those lessons and what your
+                  <strong>entire room</strong> needs this week.
+                </p>
+              </div>
+              <div class="compare-col">
+                <div class="compare-col-title">IgniteGrapple</div>
+                <p>
+                  Helps you decide <strong>which system to emphasize when</strong>, based
+                  on who’s trying to peak for state, nationals, or qualifying.
+                </p>
+                <p>
+                  It turns great content into <strong>aligned practices</strong>.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Wrestling Mindset TV -->
+          <article class="compare-card">
+            <div class="compare-head">
+              <div class="compare-name">Wrestling Mindset TV</div>
+              <span class="compare-chip">Mindset content</span>
+            </div>
+            <div class="compare-columns">
+              <div class="compare-col">
+                <div class="compare-col-title">What they do</div>
+                <p>
+                  Mindset training and mental skills to help athletes compete tougher.
+                </p>
+                <p>
+                  <strong>Gap:</strong> tends to live in videos and worksheets instead of
+                  daily, trackable actions tied to practice.
+                </p>
+              </div>
+              <div class="compare-col">
+                <div class="compare-col-title">IgniteGrapple</div>
+                <p>
+                  Daily athlete check-ins, energy, mindset, and focus tracking —
+                  connected to <strong>actual training blocks</strong>.
+                </p>
+                <p>
+                  “How you feel” and “how you’re training” finally live in the same place.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Generic AI / Sports tech -->
+          <article class="compare-card">
+            <div class="compare-head">
+              <div class="compare-name">Generic AI / Sports tech</div>
+              <span class="compare-chip">One-size-fits-all</span>
+            </div>
+            <div class="compare-columns">
+              <div class="compare-col">
+                <div class="compare-col-title">What they do</div>
+                <p>
+                  Generic AI tools that promise to help “any sport” — often built
+                  around buzzwords, not mat feel.
+                </p>
+                <p>
+                  <strong>Gap:</strong> they don’t understand hand-fighting, mat returns,
+                  or the grind of February/March.
+                </p>
+              </div>
+              <div class="compare-col">
+                <div class="compare-col-title">IgniteGrapple</div>
+                <p>
+                  Wrestling-only. Built from the perspective of somebody who actually
+                  wrestled, coached, and lived the sport.
+                </p>
+                <p>
+                  Every feature answers: <strong>“Does this help us get our kids ready
+                  for state and nationals?”</strong>
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ============ PRICING / FOUNDER / BETA / CONTACT ============ -->
+
+      <section id="pricing" data-screen="home">
+        <div class="section-kicker">Beta pricing</div>
+        <h2 class="section-title">
+          Future plans are set. <span style="color:#7dfc4c;">Beta is free right now.</span>
+        </h2>
+        <p class="section-body">
+          Early rooms get locked-in pricing and direct access to Kevin while
+          IgniteGrapple is being shaped around real wrestling programs.
+          <strong>During beta, qualified rooms pay $0 — we just ask for honest feedback.</strong>
+        </p>
+
+        <div class="pricing-grid">
+          <article class="price-card">
+            <div class="price-label">Club / Youth Rooms</div>
+            <div class="price-main">
+              $79 / month <span>per room after beta</span>
+            </div>
+            <p>
+              Designed for youth clubs and community rooms that want structure without
+              drowning coaches in admin work.
+            </p>
+            <p class="free-note">
+              Beta: <strong>$0</strong> — if you’re helping shape the product, you’re not paying yet.
+            </p>
+          </article>
+
+          <article class="price-card">
+            <div class="price-label">High School Rooms</div>
+            <div class="price-main">
+              $129 / month <span>per room after beta</span>
+            </div>
+            <p>
+              Built for full varsity/JV rooms, postseason, and multi-coach staffs that
+              need everyone on the same page.
+            </p>
+            <p class="free-note">
+              Beta: <strong>$0</strong> — your room gets locked-in pricing later for helping now.
+            </p>
+          </article>
+
+          <article class="price-card">
+            <div class="price-label">Clubs + School Partner</div>
+            <div class="price-main">
+              Custom <span>beta partnership</span>
+            </div>
+            <p>
+              For programs that want deeper support — systems, culture, and
+              long-term planning with Kevin in the loop.
+            </p>
+            <p class="free-note">
+              Beta: <strong>$0</strong> for serious partners; we focus on results, then on billing.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="founder" data-screen="home">
+        <div class="section-kicker">Who’s behind IgniteGrapple?</div>
+        <div class="founder-card">
+          <h2 class="section-title">Built by someone who actually lived the grind.</h2>
+          <p>
+            IgniteGrapple is built by Kevin Almond — low-income background,
+            late-blooming wrestler, state champ, and first NCAA All-American for
+            his college.
+          </p>
+          <p class="founder-name">
+            Kevin Almond, MBA – Founder &amp; Builder of IgniteGrapple
+          </p>
+          <p>
+            Kevin grew up without traditional resources — no private rooms, no elite
+            camps every weekend. He learned to use the rug pattern for stance and
+            motion, the yard for drilling, and whatever wrestling time he could get.
+          </p>
+          <p>
+            After starting in JV as an 8th grader, he went on to become a state
+            finalist multiple years, win it his senior year, wrestle on Team Georgia,
+            and eventually become the first NCAA All-American for Emmanuel College —
+            and the first NCAA All-American across all sports when the school joined
+            Division II.
+          </p>
+          <p>
+            IgniteGrapple is his attempt to give wrestlers and coaches the tools he
+            wishes he had — a smarter way to see what the room needs, shape training,
+            and protect coaches from burnout.
+          </p>
+          <p class="partner-note">
+            Partner room: <strong>Future Champs of Dallas</strong> — a DFW-area club
+            where Kevin is actively on the mat and helping shape the room with
+            IgniteGrapple principles.
           </p>
         </div>
+      </section>
 
-        <div class="feature-card">
-          <h3 class="feature-title">Auto-Generated Training Focus</h3>
-          <p class="feature-text">
-            The system identifies what your room actually needs today — finishes, mat returns,
-            leg defense, hand fighting intensity, or conditioning output.
+      <section id="beta" data-screen="home">
+        <div class="section-kicker">Beta program</div>
+        <div class="beta-card">
+          <h2 class="section-title">What beta rooms get.</h2>
+          <p>
+            During beta, IgniteGrapple is hands-on. You’re not just “using an app”
+            — you’re helping design the system around your room.
           </p>
+          <ul class="contact-list">
+            <li>• Direct access to Kevin for feedback and adjustments.</li>
+            <li>• <strong>Beta is free right now</strong> for serious rooms and wrestlers.</li>
+            <li>• Locked-in pricing for at least the first full season after launch.</li>
+            <li>• Influence over features, reports, and practice tools.</li>
+            <li>• Priority when native iOS / Android apps go live.</li>
+          </ul>
         </div>
+      </section>
 
-        <div class="feature-card">
-          <h3 class="feature-title">Athlete Profiles</h3>
-          <p class="feature-text">
-            Every wrestler gets a real-time development profile that updates with every practice uploaded.
+      <section id="contact" data-screen="home">
+        <div class="section-kicker">Contact</div>
+        <div class="contact-card">
+          <h2 class="section-title">Need to talk through your room?</h2>
+          <p>
+            If you’re a Dallas / DFW coach (or run a serious program anywhere),
+            you can reach out directly to talk through whether IgniteGrapple fits
+            your room. Beta access is free for now while we build this with real rooms.
           </p>
-        </div>
 
-        <div class="feature-card">
-          <h3 class="feature-title">Coach Dashboard</h3>
-          <p class="feature-text">
-            Your room’s workload, readiness, effort, and performance indicators all in one clean,
-            simple, coach-first interface.
+          <p style="margin-top:10px;">
+            Use the form below to request a beta spot or a short call — your answers
+            open in your email app and send straight to IgniteGrapple.
           </p>
+
+          <ul class="contact-list">
+            <li>
+              Direct email:
+              <a href="mailto:1ignitegrapple@gmail.com">1ignitegrapple@gmail.com</a>
+            </li>
+            <li>
+              Instagram:
+              <a href="https://www.instagram.com/1ignitegrapple?igsh=Z2I1NWwycWY1ODJ1&utm_source=qr" target="_blank" rel="noopener">
+                <strong>@1ignitegrapple</strong>
+              </a>
+            </li>
+            <li>
+              Location: Based in Dallas, TX — supporting rooms anywhere.
+            </li>
+            <li>
+              Partner room:
+              <strong>Future Champs of Dallas</strong> (coaching &amp; support).
+            </li>
+          </ul>
+
+          <!-- Beta/contact form -> mailto -->
+          <form
+            id="betaForm"
+            class="contact-form"
+            action="mailto:1ignitegrapple@gmail.com"
+            method="POST"
+            enctype="text/plain"
+          >
+            <div class="contact-form-row">
+              <div>
+                <label for="formName">Name</label>
+                <input id="formName" name="Name" type="text" placeholder="Your name" required />
+              </div>
+              <div>
+                <label for="formRole">Role</label>
+                <select id="formRole" name="Role" required>
+                  <option value="">Coach / Athlete / Parent</option>
+                  <option>Coach</option>
+                  <option>Athlete</option>
+                  <option>Parent</option>
+                  <option>Club director</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="contact-form-row">
+              <div>
+                <label for="formProgram">Program / Club</label>
+                <input id="formProgram" name="Program/Club" type="text" placeholder="School or club name" />
+              </div>
+              <div>
+                <label for="formEmail">Email</label>
+                <input id="formEmail" name="Email" type="text" placeholder="Best email to reach you" />
+              </div>
+            </div>
+
+            <div>
+              <label for="formTime">Preferred day / time for a quick call</label>
+              <input id="formTime" name="Preferred time" type="text" placeholder="Example: Weeknights after 7pm CT" />
+            </div>
+
+            <div>
+              <label for="formMessage">What are you hoping IgniteGrapple helps with?</label>
+              <textarea
+                id="formMessage"
+                name="What you need help with"
+                placeholder="Briefly describe your room, level, and what you’d like help with."
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn">Send beta request</button>
+            <small id="betaStatus" style="display:block; margin-top:6px; color:#9ca3af;">
+              This opens your email app with all your answers filled in. Tap send to reach IgniteGrapple.
+            </small>
+          </form>
         </div>
+      </section>
 
-      </div>
-    </section>
-
-
-    <!-- ============================
-         PRACTICE DEMO SECTION
-    ============================ -->
-    <section id="practice" data-screen="home">
-
-      <div class="section-kicker">Try It Yourself</div>
-
-      <h2 class="section-title">Experience AI-Powered Practice Insight</h2>
-
-      <p class="section-body">
-        Upload a short practice clip and IgniteGrapple will generate insights,
-        training focus points, and improvement suggestions in seconds.
-      </p>
-
-      <div class="upload-box">
-        <input type="file" id="practiceUpload" accept="video/*" />
-        <button class="btn-primary" id="analyzeBtn">Analyze Clip</button>
-      </div>
-
-      <div id="practiceResults" class="results-box hidden">
-        <h3>Room Breakdown</h3>
-        <ul id="practiceInsights"></ul>
-      </div>
-    </section>
-
-
-    <!-- ============================
-         AI HIGHLIGHTS SECTION
-    ============================ -->
-    <section id="ai-highlights" data-screen="home">
-
-      <div class="section-kicker">Smart. Fast. Coach-Approved.</div>
-
-      <h2 class="section-title">AI That Understands Real Wrestling Rooms</h2>
-
-      <p class="section-body">
-        IgniteGrapple is built with true wrestling insight — not generic “sports tracking.”
-        It learns what matters in YOUR room and adapts instantly.
-      </p>
-
-      <div class="feature-grid">
-
-        <div class="feature-card">
-          <h3 class="feature-title">Pattern Recognition</h3>
-          <p class="feature-text">
-            Identifies repetition quality, intensity, and technical mistakes as they happen.
+      <!-- ============ NEW FEEDBACK SCREEN (NOW MAILTO) ============ -->
+      <section id="feedbackScreen" data-screen="feedback" style="margin-top:64px;">
+        <div class="section-kicker">Feedback</div>
+        <div class="contact-card">
+          <h2 class="section-title">Help shape IgniteGrapple.</h2>
+          <p class="section-body">
+            This quick form opens your email with everything filled in so you can
+            send feedback directly to IgniteGrapple — no accounts, no logins.
           </p>
+
+          <form
+            id="feedbackForm"
+            class="contact-form"
+            action="mailto:1ignitegrapple@gmail.com"
+            method="POST"
+            enctype="text/plain"
+          >
+            <input type="hidden" id="fb-demo" name="Demo source" value="unknown" />
+
+            <div class="contact-form-row">
+              <div>
+                <label for="fb-name">Name (optional)</label>
+                <input id="fb-name" name="Name" type="text" placeholder="Your name" />
+              </div>
+              <div>
+                <label for="fb-role">You are a…</label>
+                <select id="fb-role" name="Role" required>
+                  <option value="">Select one</option>
+                  <option value="Coach">Coach</option>
+                  <option value="Athlete">Athlete</option>
+                  <option value="Parent">Parent</option>
+                  <option value="Club director">Club director</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label for="fb-email">Email (optional, if you want a reply)</label>
+              <input id="fb-email" name="Email" type="text" placeholder="Best email to follow up (optional)" />
+            </div>
+
+            <div>
+              <label for="fb-message">Feedback</label>
+              <textarea
+                id="fb-message"
+                name="Feedback"
+                placeholder="What worked? What was confusing? What should change before launch?"
+                required
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn">Send feedback</button>
+            <small style="display:block; margin-top:6px; color:#9ca3af;">
+              Your email app will pop up with everything filled in — just hit send.
+            </small>
+            <p id="fb-status" style="margin-top:8px; font-size:12px; color:#9ca3af;"></p>
+          </form>
         </div>
+      </section>
 
-        <div class="feature-card">
-          <h3 class="feature-title">Room Activity Map</h3>
-          <p class="feature-text">
-            Tracks pace, workload, energy distribution, and efficiency — so practices stay on target.
-          </p>
-        </div>
-
-        <div class="feature-card">
-          <h3 class="feature-title">Focus Area Alerts</h3>
-          <p class="feature-text">
-            Detects issues early — weak stance maintenance, late reactions, slow finishes, and more.
-          </p>
-        </div>
-
-      </div>
-    </section>
-        <!-- ============================
-         ATHLETE MODE SECTION
-    ============================ -->
-    <section id="athlete-mode" data-screen="athlete" class="hidden">
-
-      <div class="section-kicker">Athlete Mode</div>
-
-      <h2 class="section-title">Train Smarter. Improve Every Session.</h2>
-
-      <p class="section-body">
-        Athletes get personalized insights, daily focus tasks, and technique corrections — 
-        all based on their last practice.
-      </p>
-
-      <div class="feature-grid">
-
-        <div class="feature-card">
-          <h3 class="feature-title">Your Daily Focus</h3>
-          <p class="feature-text">
-            Know exactly what to work on — finishes, scrambles, pace, or hand fighting — 
-            updated every time the AI sees you train.
-          </p>
-        </div>
-
-        <div class="feature-card">
-          <h3 class="feature-title">Technique Fixes</h3>
-          <p class="feature-text">
-            Auto-generated feedback based on stance level, reaction speed, shot execution, 
-            and positional habits.
-          </p>
-        </div>
-
-        <div class="feature-card">
-          <h3 class="feature-title">Performance Tracking</h3>
-          <p class="feature-text">
-            Your strengths grow and your weaknesses shrink as the AI learns your style and effort patterns.
-          </p>
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- ============================
-         COACH MODE SECTION
-    ============================ -->
-    <section id="coach-mode" data-screen="coach" class="hidden">
-
-      <div class="section-kicker">Coach Mode</div>
-
-      <h2 class="section-title">Command Your Room with Real-Time Insight</h2>
-
-      <p class="section-body">
-        Turn chaos into clarity. Every drill, every rep, every athlete — analyzed and converted into 
-        meaningful coaching points you can apply instantly.
-      </p>
-
-      <div class="feature-grid">
-
-        <div class="feature-card">
-          <h3 class="feature-title">Room-Wide Intelligence</h3>
-          <p class="feature-text">
-            See where intensity drops, which athletes need attention, and what areas your room is 
-            struggling with today.
-          </p>
-        </div>
-
-        <div class="feature-card">
-          <h3 class="feature-title">Actionable Insights</h3>
-          <p class="feature-text">
-            The system gives you immediate clarity — the 3–5 coaching points that will elevate 
-            today's practice.
-          </p>
-        </div>
-
-        <div class="feature-card">
-          <h3 class="feature-title">Coach Dashboard</h3>
-          <p class="feature-text">
-            A full overview of your room’s performance, readiness, effort, and technical execution.
-          </p>
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- ============================
-         APP WORKFLOW SECTION
-    ============================ -->
-    <section id="app-demo" data-screen="home">
-      
-      <div class="section-kicker">Simple. Fast. Built for Real Rooms.</div>
-
-      <h2 class="section-title">How IgniteGrapple Works</h2>
-
-      <div class="workflow-steps">
-
-        <div class="workflow-step">
-          <span class="step-number">1</span>
-          <h3 class="step-title">Record Practice Clips</h3>
-          <p class="step-text">
-            Just use your phone — the AI handles the complexity.
-          </p>
-        </div>
-
-        <div class="workflow-step">
-          <span class="step-number">2</span>
-          <h3 class="step-title">Upload or Stream Live</h3>
-          <p class="step-text">
-            The system identifies tendencies, mistakes, strengths, and energy levels instantly.
-          </p>
-        </div>
-
-        <div class="workflow-step">
-          <span class="step-number">3</span>
-          <h3 class="step-title">Receive Insights & Training Focus</h3>
-          <p class="step-text">
-            IgniteGrapple generates clear, actionable focus points for both coaches and athletes.
-          </p>
-        </div>
-
-      </div>
-    </section>
-        <!-- ============================
-         FOUNDER SECTION (CINEMATIC)
-    ============================ -->
-    <section id="founder" data-screen="home">
-
-      <div class="section-kicker">The Person Behind IgniteGrapple</div>
-      <h2 class="section-title">Built By Someone Who Lived This</h2>
-
-      <!-- 🔥 CINEMATIC FOUNDER BANNER (C2 – 450px tall) -->
-      <div class="founder-banner"
-           onclick="window.open('https://www.instagram.com/1ignitegrapple','_blank')">
-
-        <!-- Founder Image -->
-        <img src="founder-photo.png" alt="Founder - Kevin Almond">
-
-        <!-- Hologram Scan -->
-        <div class="holo-scan"></div>
-
-        <!-- Glowing Name Over Banner -->
-        <div class="founder-banner-name">
-          Kevin Almond, MBA
-        </div>
-
-        <!-- Particles -->
-        <div class="particle" style="left:15%; bottom:20%; animation-delay:0s;"></div>
-        <div class="particle" style="left:40%; bottom:18%; animation-delay:1.2s;"></div>
-        <div class="particle" style="left:70%; bottom:22%; animation-delay:0.6s;"></div>
-        <div class="particle" style="left:85%; bottom:16%; animation-delay:2.1s;"></div>
-        <div class="particle" style="left:55%; bottom:25%; animation-delay:2.8s;"></div>
-
-      </div>
-
-      <!-- BIO SECTION -->
-      <p class="founder-bio">
-        IgniteGrapple wasn’t built by a random tech team. It was built by someone
-        who lived inside wrestling rooms, watched athletes struggle with the same
-        problems week after week, and realized coaches needed a smarter way to 
-        understand what was actually happening in real time.
-      </p>
-
-      <p class="founder-bio">
-        Practices fly by. Kids work hard — but hard doesn’t always mean productive.
-        IgniteGrapple bridges the gap between effort and targeted development.
-      </p>
-
-      <p class="founder-bio">
-        This platform is designed to give coaches clarity, athletes direction, and
-        rooms structure — without slowing anything down. And it’s only the beginning.
-      </p>
-
-      <p class="founder-bio">
-        A partner room will eventually be selected to co-build the next major update
-        with Kevin directly — shaping the tools coaches have needed for years.
-      </p>
-
-    </section>
-        <!-- ============================
-         BETA ACCESS SECTION
-    ============================ -->
-    <section id="beta" data-screen="home">
-
-      <div class="section-kicker">Join the Beta</div>
-
-      <h2 class="section-title">Get Early Access (100% Free)</h2>
-
-      <p class="section-body">
-        IgniteGrapple is still in its early-access phase. Coaches and athletes who join now get
-        long-term perks, feature priority, and early builds before public release.
-      </p>
-
-      <form
-        class="beta-form"
-        action="mailto:1ignitegrapple@gmail.com"
-        method="POST"
-        enctype="text/plain"
+      <section
+        id="install-app"
+        data-screen="home"
+        style="padding: 60px 20px; background: #0b0f16; text-align: center; border-top: 1px solid #1c2333; margin-top:64px;"
       >
-        <input type="text" name="name" placeholder="Your Name" required />
-        <input type="email" name="email" placeholder="Your Email" required />
-        <textarea name="message" placeholder="Room / Program Info" rows="4"></textarea>
-        <button type="submit" class="btn-primary">Request Beta Access</button>
-      </form>
+        <h2 style="color: #8fff57; font-size: 2rem; margin-bottom: 10px;">
+          Download the IgniteGrapple App
+        </h2>
 
-    </section>
+        <p style="color: #b8c2cc; max-width: 600px; margin: 0 auto 30px;">
+          Install the IgniteGrapple PWA for a full-screen app experience,
+          offline access, and faster performance.
+        </p>
 
+        <button
+          id="installBtn"
+          style="
+            background: #8fff57;
+            border: none;
+            padding: 14px 30px;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+          "
+        >
+          Install App
+        </button>
 
-    <!-- ============================
-         CONTACT SECTION
-    ============================ -->
-    <section id="contact" data-screen="home">
+        <p id="installStatus" style="color: #8fff57; margin-top: 15px; display: none;">
+          App is ready to install!
+        </p>
+      </section>
 
-      <div class="section-kicker">Contact</div>
+      <footer data-screen="home">
+        IgniteGrapple &copy; <span id="year"></span>.
+      </footer>
+    </div>
+  </main>
 
-      <h2 class="section-title">Get in Touch</h2>
+  <!-- MOBILE TAB BAR -->
+  <nav class="mobile-tabbar">
+    <button class="mobile-tab is-active" data-tab="home"><span>Home</span></button>
+    <button class="mobile-tab" data-tab="focus"><span>Coach</span></button>
+    <button class="mobile-tab" data-tab="progress"><span>Room</span></button>
+    <button class="mobile-tab" data-tab="athlete"><span>Athletes</span></button>
+    <button class="mobile-tab" data-tab="feedback"><span>Feedback</span></button>
+  </nav>
 
-      <p class="section-body">
-        Whether you're a coach, athlete, parent, or program director — reach out anytime.
-      </p>
-
-      <form
-        class="contact-form"
-        action="mailto:1ignitegrapple@gmail.com"
-        method="POST"
-        enctype="text/plain"
-      >
-        <input type="text" name="name" placeholder="Your Name" required />
-        <input type="email" name="email" placeholder="Your Email" required />
-        <textarea name="message" placeholder="Message" rows="4"></textarea>
-        <button type="submit" class="btn-primary">Send Message</button>
-      </form>
-
-    </section>
-
-  </div> <!-- .page END -->
-
-
-  <!-- ============================
-       FULL JAVASCRIPT LOGIC
-  ============================ -->
   <script>
-    /* ============================
-       ROLE TOGGLE (Coach <-> Athlete)
-    ============================ */
-    const toggle = document.getElementById("roleToggle");
-    const athleteMode = document.getElementById("athlete-mode");
-    const coachMode = document.getElementById("coach-mode");
-    const homeScreens = document.querySelectorAll('[data-screen="home"]');
+    // YEAR
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-    toggle.addEventListener("click", () => {
-      if (toggle.textContent.includes("Coach")) {
-        toggle.textContent = "Athlete Mode";
-        athleteMode.classList.remove("hidden");
-        coachMode.classList.add("hidden");
-        homeScreens.forEach((s) => s.classList.add("hidden"));
-      } else {
-        toggle.textContent = "Coach Mode";
-        athleteMode.classList.add("hidden");
-        coachMode.classList.remove("hidden");
-        homeScreens.forEach((s) => s.classList.remove("hidden"));
+    // -------------- STORAGE KEYS --------------
+    const STORAGE_KEY_COACH = "igniteGrappleAthletes_v1";
+    const STORAGE_KEY_ATHLETE = "igniteGrappleAthleteLogs_v1";
+
+    // -------------- COACH DASHBOARD --------------
+    const athleteForm = document.getElementById("athleteForm");
+    const athleteListEl = document.getElementById("athleteList");
+    const readinessFill = document.getElementById("readinessFill");
+    const saveStatus = document.getElementById("saveStatus");
+
+    const progressSummaryText = document.getElementById("progressSummaryText");
+    const progressFocusList = document.getElementById("progressFocusList");
+
+    let athletes = [];
+    let athleteLogs = [];
+    let igniteLastDemo = "coach-dashboard";
+
+    function loadAthletes() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY_COACH);
+        athletes = raw ? JSON.parse(raw) : [];
+      } catch (err) {
+        console.error("Error loading athletes", err);
+        athletes = [];
+      }
+      renderAthletes();
+      updateMetrics();
+      renderProgress();
+    }
+
+    function persistAthletes() {
+      try {
+        localStorage.setItem(STORAGE_KEY_COACH, JSON.stringify(athletes));
+        if (saveStatus) {
+          saveStatus.textContent = "Saved locally to this device.";
+        }
+      } catch (err) {
+        console.error("Error saving athletes", err);
+        if (saveStatus) {
+          saveStatus.textContent = "Could not save locally (storage full?).";
+        }
+      }
+    }
+
+    function renderAthletes() {
+      if (!athleteListEl) return;
+
+      athleteListEl.innerHTML = "";
+      if (!athletes.length) {
+        const empty = document.createElement("p");
+        empty.className = "dash-muted";
+        empty.textContent =
+          "No athletes added yet. Start by adding one on the right.";
+        athleteListEl.appendChild(empty);
+        return;
+      }
+
+      athletes.forEach((ath, index) => {
+        const row = document.createElement("div");
+        row.className = "athlete-pill";
+
+        const main = document.createElement("div");
+        main.className = "athlete-main";
+
+        const name = document.createElement("div");
+        name.className = "athlete-name";
+        name.textContent = ath.name;
+
+        const meta = document.createElement("div");
+        meta.className = "athlete-meta";
+        meta.textContent = ath.notes || "No additional notes yet.";
+
+        main.appendChild(name);
+        main.appendChild(meta);
+
+        const right = document.createElement("div");
+        right.style.display = "flex";
+        right.style.flexDirection = "column";
+        right.style.alignItems = "flex-end";
+        right.style.gap = "4px";
+
+        const focus = document.createElement("span");
+        focus.className = "pill-focus";
+        focus.textContent = ath.focus;
+
+        const del = document.createElement("button");
+        del.className = "btn-xs";
+        del.textContent = "Remove";
+        del.addEventListener("click", () => {
+          athletes.splice(index, 1);
+          persistAthletes();
+          renderAthletes();
+          updateMetrics();
+          renderProgress();
+        });
+
+        right.appendChild(focus);
+        right.appendChild(del);
+
+        row.appendChild(main);
+        row.appendChild(right);
+        athleteListEl.appendChild(row);
+      });
+    }
+
+    function updateMetrics() {
+      if (!readinessFill) return;
+      const max = 12;
+      const count = athletes.length;
+      const pct = Math.max(10, Math.min(100, (count / max) * 100));
+      readinessFill.style.width = pct + "%";
+    }
+
+    function renderProgress() {
+      if (!progressSummaryText || !progressFocusList) return;
+
+      if (!athletes.length) {
+        progressSummaryText.textContent =
+          "No athletes added yet. Add athletes on the Coach demo to see a breakdown here.";
+        progressFocusList.innerHTML = "";
+        return;
+      }
+
+      progressSummaryText.textContent = `${athletes.length} athlete(s) tracked in this demo.`;
+
+      const counts = {};
+      athletes.forEach((a) => {
+        const key = a.focus || "Unassigned";
+        counts[key] = (counts[key] || 0) + 1;
+      });
+
+      progressFocusList.innerHTML = "";
+      Object.keys(counts).forEach((focus) => {
+        const row = document.createElement("div");
+        row.className = "athlete-pill";
+        const left = document.createElement("div");
+        left.className = "athlete-main";
+
+        const title = document.createElement("div");
+        title.className = "athlete-name";
+        title.textContent = focus;
+
+        const meta = document.createElement("div");
+        meta.className = "athlete-meta";
+        meta.textContent = `${counts[focus]} athlete(s) tagged`;
+
+        left.appendChild(title);
+        left.appendChild(meta);
+
+        row.appendChild(left);
+        progressFocusList.appendChild(row);
+      });
+    }
+
+    if (athleteForm) {
+      athleteForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = document.getElementById("athleteName").value.trim();
+        const focus = document.getElementById("athleteFocus").value.trim();
+        const notes = document.getElementById("athleteNotes").value.trim();
+
+        if (!name || !focus) {
+          if (saveStatus) {
+            saveStatus.textContent = "Name and focus are required.";
+          }
+          return;
+        }
+
+        athletes.push({ name, focus, notes, createdAt: Date.now() });
+        persistAthletes();
+        renderAthletes();
+        updateMetrics();
+        renderProgress();
+
+        athleteForm.reset();
+        if (saveStatus) {
+          saveStatus.textContent = "Saved to dashboard (local demo).";
+        }
+      });
+    }
+
+    // -------------- ATHLETE MODE LOGS --------------
+    const athleteLogForm = document.getElementById("athleteLogForm");
+    const athleteLogList = document.getElementById("athleteLogList");
+    const athleteLogStatus = document.getElementById("athleteLogStatus");
+    const mindsetChips = document.getElementById("mindsetChips");
+
+    function loadAthleteLogs() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY_ATHLETE);
+        athleteLogs = raw ? JSON.parse(raw) : [];
+      } catch (err) {
+        console.error("Error loading athlete logs", err);
+        athleteLogs = [];
+      }
+      renderAthleteLogs();
+    }
+
+    function persistAthleteLogs() {
+      try {
+        localStorage.setItem(STORAGE_KEY_ATHLETE, JSON.stringify(athleteLogs));
+        if (athleteLogStatus) {
+          athleteLogStatus.textContent = "Saved on this device.";
+        }
+      } catch (err) {
+        console.error("Error saving athlete logs", err);
+        if (athleteLogStatus) {
+          athleteLogStatus.textContent = "Could not save (storage full?).";
+        }
+      }
+    }
+
+    function renderAthleteLogs() {
+      if (!athleteLogList) return;
+      athleteLogList.innerHTML = "";
+
+      if (!athleteLogs.length) {
+        const p = document.createElement("p");
+        p.className = "dash-muted";
+        p.textContent = "No check-ins yet. Log one above to see it here.";
+        athleteLogList.appendChild(p);
+        return;
+      }
+
+      athleteLogs
+        .slice()
+        .sort((a, b) => b.createdAt - a.createdAt)
+        .slice(0, 20)
+        .forEach((log) => {
+          const row = document.createElement("div");
+          row.className = "athlete-pill";
+
+          const main = document.createElement("div");
+          main.className = "athlete-main";
+
+          const name = document.createElement("div");
+          name.className = "athlete-name";
+          name.textContent = `${log.name} • ${log.goal}`;
+
+          const meta = document.createElement("div");
+          meta.className = "athlete-meta";
+          meta.textContent = `Energy ${log.energy}, Mindset ${log.mindset}, Focus: ${log.focus}`;
+
+          main.appendChild(name);
+          main.appendChild(meta);
+
+          const right = document.createElement("div");
+          right.style.fontSize = "10px";
+          right.style.color = "#9ca3af";
+          right.textContent = log.mindsetKeys || "";
+
+          row.appendChild(main);
+          row.appendChild(right);
+          athleteLogList.appendChild(row);
+        });
+    }
+
+    if (mindsetChips) {
+      mindsetChips.addEventListener("click", (e) => {
+        if (e.target.classList.contains("chip")) {
+          e.target.classList.toggle("is-active");
+        }
+      });
+    }
+
+    if (athleteLogForm) {
+      athleteLogForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = document.getElementById("logName").value.trim();
+        const goal = document.getElementById("logGoal").value.trim();
+        const energy = document.getElementById("logEnergy").value.trim();
+        const mindset = document.getElementById("logMindset").value.trim();
+        const focus = document.getElementById("logFocus").value.trim();
+        const note = document.getElementById("logNote").value.trim();
+
+        if (!name || !goal || !energy || !mindset || !focus) {
+          if (athleteLogStatus) {
+            athleteLogStatus.textContent = "Fill in name, goal, energy, mindset, and focus.";
+          }
+          return;
+        }
+
+        let keys = "";
+        if (mindsetChips) {
+          const activeChips = mindsetChips.querySelectorAll(".chip.is-active");
+          keys = Array.from(activeChips)
+            .map((c) => c.textContent.trim())
+            .join(", ");
+        }
+
+        athleteLogs.push({
+          name,
+          goal,
+          energy,
+          mindset,
+          focus,
+          note,
+          mindsetKeys: keys,
+          createdAt: Date.now(),
+        });
+
+        persistAthleteLogs();
+        renderAthleteLogs();
+        athleteLogForm.reset();
+        if (mindsetChips) {
+          mindsetChips.querySelectorAll(".chip").forEach((c) => c.classList.remove("is-active"));
+        }
+        if (athleteLogStatus) {
+          athleteLogStatus.textContent = "Saved today’s check-in.";
+        }
+      });
+    }
+
+    loadAthletes();
+    loadAthleteLogs();
+
+    // -------------- SERVICE WORKER REGISTRATION --------------
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker
+          .register("/sw.js")
+          .catch((err) => console.log("SW registration failed:", err));
+      });
+    }
+
+    // -------------- PWA INSTALL HANDLING --------------
+    let deferredPrompt;
+    const installBtn = document.getElementById("installBtn");
+    const installStatus = document.getElementById("installStatus");
+
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      if (installStatus) installStatus.style.display = "block";
+    });
+
+    if (installBtn) {
+      installBtn.addEventListener("click", async () => {
+        if (!deferredPrompt) {
+          alert("The app is already installed or not ready yet.");
+          return;
+        }
+
+        deferredPrompt.prompt();
+        const result = await deferredPrompt.userChoice;
+
+        if (result.outcome === "accepted" && installStatus) {
+          installStatus.textContent = "Installing…";
+        }
+
+        deferredPrompt = null;
+      });
+    }
+
+    // -------------- MOBILE TABS: HOME / FOCUS / PROGRESS / ATHLETE / FEEDBACK --------------
+    const MOBILE_BREAKPOINT = 720;
+    const screens = document.querySelectorAll("[data-screen]");
+    const tabButtons = document.querySelectorAll(".mobile-tab");
+    let tabMode = window.innerWidth <= MOBILE_BREAKPOINT;
+    let currentTab = "home";
+
+    function applyTab(tab) {
+      currentTab = tab;
+
+      tabButtons.forEach((btn) => {
+        btn.classList.toggle("is-active", btn.dataset.tab === tab);
+      });
+
+      if (!tabMode) {
+        screens.forEach((el) => (el.style.display = ""));
+        return;
+      }
+
+      screens.forEach((el) => {
+        const screenName = el.getAttribute("data-screen");
+        if (screenName === tab) {
+          el.style.display = "block";
+        } else if (tab === "home" && screenName === "home") {
+          el.style.display = "block";
+        } else if (screenName === "home" && tab !== "home") {
+          el.style.display = "none";
+        } else {
+          el.style.display = screenName === tab ? "block" : "none";
+        }
+      });
+    }
+
+    tabButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const tab = btn.dataset.tab;
+        applyTab(tab);
+        window.scrollTo({ top: 0, behavior: "auto" });
+      });
+    });
+
+    window.addEventListener("resize", () => {
+      const newMode = window.innerWidth <= MOBILE_BREAKPOINT;
+      if (newMode !== tabMode) {
+        tabMode = newMode;
+        screens.forEach((el) => (el.style.display = ""));
+        applyTab("home");
       }
     });
 
+    applyTab("home");
 
-    /* ============================
-       PRACTICE ANALYZER (Demo Only)
-    ============================ */
-    const analyzeBtn = document.getElementById("analyzeBtn");
-    const practiceResults = document.getElementById("practiceResults");
-    const insightsList = document.getElementById("practiceInsights");
+    // -------------- COACH ↔ ATHLETE MODE TOGGLE (INSIDE CARD) --------------
+    const modeButtons = document.querySelectorAll("[data-mode-btn]");
+    const modeViews = document.querySelectorAll("[data-mode-view]");
 
-    analyzeBtn?.addEventListener("click", () => {
-      insightsList.innerHTML = "";
-      const insights = [
-        "Stance level inconsistent — 64% upright pauses detected.",
-        "Finish intensity drops in the last 40% of reps.",
-        "Top pressure is strong, but transitions need speed.",
-        "Reaction time delayed during scramble exchanges."
-      ];
-
-      insights.forEach((i) => {
-        const li = document.createElement("li");
-        li.textContent = i;
-        insightsList.appendChild(li);
+    function applyMode(mode) {
+      modeButtons.forEach((btn) => {
+        btn.classList.toggle("is-active", btn.getAttribute("data-mode-btn") === mode);
+      });
+      modeViews.forEach((view) => {
+        view.style.display = view.getAttribute("data-mode-view") === mode ? "block" : "none";
       });
 
-      practiceResults.classList.remove("hidden");
+      if (mode === "coach") {
+        igniteLastDemo = "coach-dashboard";
+      } else if (mode === "athlete") {
+        igniteLastDemo = "athlete-dashboard";
+      }
+    }
+
+    modeButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const mode = btn.getAttribute("data-mode-btn");
+        applyMode(mode);
+      });
     });
 
+    applyMode("coach");
 
-    /* ============================
-       SLIDE-UP REVEAL ENGINE
-    ============================ */
-    function runReveal(container) {
-      const lines = container.querySelectorAll(".reveal-line");
-      lines.forEach((line, i) => {
-        line.style.animationDelay = `${i * 0.25 + 0.15}s`;
-        line.classList.add("show");
+    // -------------- NAV + HERO LINKS -> SWITCH SCREENS CORRECTLY --------------
+    const internalLinks = document.querySelectorAll('a[href^="#"]');
+
+    internalLinks.forEach((link) => {
+      const href = link.getAttribute("href");
+      if (!href || href === "#") return;
+
+      link.addEventListener("click", (e) => {
+        const targetId = href.slice(1);
+        if (!targetId) return;
+
+        const explicitScreen = link.dataset.targetScreen;
+        let targetScreen =
+          explicitScreen || (targetId === "app" || targetId === "demo" ? "focus" : "home");
+
+        if (!tabMode && !explicitScreen && targetId !== "app" && targetId !== "demo") {
+          return;
+        }
+
+        e.preventDefault();
+
+        if (targetScreen) {
+          applyTab(targetScreen);
+        }
+
+        setTimeout(() => {
+          const el = document.getElementById(targetId);
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }, 60);
+      });
+    });
+
+    // -------------- NEW HANDS-ON DEMO LOGIC --------------
+
+    // Coach practice builder
+    const practiceForm = document.getElementById("practiceForm");
+    const practiceFocusChips = document.getElementById("practiceFocusChips");
+    const practiceOutput = document.getElementById("practiceOutput");
+    const practiceStatus = document.getElementById("practiceStatus");
+
+    if (practiceFocusChips) {
+      practiceFocusChips.addEventListener("click", (e) => {
+        if (e.target.classList.contains("chip")) {
+          e.target.classList.toggle("is-active");
+        }
       });
     }
 
-    // HERO reveal immediately
-    const heroReveal = document.getElementById("heroReveal");
-    if (heroReveal) runReveal(heroReveal);
+    function buildPracticeOutline(length, phase, focuses, note) {
+      const blocks = [];
 
-    // FEATURES reveal on scroll
-    const featuresReveal = document.getElementById("featuresReveal");
+      blocks.push("5–10 min • Dynamic warm-up & stance/motion");
 
-    if (featuresReveal) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              runReveal(featuresReveal);
-              observer.disconnect();
-            }
+      if (phase === "preseason") {
+        blocks.push("15–20 min • Fundamentals: position, level change, penetration steps.");
+      } else if (phase === "midseason") {
+        blocks.push("15–20 min • Live-speed drilling in your main attacks & counters.");
+      } else if (phase === "postseason") {
+        blocks.push("15–20 min • Sharpen go-to attacks & finishes you trust under pressure.");
+      }
+
+      focuses.forEach((f) => {
+        if (f === "Shot defense") {
+          blocks.push("10–15 min • Shot defense: down-block, sprawl, re-attack from ties.");
+        }
+        if (f === "Finishes") {
+          blocks.push("10–15 min • Finishes: run the pipe, shelf the leg, finish on the edge.");
+        }
+        if (f === "Bottom urgency") {
+          blocks.push("10–15 min • Bottom urgency: first move, build base, stand-ups, mat returns fought.");
+        }
+        if (f === "Mat returns") {
+          blocks.push("8–12 min • Mat returns: lift, mat return, cover, chain to turns.");
+        }
+        if (f === "Hand-fighting pace") {
+          blocks.push("8–12 min • Hand-fighting pace: control ties, snap, move feet, win positions.");
+        }
+        if (f === "Chain wrestling") {
+          blocks.push("10–15 min • Chain wrestling: 2–3 attack chains from your best setups.");
+        }
+      });
+
+      if (length === "60") {
+        blocks.push("10–12 min • Situational live from your focus positions.");
+        blocks.push("5–8 min • Short conditioning finisher & cool-down.");
+      } else if (length === "75") {
+        blocks.push("15–18 min • Situational + live goes (short matches).");
+        blocks.push("8–10 min • Conditioning & cool-down.");
+      } else if (length === "90") {
+        blocks.push("18–22 min • Live goes (matches or shark bait) around focus areas.");
+        blocks.push("10–12 min • Hard conditioning + focused cool-down.");
+      }
+
+      if (note) {
+        blocks.push(`Coach note: ${note}`);
+      }
+
+      return blocks;
+    }
+
+    if (practiceForm && practiceOutput) {
+      practiceForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const length = document.getElementById("practiceLength").value;
+        const phase = document.getElementById("practicePhase").value;
+        const note = document.getElementById("practiceRoomNote").value.trim();
+
+        if (!length || !phase) {
+          if (practiceStatus) {
+            practiceStatus.textContent = "Pick a length and time of year to build the outline.";
+          }
+          return;
+        }
+
+        let focuses = [];
+        if (practiceFocusChips) {
+          const active = practiceFocusChips.querySelectorAll(".chip.is-active");
+          focuses = Array.from(active).map((c) => c.textContent.trim());
+        }
+        if (!focuses.length) {
+          focuses = ["Shot defense", "Finishes"];
+        }
+
+        const blocks = buildPracticeOutline(length, phase, focuses, note);
+
+        practiceOutput.innerHTML = "";
+        blocks.forEach((b) => {
+          const item = document.createElement("div");
+          item.className = "athlete-pill";
+          const main = document.createElement("div");
+          main.className = "athlete-main";
+          const line = document.createElement("div");
+          line.className = "athlete-meta";
+          line.textContent = b;
+          main.appendChild(line);
+          item.appendChild(main);
+          practiceOutput.appendChild(item);
+        });
+
+        if (practiceStatus) {
+          practiceStatus.textContent = "Example outline generated below.";
+        }
+
+        igniteLastDemo = "practice-builder";
+      });
+    }
+
+    // Athlete match prep demo
+    const prepForm = document.getElementById("prepForm");
+    const prepFeelingChips = document.getElementById("prepFeelingChips");
+    const prepOutput = document.getElementById("prepOutput");
+    const prepStatus = document.getElementById("prepStatus");
+
+    if (prepFeelingChips) {
+      prepFeelingChips.addEventListener("click", (e) => {
+        if (e.target.classList.contains("chip")) {
+          e.target.classList.toggle("is-active");
+        }
+      });
+    }
+
+    function buildPrepChecklist(timeframe, struggle, feelings, note) {
+      const lines = [];
+
+      if (timeframe === "dualTonight") {
+        lines.push("Tonight • Keep routine simple: light drill, short sweat, review 2–3 go-to attacks.");
+        lines.push("90–60 min out • Start warm-up & breathing — no new moves, just sharpen weapons.");
+      } else if (timeframe === "tournamentWeekend") {
+        lines.push("Day before • Get weight right, 20–30 min move & drill, early sleep.");
+        lines.push("Morning of • 15–20 min stance/motion + finishes, visualize 1st period of round 1.");
+      } else if (timeframe === "stateSoon") {
+        lines.push("This week • Double down on what already works, don’t reinvent your style.");
+        lines.push("2–3 days out • Shorter practices, high quality reps, protect your body.");
+      }
+
+      if (struggle === "nerves") {
+        lines.push("Mindset • 3 slow breaths between whistles, talk to yourself like a coach, not a critic.");
+      } else if (struggle === "slowStart") {
+        lines.push("First whistle • Commit to scoring first: one clean setup, one committed attack.");
+      } else if (struggle === "gassing") {
+        lines.push("Pace • Win the ties, but don’t wrestle in chaos. Pick your moments, keep stance sharp.");
+      } else if (struggle === "finishing") {
+        lines.push("Attacks • Drill 10–15 clean finishes from your best shots before you compete.");
+      } else if (struggle === "bottom") {
+        lines.push("Bottom • First move ready: explode to your base, stand, and clear hands without pausing.");
+      }
+
+      if (feelings.length) {
+        lines.push(`Intention • Step on the line feeling: ${feelings.join(", ")}.`);
+      }
+
+      if (note) {
+        lines.push(`Opponent note • Remember: ${note}`);
+      }
+
+      lines.push("Reminder • You already did the work. Breathe, move your feet, trust your training.");
+
+      return lines;
+    }
+
+    if (prepForm && prepOutput) {
+      prepForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const timeframe = document.getElementById("prepTimeframe").value;
+        const struggle = document.getElementById("prepStruggle").value;
+        const note = document.getElementById("prepNote").value.trim();
+
+        if (!timeframe || !struggle) {
+          if (prepStatus) {
+            prepStatus.textContent = "Pick when you compete and what you struggle with most.";
+          }
+          return;
+        }
+
+        let feelings = [];
+        if (prepFeelingChips) {
+          const active = prepFeelingChips.querySelectorAll(".chip.is-active");
+          feelings = Array.from(active).map((c) => c.textContent.trim());
+        }
+
+        const lines = buildPrepChecklist(timeframe, struggle, feelings, note);
+
+        prepOutput.innerHTML = "";
+        lines.forEach((text) => {
+          const row = document.createElement("div");
+          row.className = "athlete-pill";
+          const main = document.createElement("div");
+          main.className = "athlete-main";
+          const meta = document.createElement("div");
+          meta.className = "athlete-meta";
+          meta.textContent = text;
+          main.appendChild(meta);
+          row.appendChild(main);
+          prepOutput.appendChild(row);
+        });
+
+        if (prepStatus) {
+          prepStatus.textContent = "Prep checklist generated below.";
+        }
+
+        igniteLastDemo = "match-prep";
+      });
+    }
+
+    // -------------- FEEDBACK NAV (FORM IS MAILTO) --------------
+    const feedbackScreen = document.getElementById("feedbackScreen");
+    const openFeedbackBtn = document.getElementById("openFeedbackBtn");
+
+    if (openFeedbackBtn) {
+      openFeedbackBtn.addEventListener("click", () => {
+        applyTab("feedback");
+        if (feedbackScreen) {
+          feedbackScreen.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    }
+
+    // -------------- EMAIL SNAPSHOTS VIA MAILTO --------------
+    function openMailto(subjectText, bodyText) {
+      const subject = encodeURIComponent(subjectText);
+      const body = encodeURIComponent(bodyText);
+      window.location.href = `mailto:1ignitegrapple@gmail.com?subject=${subject}&body=${body}`;
+    }
+
+    // Coach snapshot
+    const emailCoachSnapshotBtn = document.getElementById("emailCoachSnapshot");
+    if (emailCoachSnapshotBtn) {
+      emailCoachSnapshotBtn.addEventListener("click", () => {
+        if (!athletes.length) {
+          alert("Add at least one athlete first so there’s something to send.");
+          return;
+        }
+        let text = "IgniteGrapple – Coach demo snapshot\n\n";
+        athletes.forEach((a) => {
+          text += `Name: ${a.name}\nFocus: ${a.focus}\nNotes: ${a.notes || ""}\n\n`;
+        });
+        openMailto("IgniteGrapple coach demo snapshot", text);
+      });
+    }
+
+    // Athlete logs
+    const emailAthleteLogsBtn = document.getElementById("emailAthleteLogs");
+    if (emailAthleteLogsBtn) {
+      emailAthleteLogsBtn.addEventListener("click", () => {
+        if (!athleteLogs.length) {
+          alert("No check-ins yet. Save at least one check-in first.");
+          return;
+        }
+        let text = "IgniteGrapple – Athlete check-in demo\n\n";
+        athleteLogs
+          .slice()
+          .sort((a, b) => b.createdAt - a.createdAt)
+          .forEach((log) => {
+            const date = new Date(log.createdAt).toLocaleString();
+            text += `Date: ${date}\nName: ${log.name}\nGoal: ${log.goal}\nEnergy: ${log.energy}\nMindset: ${log.mindset}\nFocus: ${log.focus}\nKeys: ${log.mindsetKeys || ""}\nNote: ${log.note || ""}\n\n`;
           });
-        },
-        { threshold: 0.3 }
-      );
-      observer.observe(featuresReveal);
+        openMailto("IgniteGrapple athlete check-ins (demo)", text);
+      });
     }
 
-
-    /* ============================
-       CINEMATIC BANNER PARTICLE ENGINE
-    ============================ */
-    const banner = document.querySelector(".founder-banner");
-
-    if (banner) {
-      // Touch animation (mobile)
-      banner.addEventListener("touchstart", () => {
-        banner.style.transform = "scale(1.02)";
+    // Practice outline email
+    const emailPracticeOutlineBtn = document.getElementById("emailPracticeOutline");
+    if (emailPracticeOutlineBtn && practiceOutput) {
+      emailPracticeOutlineBtn.addEventListener("click", () => {
+        const items = practiceOutput.querySelectorAll(".athlete-meta");
+        if (!items.length) {
+          alert("Generate an outline first, then email it.");
+          return;
+        }
+        let text = "IgniteGrapple – Practice outline demo\n\n";
+        items.forEach((el) => {
+          text += el.textContent.trim() + "\n";
+        });
+        openMailto("IgniteGrapple practice outline (demo)", text);
       });
-      banner.addEventListener("touchend", () => {
-        banner.style.transform = "";
+    }
+
+    // Prep checklist email
+    const emailPrepChecklistBtn = document.getElementById("emailPrepChecklist");
+    if (emailPrepChecklistBtn && prepOutput) {
+      emailPrepChecklistBtn.addEventListener("click", () => {
+        const items = prepOutput.querySelectorAll(".athlete-meta");
+        if (!items.length) {
+          alert("Generate a prep checklist first, then email it.");
+          return;
+        }
+        let text = "IgniteGrapple – Match prep checklist demo\n\n";
+        items.forEach((el) => {
+          text += el.textContent.trim() + "\n";
+        });
+        openMailto("IgniteGrapple match prep checklist (demo)", text);
       });
     }
   </script>
-
-
 </body>
 </html>
